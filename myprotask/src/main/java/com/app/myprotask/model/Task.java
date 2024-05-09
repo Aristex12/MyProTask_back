@@ -1,7 +1,8 @@
 package com.app.myprotask.model;
 import java.util.Date;
 import java.util.List;
- 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,11 +38,11 @@ public class Task {
 	@Column(name = "status")
 	private String status;
  
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_id")
 	private Project project;
  
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "participants", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> participants;
  

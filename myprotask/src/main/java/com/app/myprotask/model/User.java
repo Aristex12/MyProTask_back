@@ -2,6 +2,7 @@ package com.app.myprotask.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,7 +65,7 @@ public class User {
 	@JoinTable(name = "history_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
 	private List<Task> historyTasks;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_caracteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> userCaracteristics;
 

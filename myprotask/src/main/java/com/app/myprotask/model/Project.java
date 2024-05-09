@@ -1,7 +1,8 @@
 package com.app.myprotask.model;
 import java.util.Date;
 import java.util.List;
- 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,15 +38,15 @@ public class Project {
 	@Column(name = "vacancies")
 	private int vacancies;
  
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "manager_id")
 	private User manager;
  
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> members;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "project_caracteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> projectCaracteristics;
  
