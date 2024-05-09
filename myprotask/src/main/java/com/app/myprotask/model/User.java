@@ -76,6 +76,7 @@ public class User {
 		
 		
 		this.das = "";
+		
 		this.email = name + "." + lastName + "@mpt.com";
 		
 		this.password = password;
@@ -85,5 +86,9 @@ public class User {
 		this.historyTasks = historyTasks;
 		this.userCaracteristics = userCaracteristics;
 	}
-
+	
+	private String[] splitLastName ()
+	{
+		return lastName.split(" ");
+	}
 }
