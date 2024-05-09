@@ -15,9 +15,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * It contains a list of the projects they have participated in, another list of the tasks they have participated in,
+ * Contains a list of the projects they have participated in, another list of the tasks they have participated in,
  * and finally a list of all their personal characteristics.
  * These lists are connected to the Project, Task, and Characteristics entities.
+ * 
+ * @author Alejandro
  */
 @Entity
 @Table(name = "users")
