@@ -13,6 +13,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 
+/**
+ * It contains a list of the projects they have participated in, another list of the tasks they have participated in,
+ * and finally a list of all their personal characteristics.
+ * These lists are connected to the Project, Task, and Characteristics entities.
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -73,20 +78,131 @@ public class User {
 			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
 		this.name = name;
 		this.lastName = lastName;
-
-		this.das = "";
-		this.email = name + "." + lastName + "@mpt.com";
-
+		this.das = "MPT" + generateNumberDAS();
+		this.email = name + "." + splitLastName()[0] + "@mpt.com";
 		this.password = password;
 		this.profilePic = profilePic;
 		this.cv = cv;
+		this.isAdmin = false;
 		this.historyProjects = historyProjects;
 		this.historyTasks = historyTasks;
 		this.userCaracteristics = userCaracteristics;
 	}
 
-	private void splitLastName() {
-		//sapellidos[] = lastName.split(" ");
+	/**
+	 * 
+	 * @return a number composed by 6 random digits
+	 */
+	private int generateNumberDAS() {
+		return (int) ((Math.random() * 900000) + 100000);
+	}
+
+	/**
+	 * 
+	 * @return lastNames splitted by " "
+	 */
+	private String[] splitLastName() {
+		return lastName.split(" ");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getDas() {
+		return das;
+	}
+
+	public void setDas(String das) {
+		this.das = das;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+
+	public String getCv() {
+		return cv;
+	}
+
+	public void setCv(String cv) {
+		this.cv = cv;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public List<Project> getHistoryProjects() {
+		return historyProjects;
+	}
+
+	public void setHistoryProjects(List<Project> historyProjects) {
+		this.historyProjects = historyProjects;
+	}
+
+	public List<Task> getHistoryTasks() {
+		return historyTasks;
+	}
+
+	public void setHistoryTasks(List<Task> historyTasks) {
+		this.historyTasks = historyTasks;
+	}
+
+	public List<Caracteristic> getUserCaracteristics() {
+		return userCaracteristics;
+	}
+
+	public void setUserCaracteristics(List<Caracteristic> userCaracteristics) {
+		this.userCaracteristics = userCaracteristics;
+	}
+
+	public Long getIdUser() {
+		return idUser;
+	}
+
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
+				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", isAdmin="
+				+ isAdmin + ", historyProjects=" + historyProjects + ", historyTasks=" + historyTasks
+				+ ", userCaracteristics=" + userCaracteristics + "]";
 	}
 
 }
