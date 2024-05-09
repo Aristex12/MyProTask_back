@@ -1,6 +1,10 @@
 package com.app.myprotask.model;
+
 import java.util.Date;
+
 import java.util.List;
+
+import com.app.myprotask.enums.StatusProject;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,56 +17,56 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
- 
+import jakarta.validation.constraints.Max;
+
+
+/**
+ * It contains a user, a list of members, and a list of characteristics.
+ * They come from the User and Characteristic entities.
+ *
+ * @author Manuel
+ */
 @Entity
 @Table(name = "projects")
 public class Project {
- 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_project")
 	private Long idProject;
- 
-	@Column(name = "name")
+
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
- 
-	@Column(name = "description")
+
+	@Column(name = "description", length = 500)
 	private String description;
- 
+
 	@Column(name = "start_date")
 	private Date startDate;
- 
+
 	@Column(name = "finish_date")
 	private Date finishDate;
- 
+
+	@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999")
 	@Column(name = "vacancies")
 	private int vacancies;
- 
+
+	@Column(name = "status")
+	private StatusProject status;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "manager_id")
 	private User manager;
- 
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> members;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "project_caracteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> projectCaracteristics;
- 
-	public Project() {
-	}
 
-	public Project(String name, String description, Date startDate, Date finishDate, int vacancies, User manager,
-			List<User> members, List<Caracteristic> projectCaracteristics) {
-		this.name = name;
-		this.description = description;
-		this.startDate = startDate;
-		this.finishDate = finishDate;
-		this.vacancies = vacancies;
-		this.manager = manager;
-		this.members = members;
-		this.projectCaracteristics = projectCaracteristics;
+	public Project() {
 	}
 
 	public String getName() {
@@ -105,6 +109,14 @@ public class Project {
 		this.vacancies = vacancies;
 	}
 
+	public StatusProject getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusProject status) {
+		this.status = status;
+	}
+
 	public User getManager() {
 		return manager;
 	}
@@ -133,11 +145,25 @@ public class Project {
 		return idProject;
 	}
 
+	public Project(String name, String description, Date startDate, Date finishDate,
+			@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999") int vacancies,
+			StatusProject status, User manager, List<User> members, List<Caracteristic> projectCaracteristics) {
+		this.name = name;
+		this.description = description;
+		this.startDate = startDate;
+		this.finishDate = finishDate;
+		this.vacancies = vacancies;
+		this.status = status;
+		this.manager = manager;
+		this.members = members;
+		this.projectCaracteristics = projectCaracteristics;
+	}
+
 	@Override
 	public String toString() {
 		return "Project [idProject=" + idProject + ", name=" + name + ", description=" + description + ", startDate="
 				+ startDate + ", finishDate=" + finishDate + ", vacancies=" + vacancies + ", manager=" + manager
 				+ ", members=" + members + ", projectCaracteristics=" + projectCaracteristics + "]";
 	}
- 
+
 }
