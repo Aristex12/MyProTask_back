@@ -73,17 +73,20 @@ public class User {
 			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
 		this.name = name;
 		this.lastName = lastName;
-		
-		
+
 		this.das = "";
 		this.email = name + "." + lastName + "@mpt.com";
-		
+
 		this.password = password;
 		this.profilePic = profilePic;
 		this.cv = cv;
 		this.historyProjects = historyProjects;
 		this.historyTasks = historyTasks;
 		this.userCaracteristics = userCaracteristics;
+	}
+
+	private void splitLastName() {
+		//sapellidos[] = lastName.split(" ");
 	}
 
 }
