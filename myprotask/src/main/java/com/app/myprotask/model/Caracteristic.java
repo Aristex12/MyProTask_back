@@ -6,7 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
  
-
+/**
+ * Contains information about the features
+ * 
+ * @author Laura
+ */
 @Entity
 @Table(name = "caracteristics")
 public class Caracteristic {
@@ -16,7 +20,7 @@ public class Caracteristic {
 	@Column(name = "id_caracteristic")
 	private Long idCaracteristic;
  
-	@Column(name = "name")
+	@Column(name = "name", length = 100, unique = true)
 	private String name;
  
 	public Caracteristic() {
