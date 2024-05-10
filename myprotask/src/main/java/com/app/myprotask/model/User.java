@@ -80,8 +80,8 @@ public class User {
 			@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.") String profilePic,
 			@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.") String cv,
 			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
-		this.name = name;
-		this.lastName = lastName;
+		this.name = splitNameBySpaces(name);
+		this.lastName = splitLastNameBySpaces(lastName);
 		this.das = generateNumberDAS();
 		this.email = generateEmail();
 		this.password = password;
@@ -94,6 +94,58 @@ public class User {
 	}
 
 	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the name without spaces at the beginning or end and remove if there are multiple in the case of being a compound name
+	 */
+	private String splitNameBySpaces(String name) {
+		return this.name.trim().replaceAll("\\s+", " ");
+	}
+
+	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the last name without spaces at the beginning or end and remove if there are multiple in the case of being a compound last name
+	 */
+	private String splitLastNameBySpaces(String lastName) {
+		return this.lastName.trim().replaceAll("\\s+", " ");
+	}
+
+	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the email using the format name.lastname@mpt.com
+	 */
+	private String generateEmail() {
+		return splitNameByDotes() + "." + splitLastNameByDotes() + "@mpt.com";
+	}
+
+	/**
+	 * Used in the generateEmail method
+	 * 
+	 * @author Manuel
+	 * @return the name separated by dots in case it is compound
+	 */
+	private String splitNameByDotes() {
+		return this.name.replaceAll("\\s+", ".").toLowerCase();
+	}
+
+	/**
+	 * Used in the generateEmail method
+	 * 
+	 * @author Manuel
+	 * @return the name separated by dots in case it is compound
+	 */
+	private String splitLastNameByDotes() {
+		return this.lastName.replaceAll("\\s+", ".").toLowerCase();
+	}
+
+	/**
+	 * Used in the constructor of the class.
+	 * 
 	 * @author Manuel
 	 * @return a string formed by MPT and a 6-digit number obtained from the user ID
 	 */
@@ -105,30 +157,6 @@ public class User {
 			das.concat("0");
 		}
 		return das + this.idUser;
-	}
-
-	/**
-	 * @author Manuel
-	 * @return the email using the format name.lastname@mpt.com
-	 */
-	private String generateEmail() {
-		return splitName() + "." + splitLastName() + "@mpt.com";
-	}
-
-	/**
-	 * @author Manuel
-	 * @return the last names separated by dots in case it is compound
-	 */
-	private String splitLastName() {
-		return this.lastName.trim().replaceAll("\\s+", ".").toLowerCase();
-	}
-
-	/**
-	 * @author Manuel
-	 * @return the name separated by dots in case it is compound
-	 */
-	private String splitName() {
-		return this.name.trim().replaceAll("\\s+", ".").toLowerCase();
 	}
 
 	public String getName() {
