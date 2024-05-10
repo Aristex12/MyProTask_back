@@ -25,7 +25,6 @@ public class UserApplicationTests {
 		assertNull(user.getHistoryProjects());
 		assertNull(user.getHistoryTasks());
 		assertNull(user.getUserCaracteristics());
-		
 	}
 	
 	@Test
@@ -41,7 +40,7 @@ public class UserApplicationTests {
         List<Project> historyProjects = new ArrayList<>();
         List<Task> historyTasks = new ArrayList<>();
         List<Caracteristic> userCaracteristics = new ArrayList<>();
-        // Llena las listas con algunos datos ficticios
+        
         historyProjects.add(new Project());
         historyTasks.add(new Task());
         userCaracteristics.add(new Caracteristic());
@@ -49,7 +48,6 @@ public class UserApplicationTests {
         User user = new User(name, lastName, das, email, password, profilePic, cv, isAdmin,
                              historyProjects, historyTasks, userCaracteristics);
         
-        // Verifica que los campos se hayan inicializado correctamente
         assertEquals(name, user.getName());
         assertEquals(lastName, user.getLastName());
         assertEquals(das, user.getDas());
@@ -65,15 +63,12 @@ public class UserApplicationTests {
 	
 	@Test
 	public void testToString() {
-	    // Crear datos de prueba para el usuario
 	    List<Project> historyProjects = new ArrayList<>();
 	    List<Task> historyTasks = new ArrayList<>();
 	    List<Caracteristic> userCaracteristics = new ArrayList<>();
 	    
-	    // Crear instancia de User con los datos de prueba
 	    User user = new User("John", "Jones", "A926436", "hola@hotmail.com", "1234512345", "img/profile.jpg", "cv/user1.pdf", false, historyProjects, historyTasks, userCaracteristics);
 	    
-	    // Verificar que el método toString() devuelve la salida esperada
 	    String expectedToString = "User [idUser=null, name=John, lastName=Jones, das=A926436, email=hola@hotmail.com, password=1234512345, profilePic=img/profile.jpg, cv=cv/user1.pdf, isAdmin=false, historyProjects=[], historyTasks=[], userCaracteristics=[]]";
 	    assertEquals(expectedToString, user.toString());
 	}
