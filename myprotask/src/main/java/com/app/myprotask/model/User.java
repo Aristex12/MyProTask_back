@@ -100,7 +100,7 @@ public class User {
 	 * @return the name without spaces at the beginning or end and remove if there are multiple in the case of being a compound name
 	 */
 	private String splitNameBySpaces(String name) {
-		return this.name.trim().replaceAll("\\s+", " ");
+		return name.trim().replaceAll("\\s+", " ");
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class User {
 	 * @return the last name without spaces at the beginning or end and remove if there are multiple in the case of being a compound last name
 	 */
 	private String splitLastNameBySpaces(String lastName) {
-		return this.lastName.trim().replaceAll("\\s+", " ");
+		return lastName.trim().replaceAll("\\s+", " ");
 	}
 
 	/**
