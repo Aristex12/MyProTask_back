@@ -42,6 +42,10 @@ public class DAOServiceImpl implements DAOService {
 	@Override
 	public void addUser(User user) {
 		userRep.save(user);
+
+		user.setDas(user.generateNumberDAS());
+
+		userRep.save(user);
 	}
 
 	@Override

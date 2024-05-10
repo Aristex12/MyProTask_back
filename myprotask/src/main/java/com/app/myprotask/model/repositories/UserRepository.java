@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 * @param password The string containing the password entered by the user
 	 * @return the User ID if the das and password match the ones obtained
 	 */
-	@Query(value = "select id_user from users where das like '?1' and password like '?2'", nativeQuery = true)
+	@Query(value = "select id_user from users where das = ?1 and password = ?2", nativeQuery = true)
 	Long searchUserByDasPassword(String das, String password);
 
 }

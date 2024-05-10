@@ -31,6 +31,7 @@ public interface DAOService {
 	
 	Long searchUserByDasPassword(String das, String password);
 	
+	
 	//////////////////////////////////////////////////////////////////////////////
 
 	// CARACTERISTIC TABLE METHODS

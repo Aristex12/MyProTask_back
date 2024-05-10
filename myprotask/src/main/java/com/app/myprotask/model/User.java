@@ -82,7 +82,6 @@ public class User {
 			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
-		this.das = generateNumberDAS();
 		this.email = generateEmail();
 		this.password = password;
 		this.profilePic = profilePic;
@@ -144,12 +143,12 @@ public class User {
 	}
 
 	/**
-	 * Used in the constructor of the class.
+	 * Used in the controller user when create a new user.
 	 * 
 	 * @author Manuel
 	 * @return a string formed by MPT and a 6-digit number obtained from the user ID
 	 */
-	private String generateNumberDAS() {
+	public String generateNumberDAS() {
 		String das = "MPT";
 		int size = String.valueOf(this.idUser).length();
 
