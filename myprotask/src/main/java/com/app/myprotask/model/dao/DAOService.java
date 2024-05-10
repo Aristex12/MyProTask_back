@@ -13,7 +13,7 @@ import com.app.myprotask.model.User;
  */
 public interface DAOService {
 	
-	//USER TABLE METHODS
+	// USER TABLE METHODS CRUD
 	
 	void addUser(User user);
 	
@@ -25,9 +25,15 @@ public interface DAOService {
 	
 	User displayUserById(Long id);
 	
+	// USER TABLE METHODS PERSONALIZED
+	
+	Long searchUserByEmailPassword(String email, String password);
+	
+	Long searchUserByDasPassword(String das, String password);
+	
 	//////////////////////////////////////////////////////////////////////////////
 
-	//CARACTERISTIC TABLE METHODS
+	// CARACTERISTIC TABLE METHODS
 	
 	void addCaracteristic(Caracteristic caracteristic);
 	
@@ -41,7 +47,7 @@ public interface DAOService {
 	
 	//////////////////////////////////////////////////////////////////////////////
 
-	//PROJECT TABLE METHODS
+	// PROJECT TABLE METHODS
 	
 	void addProject(Project project);
 	
@@ -55,7 +61,7 @@ public interface DAOService {
 	
 	//////////////////////////////////////////////////////////////////////////////
 
-	//REQUEST TABLE METHODS
+	// REQUEST TABLE METHODS
 	
 	void addRequest(Request request);
 	
@@ -69,7 +75,7 @@ public interface DAOService {
 	
 	//////////////////////////////////////////////////////////////////////////////
 
-	//TASK TABLE METHODS
+	// TASK TABLE METHODS
 	
 	void addTask(Task request);
 	

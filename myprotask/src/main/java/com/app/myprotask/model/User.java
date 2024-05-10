@@ -2,6 +2,7 @@ package com.app.myprotask.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +13,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Contains a list of the projects they have participated in, another list of
+ * the tasks they have participated in, and finally a list of all their personal
+ * characteristics. These lists are connected to the Project, Task, and
+ * Characteristics entities.
+ * 
+ * @author Alejandro
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -33,7 +42,8 @@ public class User {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false, length = 8)
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
 	private String password;
 
 	@Column(name = "profile_pic")
@@ -52,28 +62,96 @@ public class User {
 	@ManyToMany
 	@JoinTable(name = "history_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
 	private List<Task> historyTasks;
-	
-	@ManyToMany
+
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_caracteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> userCaracteristics;
 
 	public User() {
 	}
 
-	public User(String name, String lastName, String das, String email, String password, String profilePic, String cv,
-			boolean isAdmin, List<Project> historyProjects, List<Task> historyTasks,
-			List<Caracteristic> userCaracteristics) {
-		this.name = name;
-		this.lastName = lastName;
-		this.das = das;
-		this.email = email;
+	public User(String name, String lastName,
+			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
+			@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.") String profilePic,
+			@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.") String cv,
+			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
+		this.name = splitNameBySpaces(name);
+		this.lastName = splitLastNameBySpaces(lastName);
+		this.das = generateNumberDAS();
+		this.email = generateEmail();
 		this.password = password;
 		this.profilePic = profilePic;
 		this.cv = cv;
-		this.isAdmin = isAdmin;
+		this.isAdmin = false;
 		this.historyProjects = historyProjects;
 		this.historyTasks = historyTasks;
 		this.userCaracteristics = userCaracteristics;
+	}
+
+	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the name without spaces at the beginning or end and remove if there are multiple in the case of being a compound name
+	 */
+	private String splitNameBySpaces(String name) {
+		return name.trim().replaceAll("\\s+", " ");
+	}
+
+	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the last name without spaces at the beginning or end and remove if there are multiple in the case of being a compound last name
+	 */
+	private String splitLastNameBySpaces(String lastName) {
+		return lastName.trim().replaceAll("\\s+", " ");
+	}
+
+	/**
+	 * Used in the constructor of the class
+	 * 
+	 * @author Manuel
+	 * @return the email using the format name.lastname@mpt.com
+	 */
+	private String generateEmail() {
+		return splitNameByDotes() + "." + splitLastNameByDotes() + "@mpt.com";
+	}
+
+	/**
+	 * Used in the generateEmail method
+	 * 
+	 * @author Manuel
+	 * @return the name separated by dots in case it is compound
+	 */
+	private String splitNameByDotes() {
+		return this.name.replaceAll("\\s+", ".").toLowerCase();
+	}
+
+	/**
+	 * Used in the generateEmail method
+	 * 
+	 * @author Manuel
+	 * @return the name separated by dots in case it is compound
+	 */
+	private String splitLastNameByDotes() {
+		return this.lastName.replaceAll("\\s+", ".").toLowerCase();
+	}
+
+	/**
+	 * Used in the constructor of the class.
+	 * 
+	 * @author Manuel
+	 * @return a string formed by MPT and a 6-digit number obtained from the user ID
+	 */
+	private String generateNumberDAS() {
+		String das = "MPT";
+		int size = String.valueOf(this.idUser).length();
+
+		for (int i = size; i <= 6; i++) {
+			das.concat("0");
+		}
+		return das + this.idUser;
 	}
 
 	public String getName() {
