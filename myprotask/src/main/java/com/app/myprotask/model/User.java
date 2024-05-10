@@ -15,9 +15,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 
 /**
- * Contains a list of the projects they have participated in, another list of the tasks they have participated in,
- * and finally a list of all their personal characteristics.
- * These lists are connected to the Project, Task, and Characteristics entities.
+ * Contains a list of the projects they have participated in, another list of
+ * the tasks they have participated in, and finally a list of all their personal
+ * characteristics. These lists are connected to the Project, Task, and
+ * Characteristics entities.
  * 
  * @author Alejandro
  */
@@ -44,7 +45,7 @@ public class User {
 	@Pattern(regexp = "[a-zA-Z]+\\.[a-zA-Z]+@mpt\\.com", message = "El correo electrónico debe seguir el patrón [nombre].[apellido]@mpt.com")
 	private String email;
 
-	@Column(name = "password", length = 8)
+	@Column(name = "password", nullable = false, length = 8)
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
 	private String password;
 
@@ -81,8 +82,8 @@ public class User {
 			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
 		this.name = name;
 		this.lastName = lastName;
-		this.das = "MPT" + generateNumberDAS();
-		this.email = name + "." + splitLastName()[0] + "@mpt.com";
+		this.das = generateNumberDAS();
+		this.email = generateEmail();
 		this.password = password;
 		this.profilePic = profilePic;
 		this.cv = cv;
@@ -93,19 +94,41 @@ public class User {
 	}
 
 	/**
-	 * 
-	 * @return a number composed by 6 random digits
+	 * @author Manuel
+	 * @return a string formed by MPT and a 6-digit number obtained from the user ID
 	 */
-	private int generateNumberDAS() {
-		return (int) ((Math.random() * 900000) + 100000);
+	private String generateNumberDAS() {
+		String das = "MPT";
+		int size = String.valueOf(this.idUser).length();
+
+		for (int i = size; i <= 6; i++) {
+			das.concat("0");
+		}
+		return das + this.idUser;
 	}
 
 	/**
-	 * 
-	 * @return lastNames splitted by " "
+	 * @author Manuel
+	 * @return the email using the format name.lastname@mpt.com
 	 */
-	private String[] splitLastName() {
-		return lastName.split(" ");
+	private String generateEmail() {
+		return splitName() + "." + splitLastName() + "@mpt.com";
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the last names separated by dots in case it is compound
+	 */
+	private String splitLastName() {
+		return this.lastName.trim().replaceAll("\\s+", ".").toLowerCase();
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the name separated by dots in case it is compound
+	 */
+	private String splitName() {
+		return this.name.trim().replaceAll("\\s+", ".").toLowerCase();
 	}
 
 	public String getName() {
