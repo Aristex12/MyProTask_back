@@ -6,5 +6,5 @@ package com.app.myprotask.enums;
  * @author Alejandro
  */
 public enum StatusTasks {
-	IN_PROGESS, FINISHED
+	IN_PROGRESS, FINISHED
 }

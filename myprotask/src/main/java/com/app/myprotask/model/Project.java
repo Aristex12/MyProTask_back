@@ -9,6 +9,8 @@ import com.app.myprotask.enums.StatusProject;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -52,6 +54,7 @@ public class Project {
 	private int vacancies;
 
 	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
 	private StatusProject status;
 
 	@ManyToOne(cascade = CascadeType.ALL)
