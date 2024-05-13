@@ -10,41 +10,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.myprotask.model.Project;
+import com.app.myprotask.model.Task;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
- * @author Manuel
+ * @author Alejandro
  */
 @RestController
-@RequestMapping(value = "api/project")
+@RequestMapping(value = "api/task")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
-public class ProjectController {
+public class TaskController {
 
 	@Autowired
 	DAOService daoS;
 
 	/**
-	 * Used in NewProject view
-	 * 
+	 * Used in Home view
+	 *
 	 * @author Alejandro
-	 * @return List of all projects
+	 * @param idUser
+	 * @return List of tasks of the user
 	 */
-	@GetMapping(value = "/displayProjects")
-	public List<Project> displayProjects() {
-		return daoS.displayProjects();
+	@GetMapping(value = "/displayTasksByUserId")
+	public List<Task> displayTasksByUserId(@RequestParam("idUser") Long idUser) {
+		return daoS.displayTasksByUserId(idUser);
 	}
 
 	/**
 	 * Used in Home view
-	 * 
+	 *
 	 * @author Alejandro
 	 * @param idUser
-	 * @return List of projects of the user
+	 * @return List of tasks of the project
 	 */
-	@GetMapping(value = "/displayProjectsByUserId")
-	public List<Project> displayProjectsByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayProjectsByUserId(idUser);
+	@GetMapping(value = "/displayTasksByProjectId")
+	public List<Task> displayTasksByProjectId(@RequestParam("idProject") Long idProject) {
+		return daoS.displayTasksByProjectId(idProject);
 	}
+
 }

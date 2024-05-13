@@ -214,4 +214,9 @@ public class DAOServiceImpl implements DAOService {
 		return taskRep.displayTasksByUserId(idUser);
 	}
 
+	@Override
+	public List<Task> displayTasksByProjectId(Long idProject) {
+		return taskRep.displayTasksByProjectId(idProject);
+	}
+
 }
