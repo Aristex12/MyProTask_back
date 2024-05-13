@@ -80,15 +80,6 @@ public class UserController {
 	public List<Task> displayTasksByUserId(@RequestParam("idUser") Long idUser) {
 		return daoS.displayTasksByUserId(idUser);
 	}
-	/**
-	 * Used in NewProject view
-	 * 
-	 * @author Alejandro
-	 * @return List of all projects
-	 */
-	@GetMapping(value = "/displayProjects")
-	public List<Project> displayProjects() {
-		return daoS.displayProjects();
-	}
+	
  
 }
