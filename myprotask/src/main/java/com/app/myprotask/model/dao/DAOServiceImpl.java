@@ -59,7 +59,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	@Override
-	public List<User> showUsers() {
+	public List<User> displayUsers() {
 		return userRep.findAll();
 	}
 
@@ -86,33 +86,30 @@ public class DAOServiceImpl implements DAOService {
 
 	@Override
 	public void addCaracteristic(Caracteristic caracteristic) {
-		// TODO Auto-generated method stub
-
+		caracteristicRep.save(caracteristic);
 	}
 
 	@Override
 	public void updateCaracteristic(Caracteristic caracteristic) {
-		// TODO Auto-generated method stub
-
+		caracteristicRep.save(caracteristic);
 	}
 
 	@Override
 	public void deleteCaracteristic(Caracteristic caracteristic) {
-		// TODO Auto-generated method stub
-
+		caracteristicRep.delete(caracteristic);
 	}
 
 	@Override
-	public List<Caracteristic> showCaracteristics() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Caracteristic> displayCaracteristics() {
+		return caracteristicRep.findAll();
 	}
 
 	@Override
 	public Caracteristic displayCaracteristicById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return caracteristicRep.findById(id).orElse(null);
 	}
+
+	// CARACTERISTIC TABLE METHODS PERSONALIZED
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -120,32 +117,34 @@ public class DAOServiceImpl implements DAOService {
 
 	@Override
 	public void addProject(Project project) {
-		// TODO Auto-generated method stub
-
+		projectRep.save(project);
 	}
 
 	@Override
 	public void updateProject(Project project) {
-		// TODO Auto-generated method stub
-
+		projectRep.save(project);
 	}
 
 	@Override
 	public void deleteProject(Project project) {
-		// TODO Auto-generated method stub
-
+		projectRep.save(project);
 	}
 
 	@Override
-	public List<Project> showProjects() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Project> displayProjects() {
+		return projectRep.findAll();
 	}
 
 	@Override
 	public Project displayProjectById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return projectRep.findById(id).orElse(null);
+	}
+
+	// PROJECT TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<Project> displayProjectsByUserId(Long idUser) {
+		return projectRep.displayProjectsByUserId(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -154,66 +153,65 @@ public class DAOServiceImpl implements DAOService {
 
 	@Override
 	public void addRequest(Request request) {
-		// TODO Auto-generated method stub
-
+		requestRep.save(request);
 	}
 
 	@Override
 	public void updateRequest(Request request) {
-		// TODO Auto-generated method stub
-
+		requestRep.save(request);
 	}
 
 	@Override
 	public void deleteRequest(Request request) {
-		// TODO Auto-generated method stub
-
+		requestRep.delete(request);
 	}
 
 	@Override
-	public List<Request> showRequests() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Request> displayRequests() {
+		return requestRep.findAll();
 	}
 
 	@Override
 	public Request displayRequestById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return requestRep.findById(id).orElse(null);
 	}
+
+	// REQUEST TABLE METHODS PERSONALIZED
 
 	//////////////////////////////////////////////////////////////////////////////
 
 	// TASK TABLE METHODS
 
 	@Override
-	public void addTask(Task request) {
-		// TODO Auto-generated method stub
-
+	public void addTask(Task task) {
+		taskRep.save(task);
 	}
 
 	@Override
-	public void updateTask(Task request) {
-		// TODO Auto-generated method stub
-
+	public void updateTask(Task task) {
+		taskRep.save(task);
 	}
 
 	@Override
-	public void deleteTask(Task request) {
-		// TODO Auto-generated method stub
-
+	public void deleteTask(Task task) {
+		taskRep.save(task);
 	}
 
 	@Override
-	public List<Task> showTasks() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Task> displayTasks() {
+		return taskRep.findAll();
 	}
 
 	@Override
 	public Task displayTaskById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return taskRep.findById(id).orElse(null);
+	}
+
+	// TASK TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<Task> displayTasksByUserId(Long idUser) {
+		return taskRep.displayTasksByUserId(idUser);
 	}
 
 }

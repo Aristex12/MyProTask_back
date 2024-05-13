@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	/**
 	 * @author Manuel
-	 * @param email    The string containing the email entered by the user
-	 * @param password The string containing the password entered by the user
+	 * @param email 
+	 * @param password
 	 * @return the User ID if the email and password match the ones obtained
 	 */
 	@Query(value = "select id_user from users where email = ?1 and password = ?2", nativeQuery = true)

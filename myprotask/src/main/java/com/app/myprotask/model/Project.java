@@ -1,6 +1,7 @@
 package com.app.myprotask.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 
 import java.util.List;
 
@@ -21,10 +22,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 
-
 /**
- * It contains a user, a list of members, and a list of characteristics.
- * They come from the User and Characteristic entities.
+ * It contains a user, a list of members, and a list of characteristics. They
+ * come from the User and Characteristic entities.
  *
  * @author Manuel
  */
@@ -70,6 +70,27 @@ public class Project {
 	private List<Caracteristic> projectCaracteristics;
 
 	public Project() {
+	}
+
+	public Project(String name, String description, Date finishDate,
+			@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999") int vacancies,
+			User manager, List<Caracteristic> projectCaracteristics) {
+		this.name = name;
+		this.description = description;
+		this.startDate = generateLocalDate();
+		this.finishDate = finishDate;
+		this.vacancies = vacancies;
+		this.status = StatusProject.IN_PROGRESS;
+		this.manager = manager;
+		this.projectCaracteristics = projectCaracteristics;
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the current date
+	 */
+	private Date generateLocalDate() {
+		return Date.valueOf(LocalDate.now());
 	}
 
 	public String getName() {
