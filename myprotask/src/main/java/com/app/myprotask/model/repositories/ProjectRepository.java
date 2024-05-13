@@ -8,9 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.app.myprotask.model.Project;
 
-/**
- * 
- */
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 

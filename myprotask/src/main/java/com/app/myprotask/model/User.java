@@ -59,14 +59,6 @@ public class User {
 	@Column(name = "is_admin")
 	private boolean isAdmin;
 
-	@ManyToMany
-	@JoinTable(name = "history_projects", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-	private List<Project> historyProjects;
-
-	@ManyToMany
-	@JoinTable(name = "history_tasks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-	private List<Task> historyTasks;
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_caracteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> userCaracteristics;
@@ -213,22 +205,6 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public List<Project> getHistoryProjects() {
-		return historyProjects;
-	}
-
-	public void setHistoryProjects(List<Project> historyProjects) {
-		this.historyProjects = historyProjects;
-	}
-
-	public List<Task> getHistoryTasks() {
-		return historyTasks;
-	}
-
-	public void setHistoryTasks(List<Task> historyTasks) {
-		this.historyTasks = historyTasks;
-	}
-
 	public List<Caracteristic> getUserCaracteristics() {
 		return userCaracteristics;
 	}
@@ -245,8 +221,7 @@ public class User {
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
 				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", isAdmin="
-				+ isAdmin + ", historyProjects=" + historyProjects + ", historyTasks=" + historyTasks
-				+ ", userCaracteristics=" + userCaracteristics + "]";
+				+ isAdmin + ", userCaracteristics=" + userCaracteristics + "]";
 	}
 
 }
