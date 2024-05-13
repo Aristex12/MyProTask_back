@@ -38,15 +38,14 @@ public class User {
 	private String lastName;
 
 	@Column(name = "das", unique = true)
-	@Pattern(regexp = "[MPT]\\d{6}", message = "El DAS debe seguir el patrón [MPT] seguido de 6 números.")
+	@Pattern(regexp = "^MPT\\d{6}$", message = "El DAS debe seguir el patrón [MPT] seguido de 6 números.")
 	private String das;
 
 	@Column(name = "email", unique = true)
-	@Pattern(regexp = "[a-zA-Z]+\\.[a-zA-Z]+@mpt\\.com", message = "El correo electrónico debe seguir el patrón [nombre].[apellido]@mpt.com")
 	private String email;
 
-	@Column(name = "password", nullable = false, length = 8)
-	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
+	@Column(name = "password", nullable = false)
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
 	private String password;
 
 	@Column(name = "profile_pic")
@@ -76,19 +75,15 @@ public class User {
 	}
 
 	public User(String name, String lastName,
-			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
+			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
 			@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.") String profilePic,
-			@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.") String cv,
-			List<Project> historyProjects, List<Task> historyTasks, List<Caracteristic> userCaracteristics) {
+			List<Caracteristic> userCaracteristics) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
 		this.email = generateEmail();
 		this.password = password;
 		this.profilePic = profilePic;
-		this.cv = cv;
 		this.isAdmin = false;
-		this.historyProjects = historyProjects;
-		this.historyTasks = historyTasks;
 		this.userCaracteristics = userCaracteristics;
 	}
 
@@ -96,7 +91,8 @@ public class User {
 	 * Used in the constructor of the class
 	 * 
 	 * @author Manuel
-	 * @return the name without spaces at the beginning or end and remove if there are multiple in the case of being a compound name
+	 * @return the name without spaces at the beginning or end and remove if there
+	 *         are multiple in the case of being a compound name
 	 */
 	private String splitNameBySpaces(String name) {
 		return name.trim().replaceAll("\\s+", " ");
@@ -106,7 +102,8 @@ public class User {
 	 * Used in the constructor of the class
 	 * 
 	 * @author Manuel
-	 * @return the last name without spaces at the beginning or end and remove if there are multiple in the case of being a compound last name
+	 * @return the last name without spaces at the beginning or end and remove if
+	 *         there are multiple in the case of being a compound last name
 	 */
 	private String splitLastNameBySpaces(String lastName) {
 		return lastName.trim().replaceAll("\\s+", " ");
@@ -149,13 +146,7 @@ public class User {
 	 * @return a string formed by MPT and a 6-digit number obtained from the user ID
 	 */
 	public String generateNumberDAS() {
-		String das = "MPT";
-		int size = String.valueOf(this.idUser).length();
-
-		for (int i = size; i <= 6; i++) {
-			das.concat("0");
-		}
-		return das + this.idUser;
+		return "MPT" + String.format("%06d", this.idUser);
 	}
 
 	public String getName() {

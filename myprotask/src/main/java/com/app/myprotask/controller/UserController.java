@@ -34,13 +34,14 @@ public class UserController {
 	
 	
 	/**
-	 * Method that inserts a new user with their DAS and email
+	 * The method inserts a new user with data received from the form, here we will automatically generate the DAS and email
 	 * 
 	 * @author Manuel
 	 * @param user
 	 */
 	@PostMapping(value = "/addUser")
-	public void addUser(@RequestBody User user) {
+	public void addUser(@RequestBody User userData) {
+		User user = new User(userData.getName(), userData.getLastName(), userData.getPassword(), userData.getProfilePic(), null);
 		daoS.addUser(user);
 	}
 	
