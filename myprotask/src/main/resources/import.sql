@@ -1,10 +1,11 @@
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Laura','Jimenez','MPT000001','laura.jimenez@mpt.com','1234','C:\\Users\\a926536\\Downloads\\myphoto.png','C:\\Desktop\\CV_Laura.pdf', 1);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Juan','Perez','MPT000002','juan.perez@mpt.com','5678','C:\\Users\\a926536\\Downloads\\juan_photo.png','C:\\Desktop\\CV_Juan.pdf', 0);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('María','Garcia','MPT000003','maria.garcia@mpt.com','9012','C:\\Users\\a926536\\Downloads\\maria_photo.png','C:\\Desktop\\CV_Maria.pdf', 0);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Carlos','Martinez','MPT000004','carlos.martinez@mpt.com','3456','C:\\Users\\a926536\\Downloads\\carlos_photo.png','C:\\Desktop\\CV_Carlos.pdf', 0);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Ana','Lopez','MPT000005','ana.lopez@mpt.com','7890','C:\\Users\\a926536\\Downloads\\ana_photo.png','C:\\Desktop\\CV_Ana.pdf', 0);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Pedro','Rodriguez','MPT000006','pedro.rodriguez@mpt.com','2345','C:\\Users\\a926536\\Downloads\\pedro_photo.png','C:\\Desktop\\CV_Pedro.pdf', 0);
-INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Sofia','Fernandez','MPT000007','sofia.fernandez@mpt.com','6789','C:\\Users\\a926536\\Downloads\\sofia_photo.png','C:\\Desktop\\CV_Sofia.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Laura','Jimenez','MPT000001','laura.jimenez@mpt.com','Abcdefg1!','C:\\Users\\a926536\\Downloads\\myphoto.png','C:\\Desktop\\CV_Laura.pdf', 1);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Juan','Perez','MPT000002','juan.perez@mpt.com','Efgh123!','C:\\Users\\a926536\\Downloads\\juan_photo.png','C:\\Desktop\\CV_Juan.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('María','Garcia','MPT000003','maria.garcia@mpt.com','Hijk456!','C:\\Users\\a926536\\Downloads\\maria_photo.png','C:\\Desktop\\CV_Maria.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Carlos','Martinez','MPT000004','carlos.martinez@mpt.com','Lmno789!','C:\\Users\\a926536\\Downloads\\carlos_photo.png','C:\\Desktop\\CV_Carlos.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Ana','Lopez','MPT000005','ana.lopez@mpt.com','Pqrs012!','C:\\Users\\a926536\\Downloads\\ana_photo.png','C:\\Desktop\\CV_Ana.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Pedro','Rodriguez','MPT000006','pedro.rodriguez@mpt.com','Tuvw345!','C:\\Users\\a926536\\Downloads\\pedro_photo.png','C:\\Desktop\\CV_Pedro.pdf', 0);
+INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_admin) VALUES ('Sofia','Fernandez','MPT000007','sofia.fernandez@mpt.com','Xyzw678!','C:\\Users\\a926536\\Downloads\\sofia_photo.png','C:\\Desktop\\CV_Sofia.pdf', 0);
+
 
 INSERT INTO projects (name, description, start_date, finish_date, vacancies, status, manager_id) VALUES ('Project A', 'Description for Project A', '2024-05-10', '2024-12-31', 5, 'IN_PROGRESS', 1); 
 INSERT INTO projects (name, description, start_date, finish_date, vacancies, status, manager_id) VALUES ('Project B', 'Description for Project B', '2024-06-01', '2024-11-30', 3, 'FINISHED', 2); 
