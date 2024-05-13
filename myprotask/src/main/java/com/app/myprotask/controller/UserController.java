@@ -17,8 +17,7 @@ import com.app.myprotask.model.dao.DAOService;
  */
 @RestController
 @RequestMapping(value = "api/user")
-@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
-		RequestMethod.DELETE })
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET, RequestMethod.DELETE})
 public class UserController {
 
 	@Autowired
