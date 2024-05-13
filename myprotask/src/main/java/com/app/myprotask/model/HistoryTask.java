@@ -21,8 +21,42 @@ public class HistoryTask {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "task_id")
 	private Task task;
+
+	public HistoryTask() {
+	}
+
+	public HistoryTask(User user, Task task) {
+		this.user = user;
+		this.task = task;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	public Long getIdHistoryTask() {
+		return idHistoryTask;
+	}
+
+	@Override
+	public String toString() {
+		return "HistoryTask [idHistoryTask=" + idHistoryTask + ", user=" + user + ", task=" + task + "]";
+	}
+
 }

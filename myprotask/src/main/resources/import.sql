@@ -25,7 +25,9 @@ INSERT INTO requests (message, status, user_id, project_id) VALUES ('I have the 
 
 INSERT INTO members (user_id, project_id) VALUES (1, 1);
 INSERT INTO members (user_id, project_id) VALUES (2, 1);
+INSERT INTO members (user_id, project_id) VALUES (2, 2);
 INSERT INTO members (user_id, project_id) VALUES (3, 2);
+INSERT INTO members (user_id, project_id) VALUES (3, 3);
 
 INSERT INTO history_projects (user_id, project_id) VALUES (1, 1);
 INSERT INTO history_projects (user_id, project_id) VALUES (2, 1);
