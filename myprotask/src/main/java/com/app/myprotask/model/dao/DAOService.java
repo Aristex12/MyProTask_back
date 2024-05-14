@@ -5,80 +5,148 @@ import java.util.List;
 import com.app.myprotask.model.Caracteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
+import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserProject;
+import com.app.myprotask.model.UserTask;
 
-/**
- * 
- */
 public interface DAOService {
-	
-	//USER TABLE METHODS
-	
+
+	// USER TABLE METHODS CRUD
+
 	void addUser(User user);
-	
+
 	void updateUser(User user);
-	
+
 	void deleteUser(User user);
-	
-	List<User> showUsers();
-	
+
+	List<User> displayUsers();
+
 	User displayUserById(Long id);
-	
+
+	// USER TABLE METHODS PERSONALIZED
+
+	Long searchUserByEmailPassword(String email, String password);
+
+	Long searchUserByDasPassword(String das, String password);
+
 	//////////////////////////////////////////////////////////////////////////////
 
-	//CARACTERISTIC TABLE METHODS
-	
+	// CARACTERISTIC TABLE METHODS
+
 	void addCaracteristic(Caracteristic caracteristic);
-	
+
 	void updateCaracteristic(Caracteristic caracteristic);
-	
+
 	void deleteCaracteristic(Caracteristic caracteristic);
-	
-	List<Caracteristic> showCaracteristics();
-	
+
+	List<Caracteristic> displayCaracteristics();
+
 	Caracteristic displayCaracteristicById(Long id);
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
-	//PROJECT TABLE METHODS
-	
+	// PROJECT TABLE METHODS
+
 	void addProject(Project project);
-	
+
 	void updateProject(Project project);
-	
+
 	void deleteProject(Project project);
-	
-	List<Project> showProjects();
-	
+
+	List<Project> displayProjects();
+
 	Project displayProjectById(Long id);
-	
+
+	// PROJECT TABLE METHODS PERSONALIZED
+
+	List<Project> displayProjectsByUserId(Long idUser);
+
 	//////////////////////////////////////////////////////////////////////////////
 
-	//REQUEST TABLE METHODS
-	
+	// REQUEST TABLE METHODS
+
 	void addRequest(Request request);
-	
+
 	void updateRequest(Request request);
-	
+
 	void deleteRequest(Request request);
-	
-	List<Request> showRequests();
-	
+
+	List<Request> displayRequests();
+
 	Request displayRequestById(Long id);
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// TASK TABLE METHODS
+
+	void addTask(Task task);
+
+	void updateTask(Task task);
+
+	void deleteTask(Task task);
+
+	List<Task> displayTasks();
+
+	Task displayTaskById(Long id);
+
+	// TASK TABLE METHODS PERSONALIZED
+
+	List<Task> displayTasksByUserId(Long idUser);
+
+	List<Task> displayTasksByProjectId(Long idProject);
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERPROJECT TABLE METHODS CRUD
+
+	void addUserProject(UserProject userProject);
+
+	void updateUserProject(UserProject userProject);
+
+	void deleteUserProject(UserProject userProject);
+
+	List<UserProject> displayUserProjects();
+
+	UserProject displayUserProjectById(Long id);
+
+	// USERPROJECT TABLE METHODS PERSONALIZED
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERTASK TABLE METHODS CRUD
+
+	void addUserTask(UserTask userTask);
+
+	void updateUserTask(UserTask userTask);
+
+	void deleteUserTask(UserTask userTask);
+
+	List<UserTask> displayUserTasks();
+
+	UserTask displayUserTaskById(Long id);
+
+	// USERTASK TABLE METHODS PERSONALIZED
+	
 	
 	//////////////////////////////////////////////////////////////////////////////
 
-	//TASK TABLE METHODS
+	// ROLE TABLE METHODS CRUD
 	
-	void addTask(Task request);
+	void addRole(Role role);
+
+	void updateRole(Role role);
+
+	void deleteRole(Role role);
+
+	List<Role> displayRoles();
+
+	Role displayRoleById(Long id);
 	
-	void updateTask(Task request);
+	// ROLE TABLE METHODS PERSONALIZED
 	
-	void deleteTask(Task request);
-	
-	List<Task> showTasks();
-	
-	Task displayTaskById(Long id);	
-		
+	Role getRoleByName(String name);
+
+
 }
