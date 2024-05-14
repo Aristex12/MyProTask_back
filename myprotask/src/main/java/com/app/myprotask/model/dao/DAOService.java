@@ -2,7 +2,7 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
-import com.app.myprotask.model.Caracteristic;
+import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
@@ -35,15 +35,15 @@ public interface DAOService {
 
 	// CARACTERISTIC TABLE METHODS
 
-	void addCaracteristic(Caracteristic caracteristic);
+	void addCaracteristic(Characteristic caracteristic);
 
-	void updateCaracteristic(Caracteristic caracteristic);
+	void updateCaracteristic(Characteristic caracteristic);
 
-	void deleteCaracteristic(Caracteristic caracteristic);
+	void deleteCaracteristic(Characteristic caracteristic);
 
-	List<Caracteristic> displayCaracteristics();
+	List<Characteristic> displayCaracteristics();
 
-	Caracteristic displayCaracteristicById(Long id);
+	Characteristic displayCaracteristicById(Long id);
 
 	//////////////////////////////////////////////////////////////////////////////
 

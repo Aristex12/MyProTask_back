@@ -49,22 +49,22 @@ public class Project {
 	private boolean isActive;
 
 	@ManyToMany
-	@JoinTable(name = "project_caracteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
-	private List<Caracteristic> projectCaracteristics;
+	@JoinTable(name = "project_characteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
+	private List<Characteristic> projectCharacteristics;
 
 	public Project() {
 	}
 
 	public Project(String name, String description, Date finishDate,
 			@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999") int vacancies,
-			List<Caracteristic> projectCaracteristics) {
+			List<Characteristic> projectCharacteristics) {
 		this.name = name;
 		this.description = description;
 		this.startDate = generateLocalDate();
 		this.finishDate = finishDate;
 		this.vacancies = vacancies;
 		this.isActive = true;
-		this.projectCaracteristics = projectCaracteristics;
+		this.projectCharacteristics = projectCharacteristics;
 	}
 
 	/**
@@ -123,12 +123,12 @@ public class Project {
 		this.isActive = isActive;
 	}
 
-	public List<Caracteristic> getProjectCaracteristics() {
-		return projectCaracteristics;
+	public List<Characteristic> getProjectCharacteristics() {
+		return projectCharacteristics;
 	}
 
-	public void setProjectCaracteristics(List<Caracteristic> projectCaracteristics) {
-		this.projectCaracteristics = projectCaracteristics;
+	public void setProjectCharacteristics(List<Characteristic> projectCharacteristics) {
+		this.projectCharacteristics = projectCharacteristics;
 	}
 
 	public Long getIdProject() {
@@ -139,7 +139,7 @@ public class Project {
 	public String toString() {
 		return "Project [idProject=" + idProject + ", name=" + name + ", description=" + description + ", startDate="
 				+ startDate + ", finishDate=" + finishDate + ", vacancies=" + vacancies + ", isActive=" + isActive
-				+ ", projectCaracteristics=" + projectCaracteristics + "]";
+				+ ", projectCaracteristics=" + projectCharacteristics + "]";
 	}
 
 }

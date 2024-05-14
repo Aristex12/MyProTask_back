@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.myprotask.model.Caracteristic;
+import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
@@ -13,7 +13,7 @@ import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
-import com.app.myprotask.model.repositories.CaracteristicRepository;
+import com.app.myprotask.model.repositories.CharacteristicRepository;
 import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
 import com.app.myprotask.model.repositories.RoleRepository;
@@ -29,7 +29,7 @@ import com.app.myprotask.model.repositories.UserTaskRepository;
 public class DAOServiceImpl implements DAOService {
 
 	@Autowired
-	CaracteristicRepository caracteristicRep;
+	CharacteristicRepository caracteristicRep;
 
 	@Autowired
 	ProjectRepository projectRep;
@@ -100,27 +100,27 @@ public class DAOServiceImpl implements DAOService {
 	// CARACTERISTIC TABLE METHODS CRUD
 
 	@Override
-	public void addCaracteristic(Caracteristic caracteristic) {
+	public void addCaracteristic(Characteristic caracteristic) {
 		caracteristicRep.save(caracteristic);
 	}
 
 	@Override
-	public void updateCaracteristic(Caracteristic caracteristic) {
+	public void updateCaracteristic(Characteristic caracteristic) {
 		caracteristicRep.save(caracteristic);
 	}
 
 	@Override
-	public void deleteCaracteristic(Caracteristic caracteristic) {
+	public void deleteCaracteristic(Characteristic caracteristic) {
 		caracteristicRep.delete(caracteristic);
 	}
 
 	@Override
-	public List<Caracteristic> displayCaracteristics() {
+	public List<Characteristic> displayCaracteristics() {
 		return caracteristicRep.findAll();
 	}
 
 	@Override
-	public Caracteristic displayCaracteristicById(Long id) {
+	public Characteristic displayCaracteristicById(Long id) {
 		return caracteristicRep.findById(id).orElse(null);
 	}
 

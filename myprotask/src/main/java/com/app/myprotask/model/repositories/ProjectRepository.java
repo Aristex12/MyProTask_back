@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.app.myprotask.model.Project;
-import com.app.myprotask.model.Task;
 
 
 @Repository

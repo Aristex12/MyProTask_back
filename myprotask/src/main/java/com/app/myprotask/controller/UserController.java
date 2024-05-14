@@ -48,7 +48,7 @@ public class UserController {
 	 */
 	@PostMapping(value = "/addUser")
 	public void addUser(@RequestBody User userData) {
-		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(), daoS.getRoleByName("employee"), userData.getUserCaracteristics()));
+		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(), daoS.getRoleByName("employee"), userData.getUserCharacteristics()));
 	}
 
 }
