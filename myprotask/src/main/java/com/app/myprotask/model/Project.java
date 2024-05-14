@@ -1,12 +1,8 @@
 package com.app.myprotask.model;
 
-import java.util.Date;
-
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
-
-import com.app.myprotask.enums.StatusProject;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,14 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 
-
 /**
- * It contains a user, a list of members, and a list of characteristics.
- * They come from the User and Characteristic entities.
+ * It contains a user, a list of members, and a list of characteristics. They
+ * come from the User and Characteristic entities.
  *
  * @author Manuel
  */
@@ -51,22 +45,34 @@ public class Project {
 	@Column(name = "vacancies")
 	private int vacancies;
 
-	@Column(name = "status")
-	private StatusProject status;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "manager_id")
-	private User manager;
-
-	@ManyToMany
-	@JoinTable(name = "members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> members;
+	@Column(name = "is_active")
+	private boolean isActive;
 
 	@ManyToMany
 	@JoinTable(name = "project_caracteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
 	private List<Caracteristic> projectCaracteristics;
 
 	public Project() {
+	}
+
+	public Project(String name, String description, Date finishDate,
+			@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999") int vacancies,
+			List<Caracteristic> projectCaracteristics) {
+		this.name = name;
+		this.description = description;
+		this.startDate = generateLocalDate();
+		this.finishDate = finishDate;
+		this.vacancies = vacancies;
+		this.isActive = true;
+		this.projectCaracteristics = projectCaracteristics;
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the current date
+	 */
+	private Date generateLocalDate() {
+		return Date.valueOf(LocalDate.now());
 	}
 
 	public String getName() {
@@ -109,28 +115,12 @@ public class Project {
 		this.vacancies = vacancies;
 	}
 
-	public StatusProject getStatus() {
-		return status;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setStatus(StatusProject status) {
-		this.status = status;
-	}
-
-	public User getManager() {
-		return manager;
-	}
-
-	public void setManager(User manager) {
-		this.manager = manager;
-	}
-
-	public List<User> getMembers() {
-		return members;
-	}
-
-	public void setMembers(List<User> members) {
-		this.members = members;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public List<Caracteristic> getProjectCaracteristics() {
@@ -145,25 +135,11 @@ public class Project {
 		return idProject;
 	}
 
-	public Project(String name, String description, Date startDate, Date finishDate,
-			@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999") int vacancies,
-			StatusProject status, User manager, List<User> members, List<Caracteristic> projectCaracteristics) {
-		this.name = name;
-		this.description = description;
-		this.startDate = startDate;
-		this.finishDate = finishDate;
-		this.vacancies = vacancies;
-		this.status = status;
-		this.manager = manager;
-		this.members = members;
-		this.projectCaracteristics = projectCaracteristics;
-	}
-
 	@Override
 	public String toString() {
 		return "Project [idProject=" + idProject + ", name=" + name + ", description=" + description + ", startDate="
-				+ startDate + ", finishDate=" + finishDate + ", vacancies=" + vacancies + ", manager=" + manager
-				+ ", members=" + members + ", projectCaracteristics=" + projectCaracteristics + "]";
+				+ startDate + ", finishDate=" + finishDate + ", vacancies=" + vacancies + ", isActive=" + isActive
+				+ ", projectCaracteristics=" + projectCaracteristics + "]";
 	}
 
 }
