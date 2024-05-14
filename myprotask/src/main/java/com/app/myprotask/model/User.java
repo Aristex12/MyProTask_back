@@ -65,7 +65,7 @@ public class User {
 	private Role role;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_characteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
+	@JoinTable(name = "user_characteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "characteristic_id"))
 	private List<Characteristic> userCharacteristics;
 
 	public User() {

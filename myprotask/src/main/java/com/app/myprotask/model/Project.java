@@ -49,7 +49,7 @@ public class Project {
 	private boolean isActive;
 
 	@ManyToMany
-	@JoinTable(name = "project_characteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
+	@JoinTable(name = "project_characteristics", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "characteristic_id"))
 	private List<Characteristic> projectCharacteristics;
 
 	public Project() {

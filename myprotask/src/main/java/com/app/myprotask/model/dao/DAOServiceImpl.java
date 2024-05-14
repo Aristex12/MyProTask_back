@@ -225,13 +225,18 @@ public class DAOServiceImpl implements DAOService {
 	// TASK TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<Task> displayTasksByUserId(Long idUser) {
-		return taskRep.displayTasksByUserId(idUser);
+	public List<Task> displayActiveTasksByUserId(Long idUser) {
+		return taskRep.displayActiveTasksByUserId(idUser);
 	}
 
 	@Override
-	public List<Task> displayTasksByProjectId(Long idProject) {
-		return taskRep.displayTasksByProjectId(idProject);
+	public List<Task> displayActiveTasksByProjectId(Long idProject) {
+		return taskRep.displayActiveTasksByProjectId(idProject);
+	}
+
+	@Override
+	public List<Task> displayTasksByUserId(Long idUser) {
+		return taskRep.displayTasksByUserId(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////

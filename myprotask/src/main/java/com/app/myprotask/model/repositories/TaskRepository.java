@@ -16,18 +16,25 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
 	/**
 	 * @author Manuel
-	 * @param idUser
-	 * @return all tasks in which the specified user has participated
+	 * @return List of tasks of the user ordered by project id
 	 */
-	@Query(value = "SELECT t.* FROM tasks t, user_tasks ut WHERE t.id_task = ut.task_id AND ut.user_id = ?1 AND ut.isActive = true ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END"
-			+ "", nativeQuery = true)
+	@Query(value = "SELECT * FROM tasks order by project_id", nativeQuery = true)
 	List<Task> displayTasksByUserId(Long idUser);
 
 	/**
 	 * @author Manuel
+	 * @param idUser
+	 * @return all tasks in which the specified user is participating and ordered by priority
+	 */
+	@Query(value = "SELECT t.* FROM tasks t, user_tasks ut WHERE t.id_task = ut.task_id AND ut.user_id = ?1 AND ut.isActive = true ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END"
+			+ "", nativeQuery = true)
+	List<Task> displayActiveTasksByUserId(Long idUser);
+
+	/**
+	 * @author Manuel
 	 * @param idProject
-	 * @return all tasks in which the specified project has participated
+	 * @return all active tasks the specified project ordered by priority
 	 */
 	@Query(value = "SELECT * FROM tasks where project_id = ?1 ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END", nativeQuery = true)
-	List<Task> displayTasksByProjectId(Long idProject);
+	List<Task> displayActiveTasksByProjectId(Long idProject);
 }
