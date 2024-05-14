@@ -20,7 +20,7 @@ import com.app.myprotask.model.dao.DAOService;
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
 public class UserController {
-	
+
 	@Autowired
 	DAOService daoS;
 
@@ -48,8 +48,7 @@ public class UserController {
 	 */
 	@PostMapping(value = "/addUser")
 	public void addUser(@RequestBody User userData) {
-		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(),
-				userData.getProfilePic(), null));
+		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(), daoS.getRoleByName("employee"), userData.getUserCaracteristics()));
 	}
 
 }

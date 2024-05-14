@@ -1,9 +1,10 @@
 package com.app.myprotask.model;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
-import com.app.myprotask.enums.PriorityTasks;
-import com.app.myprotask.enums.StatusTasks;
+import com.app.myprotask.model.enums.PriorityTasks;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,67 +15,66 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
- 
+
 /**
- * Contains a project and contains participants who
- * will work on the task. 
+ * Contains a project and contains participants who will work on the task.
  * 
  * @author Alejandro
  */
 @Entity
 @Table(name = "tasks")
 public class Task {
- 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_task")
 	private Long idTask;
- 
+
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
- 
+
 	@Column(name = "description", length = 100)
 	private String description;
- 
+
 	@Column(name = "start_date")
 	private Date startDate;
- 
+
 	@Column(name = "finish_date")
 	private Date finishDate;
- 
-	@Column(name = "status")
-	@Enumerated(EnumType.STRING)
-	private StatusTasks status;
-	
+
+	@Column(name = "is_active")
+	private boolean isActive;
+
 	@Column(name = "priority")
 	@Enumerated(EnumType.STRING)
 	private PriorityTasks priority;
- 
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_id")
 	private Project project;
- 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "participants", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> participants;
- 
+
 	public Task() {
 	}
 
-	public Task(String name, String description, Date startDate, Date finishDate, StatusTasks status,
-			PriorityTasks priority, Project project, List<User> participants) {
+	public Task(String name, String description, Date startDate, Date finishDate, PriorityTasks priority,
+			Project project, List<User> participants) {
 		this.name = name;
 		this.description = description;
-		this.startDate = startDate;
+		this.startDate = generateLocalDate();
 		this.finishDate = finishDate;
-		this.status = status;
+		this.isActive = true;
 		this.priority = priority;
 		this.project = project;
-		this.participants = participants;
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the current date
+	 */
+	private Date generateLocalDate() {
+		return Date.valueOf(LocalDate.now());
 	}
 
 	public String getName() {
@@ -109,12 +109,12 @@ public class Task {
 		this.finishDate = finishDate;
 	}
 
-	public StatusTasks getStatus() {
-		return status;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setStatus(StatusTasks status) {
-		this.status = status;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public PriorityTasks getPriority() {
@@ -133,19 +133,11 @@ public class Task {
 		this.project = project;
 	}
 
-	public List<User> getParticipants() {
-		return participants;
-	}
-
-	public void setParticipants(List<User> participants) {
-		this.participants = participants;
-	}
-
 	@Override
 	public String toString() {
 		return "Task [idTask=" + idTask + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", finishDate=" + finishDate + ", status=" + status + ", priority=" + priority + ", project="
-				+ project + ", participants=" + participants + "]";
+				+ ", finishDate=" + finishDate + ", isActive=" + isActive + ", priority=" + priority + ", project="
+				+ project + "]";
 	}
- 
+
 }

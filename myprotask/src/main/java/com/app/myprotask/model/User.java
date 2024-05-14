@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 
@@ -56,8 +57,12 @@ public class User {
 	@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.")
 	private String cv;
 
-	@Column(name = "is_admin")
-	private boolean isAdmin;
+	@Column(name = "is_active")
+	private boolean isActive;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "role_id")
+	private Role role;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_caracteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
@@ -68,14 +73,14 @@ public class User {
 
 	public User(String name, String lastName,
 			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
-			@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.") String profilePic,
-			List<Caracteristic> userCaracteristics) {
+			Role role, List<Caracteristic> userCaracteristics) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
 		this.email = generateEmail();
 		this.password = password;
-		this.profilePic = profilePic;
-		this.isAdmin = false;
+		this.profilePic = "ruta/defecto.png";
+		this.role = role;
+		this.isActive = true;
 		this.userCaracteristics = userCaracteristics;
 	}
 
@@ -197,12 +202,20 @@ public class User {
 		this.cv = cv;
 	}
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public List<Caracteristic> getUserCaracteristics() {
@@ -220,8 +233,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
-				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", isAdmin="
-				+ isAdmin + ", userCaracteristics=" + userCaracteristics + "]";
+				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
+				+ ", isActive=" + isActive + ", userCaracteristics=" + userCaracteristics + "]";
 	}
 
 }

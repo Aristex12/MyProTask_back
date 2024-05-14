@@ -10,13 +10,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "history_tasks")
-public class HistoryTask {
+@Table(name = "user_tasks")
+public class UserTask {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_history_task")
-	private Long idHistoryTask;
+	@Column(name = "id_user_task")
+	private Long idUserProject;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -26,12 +26,16 @@ public class HistoryTask {
 	@JoinColumn(name = "task_id")
 	private Task task;
 
-	public HistoryTask() {
+	@Column(name = "is_active")
+	private boolean isActive;
+
+	public UserTask() {
 	}
 
-	public HistoryTask(User user, Task task) {
+	public UserTask(User user, Task task) {
 		this.user = user;
 		this.task = task;
+		this.isActive = true;
 	}
 
 	public User getUser() {
@@ -50,13 +54,22 @@ public class HistoryTask {
 		this.task = task;
 	}
 
-	public Long getIdHistoryTask() {
-		return idHistoryTask;
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Long getIdUserProject() {
+		return idUserProject;
 	}
 
 	@Override
 	public String toString() {
-		return "HistoryTask [idHistoryTask=" + idHistoryTask + ", user=" + user + ", task=" + task + "]";
+		return "UserTask [idUserProject=" + idUserProject + ", user=" + user + ", task=" + task + ", isActive="
+				+ isActive + "]";
 	}
 
 }

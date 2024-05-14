@@ -8,13 +8,19 @@ import org.springframework.stereotype.Service;
 import com.app.myprotask.model.Caracteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
+import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserProject;
+import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.repositories.CaracteristicRepository;
 import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
+import com.app.myprotask.model.repositories.RoleRepository;
 import com.app.myprotask.model.repositories.TaskRepository;
+import com.app.myprotask.model.repositories.UserProjectRepository;
 import com.app.myprotask.model.repositories.UserRepository;
+import com.app.myprotask.model.repositories.UserTaskRepository;
 
 /**
  * 
@@ -36,6 +42,15 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	UserRepository userRep;
+
+	@Autowired
+	UserProjectRepository userProjectRep;
+
+	@Autowired
+	UserTaskRepository userTaskRep;
+
+	@Autowired
+	RoleRepository roleRep;
 
 	// USER TABLE METHODS CRUD
 
@@ -82,7 +97,7 @@ public class DAOServiceImpl implements DAOService {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// CARACTERISTIC TABLE METHODS
+	// CARACTERISTIC TABLE METHODS CRUD
 
 	@Override
 	public void addCaracteristic(Caracteristic caracteristic) {
@@ -113,7 +128,7 @@ public class DAOServiceImpl implements DAOService {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// PROJECT TABLE METHODS
+	// PROJECT TABLE METHODS CRUD
 
 	@Override
 	public void addProject(Project project) {
@@ -149,7 +164,7 @@ public class DAOServiceImpl implements DAOService {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// REQUEST TABLE METHODS
+	// REQUEST TABLE METHODS CRUD
 
 	@Override
 	public void addRequest(Request request) {
@@ -180,7 +195,7 @@ public class DAOServiceImpl implements DAOService {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// TASK TABLE METHODS
+	// TASK TABLE METHODS CRUD
 
 	@Override
 	public void addTask(Task task) {
@@ -217,6 +232,103 @@ public class DAOServiceImpl implements DAOService {
 	@Override
 	public List<Task> displayTasksByProjectId(Long idProject) {
 		return taskRep.displayTasksByProjectId(idProject);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// PROJECTTASK TABLE METHODS CRUD
+	@Override
+	public void addUserProject(UserProject userProject) {
+		userProjectRep.save(userProject);
+	}
+
+	@Override
+	public void updateUserProject(UserProject userProject) {
+		userProjectRep.save(userProject);
+	}
+
+	@Override
+	public void deleteUserProject(UserProject userProject) {
+		userProjectRep.delete(userProject);
+	}
+
+	@Override
+	public List<UserProject> displayUserProjects() {
+		return userProjectRep.findAll();
+	}
+
+	@Override
+	public UserProject displayUserProjectById(Long id) {
+		return userProjectRep.findById(id).orElse(null);
+	}
+
+	// USERPROJECT TABLE METHODS PERSONALIZED
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERTASK TABLE METHODS
+
+	@Override
+	public void addUserTask(UserTask userTask) {
+		userTaskRep.save(userTask);
+	}
+
+	@Override
+	public void updateUserTask(UserTask userTask) {
+		userTaskRep.save(userTask);
+	}
+
+	@Override
+	public void deleteUserTask(UserTask userTask) {
+		userTaskRep.save(userTask);
+	}
+
+	@Override
+	public List<UserTask> displayUserTasks() {
+		return userTaskRep.findAll();
+	}
+
+	@Override
+	public UserTask displayUserTaskById(Long id) {
+		return userTaskRep.findById(id).orElse(null);
+	}
+
+	// USERTASK TABLE METHODS PERSONALIZED
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// ROLE TABLE METHODS CRUD
+
+	@Override
+	public void addRole(Role role) {
+		roleRep.save(role);
+	}
+
+	@Override
+	public void updateRole(Role role) {
+		roleRep.save(role);
+	}
+
+	@Override
+	public void deleteRole(Role role) {
+		roleRep.delete(role);
+	}
+
+	@Override
+	public List<Role> displayRoles() {
+		return roleRep.findAll();
+	}
+
+	@Override
+	public Role displayRoleById(Long id) {
+		return roleRep.findById(id).orElse(null);
+	}
+
+	// ROLE TABLE METHODS PERSONALIZED
+
+	@Override
+	public Role getRoleByName(String name) {
+		return roleRep.getRoleByName(name);
 	}
 
 }

@@ -19,7 +19,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	 * @param idUser
 	 * @return all tasks in which the specified user has participated
 	 */
-	@Query(value = "SELECT t.* FROM tasks t, participants p WHERE t.id_task = p.task_id AND p.user_id = ?1 AND t.status = 'IN_PROGRESS' ORDER BY CASE WHEN status = 'HIGH' THEN 1 WHEN status = 'MID' THEN 2 WHEN status = 'LOW' THEN 3 END"
+	@Query(value = "SELECT t.* FROM tasks t, user_tasks ut WHERE t.id_task = ut.task_id AND ut.user_id = ?1 AND ut.isActive = true ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END"
 			+ "", nativeQuery = true)
 	List<Task> displayTasksByUserId(Long idUser);
 
@@ -28,6 +28,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	 * @param idProject
 	 * @return all tasks in which the specified project has participated
 	 */
-	@Query(value = "SELECT t.* FROM tasks t, participants p WHERE t.id_task = p.task_id AND p.user_id = ?1 AND t.status = 'IN_PROGRESS' ORDER BY CASE WHEN status = 'HIGH' THEN 1 WHEN status = 'MID' THEN 2 WHEN status = 'LOW' THEN 3 END", nativeQuery = true)
+	@Query(value = "SELECT * FROM tasks where project_id = ?1 ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END", nativeQuery = true)
 	List<Task> displayTasksByProjectId(Long idProject);
 }
