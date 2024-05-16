@@ -18,7 +18,7 @@ import com.app.myprotask.model.dao.DAOService;
 * @author Alejandro
 */
 @RestController
-@RequestMapping(value = "api/characteristic")
+@RequestMapping(value = "api/userProject")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
 public class UserProjectController {
