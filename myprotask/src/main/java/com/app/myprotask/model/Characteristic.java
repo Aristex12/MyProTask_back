@@ -30,7 +30,7 @@ public class Characteristic {
 		this.name = name;
 	}
  
-	public Long getIdCaracteristic() {
+	public Long getIdCharacteristic() {
 		return idCharacteristic;
 	}
  
@@ -44,7 +44,7 @@ public class Characteristic {
  
 	@Override
 	public String toString() {
-		return "Caracteristic [idCaracteristic=" + idCharacteristic + ", name=" + name + "]";
+		return "Characteristic [idCharacteristic=" + idCharacteristic + ", name=" + name + "]";
 	}
  
 }
