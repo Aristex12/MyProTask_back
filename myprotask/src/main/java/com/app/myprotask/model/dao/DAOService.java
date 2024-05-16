@@ -27,27 +27,33 @@ public interface DAOService {
 
 	// USER TABLE METHODS PERSONALIZED
 
+	List<User> displayUsersByActiveProject();
+
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// CARACTERISTIC TABLE METHODS
+	// CARACTERISTIC TABLE METHODS CRUD
 
-	void addCaracteristic(Characteristic caracteristic);
+	void addCharacteristic(Characteristic caracteristic);
 
-	void updateCaracteristic(Characteristic caracteristic);
+	void updateCharacteristic(Characteristic caracteristic);
 
-	void deleteCaracteristic(Characteristic caracteristic);
+	void deleteCharacteristic(Characteristic caracteristic);
 
-	List<Characteristic> displayCaracteristics();
+	List<Characteristic> displayCharacteristics();
 
-	Characteristic displayCaracteristicById(Long id);
+	Characteristic displayCharacteristicById(Long id);
+
+	// CHARACTERISCTIC TABLE METHODS PERSONALIZED
+
+	List<Characteristic> displayCharacteristicsByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// PROJECT TABLE METHODS
+	// PROJECT TABLE METHODS CRUD
 
 	void addProject(Project project);
 
@@ -61,7 +67,9 @@ public interface DAOService {
 
 	// PROJECT TABLE METHODS PERSONALIZED
 
-	List<Project> displayProjectsByUserId(Long idUser);
+	List<Project> displayInactiveProjectsByUserId(Long idUser);
+
+	List<Project> displayActiveProjectsByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -96,9 +104,8 @@ public interface DAOService {
 	List<Task> displayActiveTasksByUserId(Long idUser);
 
 	List<Task> displayActiveTasksByProjectId(Long idProject);
-	
-	List<Task> displayTasksByUserId(Long idUser);
 
+	List<Task> displayTasksByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -131,12 +138,11 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
-	
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// ROLE TABLE METHODS CRUD
-	
+
 	void addRole(Role role);
 
 	void updateRole(Role role);
@@ -146,10 +152,11 @@ public interface DAOService {
 	List<Role> displayRoles();
 
 	Role displayRoleById(Long id);
-	
-	// ROLE TABLE METHODS PERSONALIZED
-	
-	Role getRoleByName(String name);
 
+	// ROLE TABLE METHODS PERSONALIZED
+
+	Integer displayRoleUserProjectByUser(Long idUser);
+
+	Role getRoleByName(String name);
 
 }

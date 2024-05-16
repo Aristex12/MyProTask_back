@@ -14,6 +14,19 @@ import com.app.myprotask.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
+	/**
+	 * @author Manuel
+	 * @param idUser
+	 * @return the number of projects where the given user is a manager
+	 */
+	@Query(value = "SELECT COUNT(*) FROM role r, user_project up WHERE r.id_role = up.role_id AND up.user_id = ?1 AND r.name = 'manager'", nativeQuery = true)
+	Integer displayRoleUserProjectByUser(Long idUser);
+
+	/**
+	 * @author Manuel
+	 * @param name
+	 * @return a role by its name
+	 */
 	@Query(value = "SELECT * FROM role where name = ?1", nativeQuery = true)
 	Role getRoleByName(String name);
 }

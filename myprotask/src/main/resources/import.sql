@@ -18,12 +18,12 @@ INSERT INTO characteristics (name) VALUES ('Kotlin');
 INSERT INTO characteristics (name) VALUES ('PHP');
 INSERT INTO characteristics (name) VALUES ('ASP.NET');
 
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 1', 'Description 1', '2024-02-10', '2030-06-10', 5, 1);
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 2', 'Description 2', '2024-01-15', '2030-07-15', 5, 1);
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 3', 'Description 3', '2024-03-20', '2030-08-20', 5, 1);
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 4', 'Description 4', '2024-04-25', '2030-09-25', 5, 1);
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 5', 'Description 5', '2024-01-30', '2030-10-30', 5, 1);
-INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Project 6', 'Description 6', '2024-02-05', '2030-11-05', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Backend API Development for E-commerce Platform', 'Build a robust backend API for the e-commerce platform to handle user authentication, product management, and order processing.', '2024-02-10', '2030-06-10', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Frontend UI Design for Cybersecurity Dashboard', 'Design an intuitive and responsive user interface for the cybersecurity dashboard, focusing on usability and data visualization.', '2024-01-15', '2030-07-15', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Full Stack Development for Cloud-based Application', 'Develop a full stack application leveraging cloud services, with emphasis on both frontend user experience and backend scalability.', '2024-03-20', '2030-08-20', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Mobile App Backend Infrastructure Setup', 'Set up the backend infrastructure for a mobile application, including API endpoints, database management, and server configurations.', '2024-04-25', '2030-09-25', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Frontend Development for Data Analytics Dashboard', 'Implement frontend components for a data analytics dashboard, focusing on interactive data visualization and user-friendly design.', '2024-01-30', '2030-10-30', 5, 1);
+INSERT INTO projects (name, description, start_date, finish_date, vacancies, is_active) VALUES ('Backend Integration of AI Models', 'Integrate AI models into the backend infrastructure, enabling predictive analytics and intelligent automation.', '2024-02-05', '2030-11-05', 5, 1);
 
 INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_active, role_id) VALUES ('Laura', 'Jimenez', 'MPT000001', 'laura.jimenez@mpt.com', 'Abcdefg1!', 'profile_pic.png', 'cv.pdf', 1, 1);
 INSERT INTO users (name, last_name, das, email, password, profile_pic, cv, is_active, role_id) VALUES ('Juan', 'Perez', 'MPT000002', 'juan.perez@mpt.com', 'Abcdefg1!', 'profile_pic.png', 'cv.pdf', 1, 2);
@@ -119,34 +119,88 @@ INSERT INTO tasks (name, description, start_date, finish_date, is_active, priori
 INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2027-07-20', '2024-12-23', 1, 'MID', 6);
 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (1, 1, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (1, 2, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (2, 2, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (2, 5, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (2, 4, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (3, 3, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (4, 4, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (4, 1, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (4, 2, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (4, 3, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (4, 5, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (5, 5, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (5, 3, 1);
+ 
+ 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (6, 6, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (6, 7, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (7, 7, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (7, 10, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (7, 9, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (8, 8, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (9, 9, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (9, 6, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (9, 7, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (9, 8, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (9, 10, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (10, 10, 1);
+ 
+ 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (11, 11, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (11, 13, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (11, 15, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (12, 12, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (13, 13, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (13, 11, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (13, 12, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (14, 14, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (14, 13, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (15, 15, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (15, 11, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (15, 12, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (15, 14, 1);
+ 
+ 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (16, 16, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (16, 18, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (16, 20, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (17, 17, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (17, 16, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (18, 18, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (18, 16, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (18, 19, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (19, 19, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (20, 20, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (20, 17, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (20, 16, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (20, 15, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (20, 18, 1);
+ 
+ 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (21, 21, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (21, 22, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (21, 23, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (21, 24, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (22, 22, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (22, 21, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (23, 23, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (23, 24, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (23, 25, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (24, 24, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (24, 21, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (25, 25, 1);
+ 
+ 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (26, 26, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (26, 28, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (27, 27, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (27, 27, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (27, 29, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (28, 28, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (28, 30, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (29, 29, 1);
+INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (29, 26, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (30, 30, 1);
 
 INSERT INTO requests (message, project_id, user_id) VALUES ('Request message 1', 1, 1);

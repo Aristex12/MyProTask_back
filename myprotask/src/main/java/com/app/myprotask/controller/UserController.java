@@ -1,5 +1,7 @@
 package com.app.myprotask.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class UserController {
 	DAOService daoS;
 
 	/**
-	 * Used in Log in view
+	 * Used in Log in view [ All ]
 	 * 
 	 * @author Alejandro
 	 * @param email
@@ -40,15 +42,28 @@ public class UserController {
 
 	/**
 	 * Inserts a new user with data received from the form, here we will
-	 * automatically generate the DAS and email Used in register view Used in
-	 * Register view
+	 * automatically generate the DAS and email
+	 * 
+	 * Used in register view [ Admin ]
 	 * 
 	 * @author Manuel
 	 * @param user
 	 */
 	@PostMapping(value = "/addUser")
 	public void addUser(@RequestBody User userData) {
-		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(), daoS.getRoleByName("employee"), userData.getUserCharacteristics()));
+		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(),
+				daoS.getRoleByName("employee"), userData.getUserCharacteristics()));
+	}
+
+	/**
+	 * Used in User view [ All ]
+	 * 
+	 * @author Alejandro
+	 * @return a list of all users of all active projects ordered by projects
+	 */
+	@GetMapping(value = "/displayUsersByActiveProject")
+	public List<User> displayUsersByActiveProject() {
+		return daoS.displayUsersByActiveProject();
 	}
 
 }
