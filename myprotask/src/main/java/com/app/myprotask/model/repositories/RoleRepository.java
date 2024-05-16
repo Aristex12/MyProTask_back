@@ -19,7 +19,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	 * @param idUser
 	 * @return the number of projects where the given user is a manager
 	 */
-	@Query(value = "SELECT COUNT(*) FROM role r, user_project up WHERE r.id_role = up.role_id AND up.user_id = ?1 AND r.name = 'manager'", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM roles r, user_project up WHERE r.id_role = up.role_id AND up.user_id = ?1 AND r.name = 'manager'", nativeQuery = true)
 	Integer displayRoleUserProjectByIdUser(Long idUser);
 
 	/**
@@ -27,6 +27,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	 * @param name
 	 * @return a role by its name
 	 */
-	@Query(value = "SELECT * FROM role where name = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM roles where name = ?1", nativeQuery = true)
 	Role getRoleByName(String name);
 }
