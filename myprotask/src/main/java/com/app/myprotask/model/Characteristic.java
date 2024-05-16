@@ -17,7 +17,7 @@ public class Characteristic {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_caracteristic")
+	@Column(name = "id_characteristic")
 	private Long idCharacteristic;
  
 	@Column(name = "name", length = 100, unique = true)
