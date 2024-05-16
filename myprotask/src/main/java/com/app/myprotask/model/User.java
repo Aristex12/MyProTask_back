@@ -65,15 +65,15 @@ public class User {
 	private Role role;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_caracteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "caracteristic_id"))
-	private List<Caracteristic> userCaracteristics;
+	@JoinTable(name = "user_characteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "characteristic_id"))
+	private List<Characteristic> userCharacteristics;
 
 	public User() {
 	}
 
 	public User(String name, String lastName,
 			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
-			Role role, List<Caracteristic> userCaracteristics) {
+			Role role, List<Characteristic> userCharacteristics) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
 		this.email = generateEmail();
@@ -81,7 +81,7 @@ public class User {
 		this.profilePic = "ruta/defecto.png";
 		this.role = role;
 		this.isActive = true;
-		this.userCaracteristics = userCaracteristics;
+		this.userCharacteristics = userCharacteristics;
 	}
 
 	/**
@@ -218,12 +218,12 @@ public class User {
 		this.isActive = isActive;
 	}
 
-	public List<Caracteristic> getUserCaracteristics() {
-		return userCaracteristics;
+	public List<Characteristic> getUserCharacteristics() {
+		return userCharacteristics;
 	}
 
-	public void setUserCaracteristics(List<Caracteristic> userCaracteristics) {
-		this.userCaracteristics = userCaracteristics;
+	public void setUserCharacteristics(List<Characteristic> userCharacteristics) {
+		this.userCharacteristics = userCharacteristics;
 	}
 
 	public Long getIdUser() {
@@ -234,7 +234,7 @@ public class User {
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
 				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
-				+ ", isActive=" + isActive + ", userCaracteristics=" + userCaracteristics + "]";
+				+ ", isActive=" + isActive + ", userCaracteristics=" + userCharacteristics + "]";
 	}
 
 }
