@@ -49,6 +49,20 @@ public class UserController {
 			@RequestParam("password") String password) {
 		return daoS.searchUserByEmailPassword(email, password);
 	}
+	
+	/**
+	 * Used in Log in view [ All ]
+	 *
+	 * @author Alejandro
+	 * @param das
+	 * @param password
+	 * @return long of the user if exist
+	 */
+	@GetMapping(value = "/searchUserByDasPassword")
+	public Long searchUserByDasPassword(@RequestParam("das") String das,
+			@RequestParam("password") String password) {
+		return daoS.searchUserByDasPassword(das, password);
+	}
  
 	/**
 	 * Inserts a new user with data received from the form, here we will
