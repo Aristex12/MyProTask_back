@@ -20,7 +20,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	 * @return the number of projects where the given user is a manager
 	 */
 	@Query(value = "SELECT COUNT(*) FROM role r, user_project up WHERE r.id_role = up.role_id AND up.user_id = ?1 AND r.name = 'manager'", nativeQuery = true)
-	Integer displayRoleUserProjectByUser(Long idUser);
+	Integer displayRoleUserProjectByIdUser(Long idUser);
 
 	/**
 	 * @author Manuel

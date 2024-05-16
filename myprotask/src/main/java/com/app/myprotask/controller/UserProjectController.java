@@ -1,6 +1,7 @@
 package com.app.myprotask.controller;
  
- 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,45 +10,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
  
-import com.app.myprotask.model.Role;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.dao.DAOService;
  
 /**
 * @author Alejandro
 */
 @RestController
-@RequestMapping(value = "api/role")
+@RequestMapping(value = "api/characteristic")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
-public class RoleController {
- 
+public class UserProjectController {
 	@Autowired
 	DAOService daoS;
- 
+	/**
+	 * Used in Users [ Admin ] 
+	 * 
+	 * @author Alejandro
+	 * @return all users and all active projects ordered by active members
+	 */
+	@GetMapping(value = "/displayActiveUserProject")
+	public List<UserProject> displayActiveUserProject() {
+		return daoS.displayActiveUserProject();
+	}
 	/**
 	 * Used in Users [ User ]
-	 *
+	 * 
 	 * @author Alejandro
 	 * @param idUser
-	 * @return objet manager or member of a user
+	 * @return all users and all active projects from one user ordered by active members
 	 */
-	@GetMapping(value = "/displayRoleUserProjectByIdUser")
-	Role displayRoleUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
- 
-		User user = daoS.displayUserById(idUser);
-		Role role;
- 
-		if (user.getRole().getName().equals("admin")) {
-			role = daoS.getRoleByName("admin");
-		} else {
-			if (daoS.displayRoleUserProjectByIdUser(idUser) >= 1) {
-				role = daoS.getRoleByName("manager");
-			} else {
-				role = daoS.getRoleByName("member");
-			}
-		}
-		return role;
+	@GetMapping(value = "/displayActiveUserProjectByUserId")
+	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+		return daoS.displayActiveUserProjectByUserId(idUser);
 	}
+
  
 }

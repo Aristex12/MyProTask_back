@@ -27,8 +27,6 @@ public interface DAOService {
 
 	// USER TABLE METHODS PERSONALIZED
 
-	List<User> displayUsersByActiveProject();
-
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
@@ -123,6 +121,10 @@ public interface DAOService {
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
+	List<UserProject> displayActiveUserProject();
+
+	List<UserProject> displayActiveUserProjectByUserId(Long idUser);
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// USERTASK TABLE METHODS CRUD
@@ -155,7 +157,7 @@ public interface DAOService {
 
 	// ROLE TABLE METHODS PERSONALIZED
 
-	Integer displayRoleUserProjectByUser(Long idUser);
+	Integer displayRoleUserProjectByIdUser(Long idUser);
 
 	Role getRoleByName(String name);
 
