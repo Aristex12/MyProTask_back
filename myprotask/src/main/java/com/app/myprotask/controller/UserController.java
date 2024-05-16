@@ -1,7 +1,5 @@
 package com.app.myprotask.controller;
-
-import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +11,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
-
+ 
 /**
- * @author Alejandro
- */
+* @author Alejandro
+*/
 @RestController
 @RequestMapping(value = "api/user")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
 public class UserController {
-
+ 
 	@Autowired
 	DAOService daoS;
-
+ 
+	/**
+	 * Used in Users [ User ]
+	 *
+	 * @author Alejandro
+	 * @param idUser
+	 * @return a specific user
+	 */
+	@GetMapping(value = "/displayUserById")
+	public User displayUserById(@RequestParam("idUser") Long idUser) {
+		return daoS.displayUserById(idUser);
+	}
+ 
 	/**
 	 * Used in Log in view [ All ]
-	 * 
+	 *
 	 * @author Alejandro
 	 * @param email
 	 * @param password
@@ -39,13 +49,13 @@ public class UserController {
 			@RequestParam("password") String password) {
 		return daoS.searchUserByEmailPassword(email, password);
 	}
-
+ 
 	/**
 	 * Inserts a new user with data received from the form, here we will
 	 * automatically generate the DAS and email
-	 * 
+	 *
 	 * Used in register view [ Admin ]
-	 * 
+	 *
 	 * @author Manuel
 	 * @param user
 	 */
@@ -54,16 +64,5 @@ public class UserController {
 		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(),
 				daoS.getRoleByName("employee"), userData.getUserCharacteristics()));
 	}
-
-	/**
-	 * Used in User view [ All ]
-	 * 
-	 * @author Alejandro
-	 * @return a list of all users of all active projects ordered by projects
-	 */
-	@GetMapping(value = "/displayUsersByActiveProject")
-	public List<User> displayUsersByActiveProject() {
-		return daoS.displayUsersByActiveProject();
-	}
-
+ 
 }

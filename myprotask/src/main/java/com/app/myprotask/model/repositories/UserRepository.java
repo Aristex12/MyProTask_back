@@ -1,6 +1,5 @@
 package com.app.myprotask.model.repositories;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,12 +15,7 @@ import com.app.myprotask.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	/**
-	 * @author Manuel
-	 * @return all users participating in an active project ordered by the project ID
-	 */
-	@Query(value = "SELECT u.* FROM users u, user_project up u.id_user = up.user_id AND up.is_active = true ORDER BY up.project_id", nativeQuery = true)
-	List<User> displayUsersByActiveProject();
+	
 
 	/**
 	 * @author Manuel

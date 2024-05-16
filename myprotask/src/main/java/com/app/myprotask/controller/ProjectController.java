@@ -35,6 +35,18 @@ public class ProjectController {
 	public List<Project> displayProjects() {
 		return daoS.displayProjects();
 	}
+	
+	/**
+	 * Used in User view [ User ]
+	 *
+	 * @author Alejandro
+	 * @param idUser
+	 * @return a specific project
+	 */
+	@GetMapping(value = "/displayProjectById")
+	public Project displayProjectById(@RequestParam("idProject") Long idProject) {
+		return daoS.displayProjectById(idProject);
+	}
  
 	/**
 	 * Used in Home view [ User ]

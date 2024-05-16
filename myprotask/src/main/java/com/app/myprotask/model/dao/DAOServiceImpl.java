@@ -84,11 +84,6 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
-	
-	@Override
-	public List<User> displayUsersByActiveProject() {
-		return userRep.displayUsersByActiveProject();
-	}
 
 	@Override
 	public Long searchUserByEmailPassword(String email, String password) {
@@ -130,7 +125,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// CARACTERISTIC TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<Characteristic> displayCharacteristicsByIdUser(Long idUser) {
 		return characteristicRep.displayCharacteristicsByIdUser(idUser);
@@ -166,7 +161,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<Project> displayInactiveProjectsByUserId(Long idUser) {
 		return projectRep.displayInactiveProjectsByUserId(idUser);
@@ -284,6 +279,16 @@ public class DAOServiceImpl implements DAOService {
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
+	@Override
+	public List<UserProject> displayActiveUserProject() {
+		return userProjectRep.displayActiveUserProject();
+	}
+
+	@Override
+	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+		return userProjectRep.displayActiveUserProjectByUserId(idUser);
+	}
+	
 	//////////////////////////////////////////////////////////////////////////////
 
 	// USERTASK TABLE METHODS
@@ -350,18 +355,10 @@ public class DAOServiceImpl implements DAOService {
 	public Role getRoleByName(String name) {
 		return roleRep.getRoleByName(name);
 	}
-	
+
 	@Override
-	public Integer displayRoleUserProjectByUser(Long idUser) {
-		return roleRep.displayRoleUserProjectByUser(idUser);
+	public Integer displayRoleUserProjectByIdUser(Long idUser) {
+		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
-
-	
-
-	
-
-	
-
-	
 
 }

@@ -87,36 +87,42 @@ INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date,
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 29, 0, '2024-12-05', '2026-03-05', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 30, 1, '2024-11-01', '2025-09-05', 4);
 
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2024-05-15', '2024-06-15', 1, 'HIGH', 1);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2024-05-20', '2025-12-20', 1, 'MID', 1);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2024-07-01', '2024-07-01', 1, 'LOW', 1);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2024-06-10', '2026-03-10', 1, 'HIGH', 1);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2024-12-20', '2028-09-27', 1, 'MID', 1);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2024-06-15', '2024-07-19', 1, 'HIGH', 2);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2025-11-20', '2026-12-20', 1, 'MID', 2);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2025-06-01', '2027-08-01', 1, 'LOW', 2);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2026-07-10', '2028-10-15', 1, 'HIGH', 2);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2026-04-20', '2029-08-20', 1, 'MID', 2);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2024-09-15', '2027-08-05', 1, 'HIGH', 3);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2028-03-20', '2024-06-23', 1, 'MID', 3);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2026-09-01', '2028-12-01', 1, 'LOW', 3);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2027-11-10', '2026-09-13', 1, 'HIGH', 3);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2024-09-20', '2029-02-20', 1, 'MID', 3);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2024-09-15', '2025-07-15', 1, 'HIGH', 4);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2027-08-20', '2026-09-26', 1, 'MID', 4);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2028-11-01', '2027-11-01', 1, 'LOW', 4);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2029-10-10', '2027-05-04', 1, 'HIGH', 4);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2026-03-20', '2029-01-20', 1, 'MID', 4);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2024-09-15', '2027-03-11', 1, 'HIGH', 5);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2028-07-20', '2024-11-29', 1, 'MID', 5);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2025-12-01', '2025-12-01', 1, 'LOW', 5);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2027-09-10', '2024-05-16', 1, 'HIGH', 5);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2029-12-20', '2024-01-20', 1, 'MID', 5);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 1', 'Description 1', '2026-09-15', '2029-11-02', 1, 'HIGH', 6);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 2', 'Description 2', '2028-06-20', '2028-11-25', 1, 'MID', 6);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 3', 'Description 3', '2025-11-01', '2024-12-12', 1, 'LOW', 6);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 4', 'Description 4', '2029-11-10', '2026-12-09', 1, 'HIGH', 6);
-INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Task 5', 'Description 5', '2027-07-20', '2024-12-23', 1, 'MID', 6);
+
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Backend API Design', 'Design the backend API architecture for the e-commerce platform, defining endpoints and data structures.', '2024-05-15', '2024-06-15', 1, 'HIGH', 1);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Frontend UI Prototyping', 'Create prototypes for the frontend user interface, focusing on wireframes and mockups for key pages.', '2024-05-20', '2025-12-20', 1, 'MID', 1);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Database Schema Setup', 'Set up the database schema for the e-commerce platform, including tables, relationships, and indexing.', '2024-07-01', '2024-07-01', 1, 'LOW', 1);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Backend API Implementation', 'Implement backend APIs according to the designed architecture, ensuring functionality and performance.', '2024-06-10', '2026-03-10', 1, 'HIGH', 1);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Frontend UI Development', 'Develop frontend components based on the finalized prototypes, focusing on responsiveness and user experience.', '2024-12-20', '2028-09-27', 1, 'MID', 1);
+ 
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Security Audit and Patching', 'Conduct a comprehensive security audit of the system and apply necessary patches to address vulnerabilities.', '2024-06-15', '2024-07-19', 1, 'HIGH', 2);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('User Interface Enhancement', 'Enhance the user interface of the cybersecurity dashboard to improve usability and accessibility for users.', '2025-11-20', '2026-12-20', 1, 'MID', 2);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Continuous Monitoring Implementation', 'Implement a continuous monitoring system to detect and respond to security threats in real-time.', '2025-06-01', '2027-08-01', 1, 'LOW', 2);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Incident Response Plan Development', 'Develop an incident response plan outlining procedures for handling cybersecurity incidents.', '2026-07-10', '2028-10-15', 1, 'HIGH', 2);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Training and Awareness Campaign', 'Launch a training and awareness campaign to educate employees about cybersecurity best practices.', '2026-04-20', '2029-08-20', 1, 'MID', 2);
+ 
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Database Migration Planning', 'Plan the migration of on-premises databases to cloud-based solutions, ensuring data integrity and minimal downtime.', '2024-09-15', '2027-08-05', 1, 'HIGH', 3);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Frontend Framework Selection', 'Research and evaluate frontend frameworks for the development of a modern and responsive user interface.', '2028-03-20', '2024-06-23', 1, 'MID', 3);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Backend System Optimization', 'Optimize backend systems for improved performance and scalability, addressing bottlenecks and inefficiencies.', '2026-09-01', '2028-12-01', 1, 'LOW', 3);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('API Integration with Third-party Services', 'Integrate APIs from third-party services to enhance the functionality of the system and leverage additional features.', '2027-11-10', '2026-09-13', 1, 'HIGH', 3);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('User Authentication Implementation', 'Implement user authentication mechanisms, including login, registration, and password management.', '2024-09-20', '2029-02-20', 1, 'MID', 3);
+ 
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Data Migration Strategy Development', 'Develop a strategy for migrating data from legacy systems to modern databases, ensuring data integrity and minimal disruption.', '2024-09-15', '2025-07-15', 1, 'HIGH', 4);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('System Upgrade Planning', 'Plan the upgrade of existing systems to incorporate new features and technologies, improving performance and functionality.', '2027-08-20', '2026-09-26', 1, 'MID', 4);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Quality Assurance Testing', 'Conduct comprehensive testing to ensure the reliability, security, and functionality of the upgraded systems.', '2028-11-01', '2027-11-01', 1, 'LOW', 4);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Deployment of Upgraded Systems', 'Deploy the upgraded systems into production environments, following best practices for seamless integration.', '2029-10-10', '2027-05-04', 1, 'HIGH', 4);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('User Training and Support', 'Provide training and support to users to ensure smooth transition to the upgraded systems and maximize adoption.', '2026-03-20', '2029-01-20', 1, 'MID', 4);
+ 
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Database Design and Implementation', 'Design and implement the database architecture for storing and managing project data efficiently.', '2024-09-15', '2027-03-11', 1, 'HIGH', 5);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('User Interface Development', 'Develop user interfaces for the project, focusing on intuitive design and seamless user experience.', '2028-07-20', '2024-11-29', 1, 'MID', 5);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Backend System Integration', 'Integrate backend systems with frontend interfaces, ensuring smooth communication and data flow.', '2025-12-01', '2026-12-01', 1, 'LOW', 5);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Security Implementation', 'Implement security measures to protect project data and prevent unauthorized access or breaches.', '2027-09-10', '2024-05-16', 1, 'HIGH', 5);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('User Testing and Feedback Collection', 'Conduct user testing sessions to gather feedback and improve project features and functionality.', '2029-12-20', '2024-01-20', 1, 'MID', 5);
+ 
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('AI Model Development', 'Develop machine learning models to be integrated into the project, focusing on accuracy and efficiency.', '2026-09-15', '2029-11-02', 1, 'HIGH', 6);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Data Collection and Preparation', 'Collect and prepare data sets for training and testing the machine learning models, ensuring data quality and relevance.', '2028-06-20', '2028-11-25', 1, 'MID', 6);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Prototype Development', 'Develop prototypes showcasing the integration of AI models into the project, demonstrating key functionalities.', '2025-11-01', '2024-12-12', 1, 'LOW', 6);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Model Training and Optimization', 'Train and optimize machine learning models using advanced algorithms and techniques to improve performance.', '2029-11-10', '2026-12-09', 1, 'HIGH', 6);
+INSERT INTO tasks (name, description, start_date, finish_date, is_active, priority, project_id) VALUES ('Integration Testing', 'Conduct testing to ensure seamless integration of AI models into the project, validating performance and functionality.', '2027-07-20', '2024-12-23', 1, 'MID', 6);
 
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (1, 1, 1);
 INSERT INTO user_tasks (task_id, user_id, is_active) VALUES (1, 2, 1);
