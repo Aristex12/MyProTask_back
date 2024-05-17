@@ -22,6 +22,8 @@ import com.app.myprotask.model.repositories.UserProjectRepository;
 import com.app.myprotask.model.repositories.UserRepository;
 import com.app.myprotask.model.repositories.UserTaskRepository;
 
+import jakarta.transaction.Transactional;
+
 /**
  * 
  */
@@ -161,6 +163,22 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	@Override
+	public void updateProjectActive(Project project) {
+
+		if (project.isActive()) {
+			project.setActive(false);			
+			
+			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+			
+		} else {
+			project.setActive(true);
+		}
+		updateProject(project);
+	}
 
 	@Override
 	public List<Project> displayInactiveProjectsByUserId(Long idUser) {
@@ -278,6 +296,16 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<UserProject> displayUserProjectByProjectId(Long idProject) {
+		return userProjectRep.displayUserProjectByProjectId(idProject);
+	}
+
+	@Override
+	public List<UserProject> displayUserProjectByUserId(Long idUser) {
+		return userProjectRep.displayUserProjectByUserId(idUser);
+	}
 
 	@Override
 	public List<UserProject> displayActiveUserProject() {
@@ -288,7 +316,7 @@ public class DAOServiceImpl implements DAOService {
 	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
 		return userProjectRep.displayActiveUserProjectByUserId(idUser);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// USERTASK TABLE METHODS
@@ -319,6 +347,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<UserTask> displayActiveUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayActiveUserTasksByUserId(idUser);
+	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -360,5 +393,7 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
+
+	
 
 }

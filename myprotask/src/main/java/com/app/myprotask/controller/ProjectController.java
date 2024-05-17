@@ -1,30 +1,42 @@
 package com.app.myprotask.controller;
- 
+
 import java.util.List;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.dao.DAOService;
- 
+
 /**
-* @author Manuel
-*/
+ * @author Manuel
+ */
 @RestController
 @RequestMapping(value = "api/project")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
 public class ProjectController {
- 
+
 	@Autowired
 	DAOService daoS;
- 
+
+	/**
+	 * Used in NewProject view [ User, Member ]
+	 *
+	 * @author Manuel
+	 * @return List of all projects
+	 */
+	@PutMapping(value = "/updateProjectActive")
+	public void updateProjectActive(@RequestParam("idProject") Long idProject) {
+		daoS.updateProjectActive(daoS.displayProjectById(idProject));
+	}
+
 	/**
 	 * Used in NewProject view [ User, Member ]
 	 *
@@ -35,7 +47,7 @@ public class ProjectController {
 	public List<Project> displayProjects() {
 		return daoS.displayProjects();
 	}
-	
+
 	/**
 	 * Used in User view [ User ]
 	 *
@@ -47,7 +59,7 @@ public class ProjectController {
 	public Project displayProjectById(@RequestParam("idProject") Long idProject) {
 		return daoS.displayProjectById(idProject);
 	}
- 
+
 	/**
 	 * Used in Home view [ User ]
 	 *
@@ -59,7 +71,7 @@ public class ProjectController {
 	public List<Project> displayActiveProjectsByUserId(@RequestParam("idUser") Long idUser) {
 		return daoS.displayActiveProjectsByUserId(idUser);
 	}
- 
+
 	/**
 	 * Used in Calendar view [ User ]
 	 *
