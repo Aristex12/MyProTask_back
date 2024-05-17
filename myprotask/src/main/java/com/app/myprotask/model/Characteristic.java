@@ -12,26 +12,26 @@ import jakarta.persistence.Table;
  * @author Laura
  */
 @Entity
-@Table(name = "caracteristics")
-public class Caracteristic {
+@Table(name = "characteristics")
+public class Characteristic {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_caracteristic")
-	private Long idCaracteristic;
+	@Column(name = "id_characteristic")
+	private Long idCharacteristic;
  
 	@Column(name = "name", length = 100, unique = true)
 	private String name;
  
-	public Caracteristic() {
+	public Characteristic() {
 	}
  
-	public Caracteristic(String name) {
+	public Characteristic(String name) {
 		this.name = name;
 	}
  
-	public Long getIdCaracteristic() {
-		return idCaracteristic;
+	public Long getIdCharacteristic() {
+		return idCharacteristic;
 	}
  
 	public String getName() {
@@ -44,7 +44,7 @@ public class Caracteristic {
  
 	@Override
 	public String toString() {
-		return "Caracteristic [idCaracteristic=" + idCaracteristic + ", name=" + name + "]";
+		return "Characteristic [idCharacteristic=" + idCharacteristic + ", name=" + name + "]";
 	}
  
 }

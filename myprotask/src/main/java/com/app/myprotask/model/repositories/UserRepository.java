@@ -1,5 +1,6 @@
 package com.app.myprotask.model.repositories;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,9 +15,11 @@ import com.app.myprotask.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	
+
 	/**
 	 * @author Manuel
-	 * @param email 
+	 * @param email
 	 * @param password
 	 * @return the User ID if the email and password match the ones obtained
 	 */

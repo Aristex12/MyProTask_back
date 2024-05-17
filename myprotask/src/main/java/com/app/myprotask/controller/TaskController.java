@@ -24,13 +24,25 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * Used in View Tasks [ Member ]
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @return all active tasks from actives projects of a user
+	 */
+//	@GetMapping(value = "/displayActiveTasksActiveProjectByUserId")
+//	public List<Task> displayActiveTasksActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
+//		return daoS.displayActiveTasksActiveProjectByUserId(idUser);
+//	}
 
 	/**
-	 * Used in Home view
+	 * Used in calendar view [ User ]
 	 *
 	 * @author Alejandro
 	 * @param idUser
-	 * @return List of tasks of the user
+	 * @return lists of all tasks of the user ordered by projects
 	 */
 	@GetMapping(value = "/displayTasksByUserId")
 	public List<Task> displayTasksByUserId(@RequestParam("idUser") Long idUser) {
@@ -38,15 +50,27 @@ public class TaskController {
 	}
 
 	/**
-	 * Used in Home view
+	 * Used in Home view [ User ]
+	 *
+	 * @author Alejandro
+	 * @param idUser
+	 * @return List of tasks of the user
+	 */
+	@GetMapping(value = "/displayActiveTasksByUserId")
+	public List<Task> displayActiveTasksByUserId(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveTasksByUserId(idUser);
+	}
+
+	/**
+	 * Used in Home view [ User ]
 	 *
 	 * @author Alejandro
 	 * @param idUser
 	 * @return List of tasks of the project
 	 */
 	@GetMapping(value = "/displayTasksByProjectId")
-	public List<Task> displayTasksByProjectId(@RequestParam("idProject") Long idProject) {
-		return daoS.displayTasksByProjectId(idProject);
+	public List<Task> displayActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
+		return daoS.displayActiveTasksByProjectId(idProject);
 	}
 
 }
