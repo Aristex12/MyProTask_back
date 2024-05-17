@@ -42,7 +42,7 @@ public class UserProjectController {
 	 * @return all users and all active projects from one user ordered by active members
 	 */
 	@GetMapping(value = "/displayActiveUserProjectByUserId")
-	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+	public List<UserProject> displayActiveUserProjectByUserId(@RequestParam("idUser") Long idUser) {
 		return daoS.displayActiveUserProjectByUserId(idUser);
 	}
 
