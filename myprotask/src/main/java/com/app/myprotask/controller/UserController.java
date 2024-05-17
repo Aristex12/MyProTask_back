@@ -19,7 +19,6 @@ import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
-import jakarta.websocket.server.PathParam;
 
 /**
  * @author Alejandro
@@ -32,6 +31,17 @@ public class UserController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * Used in NewProject view [ User, Member ]
+	 *
+	 * @author Manuel
+	 * @return List of all projects
+	 */
+	@PutMapping(value = "/updateUserActive")
+	public void updateUserActive(@RequestParam("idUser") Long idUser) {
+		daoS.updateUserActive(daoS.displayUserById(idUser));
+	}
 
 	/**
 	 * Used in Users [ User ]

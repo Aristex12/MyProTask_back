@@ -22,8 +22,6 @@ import com.app.myprotask.model.repositories.UserProjectRepository;
 import com.app.myprotask.model.repositories.UserRepository;
 import com.app.myprotask.model.repositories.UserTaskRepository;
 
-import jakarta.transaction.Transactional;
-
 /**
  * 
  */
@@ -86,6 +84,23 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
+
+	@Override
+	public void updateUserActive(User user) {
+		if (user.isActive()) {
+			user.setActive(false);
+
+			for (UserProject up : displayUserProjectByUserId(user.getIdUser())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+
+		} else {
+			user.setActive(true);
+		}
+		updateUser(user);
+
+	}
 
 	@Override
 	public Long searchUserByEmailPassword(String email, String password) {
@@ -167,13 +182,12 @@ public class DAOServiceImpl implements DAOService {
 	public void updateProjectActive(Project project) {
 
 		if (project.isActive()) {
-			project.setActive(false);			
-			
+			project.setActive(false);
+
 			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
 				up.setActive(false);
 				updateUserProject(up);
 			}
-			
 		} else {
 			project.setActive(true);
 		}
@@ -296,7 +310,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<UserProject> displayUserProjectByProjectId(Long idProject) {
 		return userProjectRep.displayUserProjectByProjectId(idProject);
@@ -393,7 +407,5 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
-
-	
 
 }
