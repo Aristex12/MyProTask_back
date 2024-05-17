@@ -1,5 +1,6 @@
 package com.app.myprotask.model.repositories;
 
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +15,6 @@ import com.app.myprotask.model.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-	
 
 	/**
 	 * @author Manuel
@@ -34,5 +33,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 */
 	@Query(value = "SELECT id_user FROM users WHERE das = ?1 AND password = ?2", nativeQuery = true)
 	Long searchUserByDasPassword(String das, String password);
+	
+	
+//	/**
+//	 * @author Alejandro
+//	 * @param characteristics
+//	 * @param size
+//	 * @return List of all users with the specific characteristics
+//	 */
+//	@Query(value = "SELECT u FROM User u JOIN u.userCharacteristics uc JOIN uc.characteristic c WHERE c.name IN :characteristics GROUP BY u.idUser HAVING COUNT(DISTINCT c.idCharacteristic) = :size")
+//    List<User> findUserByCharacteristics(List<String> characteristics, int size);
 
 }

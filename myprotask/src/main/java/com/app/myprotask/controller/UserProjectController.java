@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
  
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.dao.DAOService;
  

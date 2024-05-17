@@ -101,5 +101,17 @@ public class UserController {
 		
 		daoS.updateUser(user);
 	}
+	
+//	/**
+//	 * 
+//	 * @author Alejandro
+//	 * @param characteristics
+//	 * @return List of users with the specific characteristics
+//	 */
+//	@GetMapping(value = "/searchUsersByCharacteristics")
+//    public List<User> buscarUsuarios(@RequestParam List<String> characteristics) {
+//		int size = characteristics.size();
+//        return userService.obtenerUsuariosPorCaracteristicas(characteristics, size);
+//    }
 
 }
