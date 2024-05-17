@@ -26,7 +26,9 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-
+	
+	void updateUserActive(User user);
+	
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
