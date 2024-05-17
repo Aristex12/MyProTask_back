@@ -24,6 +24,18 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * Used in View Tasks [ Member ]
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @return all active tasks from actives projects of a user
+	 */
+//	@GetMapping(value = "/displayActiveTasksActiveProjectByUserId")
+//	public List<Task> displayActiveTasksActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
+//		return daoS.displayActiveTasksActiveProjectByUserId(idUser);
+//	}
 
 	/**
 	 * Used in calendar view [ User ]
