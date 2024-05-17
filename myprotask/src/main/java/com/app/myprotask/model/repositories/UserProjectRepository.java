@@ -17,6 +17,16 @@ import com.app.myprotask.model.UserProject;
 @Repository
 public interface UserProjectRepository extends JpaRepository<UserProject, Long> {
 
+	
+	@Query(value = "SELECT * FROM user_projects WHERE project_id = ?1", nativeQuery = true)
+	List<UserProject> displayUserProjectByProjectId(Long idProject);
+	
+	
+	@Query(value = "SELECT * FROM user_projects WHERE user_id = ?1", nativeQuery = true)
+	List<UserProject> displayUserProjectByUserId(Long idUser);
+
+	
+	
 	/**
 	 * View ADMIN
 	 * 

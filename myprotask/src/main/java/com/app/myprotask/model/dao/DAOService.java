@@ -64,6 +64,8 @@ public interface DAOService {
 	Project displayProjectById(Long id);
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	
+	void updateProjectActive(Project project);
 
 	List<Project> displayInactiveProjectsByUserId(Long idUser);
 
@@ -120,6 +122,10 @@ public interface DAOService {
 	UserProject displayUserProjectById(Long id);
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+	List<UserProject> displayUserProjectByProjectId(Long idProject);
+	
+	List<UserProject> displayUserProjectByUserId(Long idUser);
 
 	List<UserProject> displayActiveUserProject();
 
@@ -140,6 +146,8 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	List<UserTask> displayActiveUserTasksByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
