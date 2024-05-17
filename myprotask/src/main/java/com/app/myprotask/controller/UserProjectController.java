@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
  
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.dao.DAOService;
  
@@ -42,7 +41,7 @@ public class UserProjectController {
 	 * @return all users and all active projects from one user ordered by active members
 	 */
 	@GetMapping(value = "/displayActiveUserProjectByUserId")
-	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+	public List<UserProject> displayActiveUserProjectByUserId(@RequestParam("idUser") Long idUser) {
 		return daoS.displayActiveUserProjectByUserId(idUser);
 	}
 
