@@ -1,28 +1,28 @@
 package com.app.myprotask.model;
-import java.util.Date;
-import java.util.List;
-
-import com.app.myprotask.enums.PriorityTasks;
-import com.app.myprotask.enums.StatusTasks;
-
+ 
+import java.time.LocalDate;
+import java.sql.Date;
+ 
+import com.app.myprotask.model.enums.PriorityTasks;
+ 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
  
 /**
- * Contains a project and contains participants who
- * will work on the task. 
- * 
- * @author Alejandro
- */
+* Contains a project and contains participants who will work on the task.
+* 
+* @author Alejandro
+*/
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -35,7 +35,7 @@ public class Task {
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
  
-	@Column(name = "description", length = 100)
+	@Column(name = "description", length = 500)
 	private String description;
  
 	@Column(name = "start_date")
@@ -44,104 +44,113 @@ public class Task {
 	@Column(name = "finish_date")
 	private Date finishDate;
  
-	@Column(name = "status")
-	private StatusTasks status;
-	
+	@Column(name = "task_pic")
+	@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.")
+	private String taskPic;
+ 
+	@Column(name = "is_active")
+	private boolean isActive;
+ 
 	@Column(name = "priority")
+	@Enumerated(EnumType.STRING)
 	private PriorityTasks priority;
  
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_id")
 	private Project project;
  
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "participants", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> participants;
- 
 	public Task() {
 	}
-
-	public Task(String name, String description, Date startDate, Date finishDate, StatusTasks status,
-			PriorityTasks priority, Project project, List<User> participants) {
+ 
+	public Task(String name, String description, Date startDate, Date finishDate, 
+			PriorityTasks priority, Project project) {
 		this.name = name;
 		this.description = description;
-		this.startDate = startDate;
+		this.startDate = generateLocalDate();
 		this.finishDate = finishDate;
-		this.status = status;
+		this.taskPic = "ruta/defecto.png";
+		this.isActive = true;
 		this.priority = priority;
 		this.project = project;
-		this.participants = participants;
 	}
-
+ 
+	/**
+	 * @author Manuel
+	 * @return the current date
+	 */
+	private Date generateLocalDate() {
+		return Date.valueOf(LocalDate.now());
+	}
+ 
 	public String getName() {
 		return name;
 	}
-
+ 
 	public void setName(String name) {
 		this.name = name;
 	}
-
+ 
 	public String getDescription() {
 		return description;
 	}
-
+ 
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+ 
 	public Date getStartDate() {
 		return startDate;
 	}
-
+ 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-
+ 
 	public Date getFinishDate() {
 		return finishDate;
 	}
-
+ 
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
-
-	public StatusTasks getStatus() {
-		return status;
+ 
+	public String getTaskPic() {
+		return taskPic;
 	}
-
-	public void setStatus(StatusTasks status) {
-		this.status = status;
+ 
+	public void setTaskPic(String taskPic) {
+		this.taskPic = taskPic;
 	}
-
+ 
+	public boolean isActive() {
+		return isActive;
+	}
+ 
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+ 
 	public PriorityTasks getPriority() {
 		return priority;
 	}
-
+ 
 	public void setPriority(PriorityTasks priority) {
 		this.priority = priority;
 	}
-
+ 
 	public Project getProject() {
 		return project;
 	}
-
+ 
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
-	public List<User> getParticipants() {
-		return participants;
-	}
-
-	public void setParticipants(List<User> participants) {
-		this.participants = participants;
-	}
-
+ 
 	@Override
 	public String toString() {
 		return "Task [idTask=" + idTask + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", finishDate=" + finishDate + ", status=" + status + ", priority=" + priority + ", project="
-				+ project + ", participants=" + participants + "]";
+				+ ", finishDate=" + finishDate + ", taskPic=" + taskPic + ", isActive=" + isActive + ", priority="
+				+ priority + ", project=" + project + "]";
 	}
  
 }

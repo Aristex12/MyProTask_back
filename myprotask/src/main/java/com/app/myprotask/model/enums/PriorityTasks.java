@@ -1,4 +1,4 @@
-package com.app.myprotask.enums;
+package com.app.myprotask.model.enums;
 
 /**
  * Priority tasks options
