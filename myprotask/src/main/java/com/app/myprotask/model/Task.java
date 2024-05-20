@@ -15,9 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Pattern;
- 
+import jakarta.persistence.Table; 
 /**
 * Contains a project and contains participants who will work on the task.
 * 
@@ -44,10 +42,6 @@ public class Task {
 	@Column(name = "finish_date")
 	private Date finishDate;
  
-	@Column(name = "task_pic")
-	@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.")
-	private String taskPic;
- 
 	@Column(name = "is_active")
 	private boolean isActive;
  
@@ -68,7 +62,6 @@ public class Task {
 		this.description = description;
 		this.startDate = generateLocalDate();
 		this.finishDate = finishDate;
-		this.taskPic = "ruta/defecto.png";
 		this.isActive = true;
 		this.priority = priority;
 		this.project = project;
@@ -114,14 +107,6 @@ public class Task {
 		this.finishDate = finishDate;
 	}
  
-	public String getTaskPic() {
-		return taskPic;
-	}
- 
-	public void setTaskPic(String taskPic) {
-		this.taskPic = taskPic;
-	}
- 
 	public boolean isActive() {
 		return isActive;
 	}
@@ -145,12 +130,12 @@ public class Task {
 	public void setProject(Project project) {
 		this.project = project;
 	}
- 
+
 	@Override
 	public String toString() {
 		return "Task [idTask=" + idTask + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", finishDate=" + finishDate + ", taskPic=" + taskPic + ", isActive=" + isActive + ", priority="
-				+ priority + ", project=" + project + "]";
+				+ ", finishDate=" + finishDate + ", isActive=" + isActive + ", priority=" + priority + ", project="
+				+ project + "]";
 	}
  
 }

@@ -13,6 +13,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Pattern;
 
 /**
  * It contains a user, a list of members, and a list of characteristics. They
@@ -40,6 +41,10 @@ public class Project {
 
 	@Column(name = "finish_date")
 	private Date finishDate;
+	
+	@Column(name = "project_pic")
+	@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.")
+	private String projectPic;
 
 	@Max(value = 999, message = "La cantidad de vacantes no puede ser mayor que 999")
 	@Column(name = "vacancies")
@@ -62,6 +67,7 @@ public class Project {
 		this.description = description;
 		this.startDate = generateLocalDate();
 		this.finishDate = finishDate;
+		this.projectPic = "ruta/defecto.png";
 		this.vacancies = vacancies;
 		this.isActive = true;
 		this.projectCharacteristics = projectCharacteristics;
@@ -107,6 +113,14 @@ public class Project {
 		this.finishDate = finishDate;
 	}
 
+	public String getProjectPic() {
+		return projectPic;
+	}
+
+	public void setProjectPic(String projectPic) {
+		this.projectPic = projectPic;
+	}
+
 	public int getVacancies() {
 		return vacancies;
 	}
@@ -138,8 +152,8 @@ public class Project {
 	@Override
 	public String toString() {
 		return "Project [idProject=" + idProject + ", name=" + name + ", description=" + description + ", startDate="
-				+ startDate + ", finishDate=" + finishDate + ", vacancies=" + vacancies + ", isActive=" + isActive
-				+ ", projectCaracteristics=" + projectCharacteristics + "]";
+				+ startDate + ", finishDate=" + finishDate + ", projectPic=" + projectPic + ", vacancies=" + vacancies
+				+ ", isActive=" + isActive + ", projectCharacteristics=" + projectCharacteristics + "]";
 	}
 
 }
