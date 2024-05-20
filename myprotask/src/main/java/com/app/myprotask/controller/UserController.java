@@ -52,7 +52,7 @@ public class UserController {
 	 * @author Manuel
 	 */
 	@PutMapping(value = "/updateActiveUser")
-	public void updateActiveUser(@RequestParam("idUser") Long idUser) {
+	public void updateActiveUser(@RequestParam("idUser") Long idUser) {	
 		daoS.updateActiveUser(daoS.displayUserById(idUser));
 	}
 

@@ -99,9 +99,7 @@ public class DAOServiceImpl implements DAOService {
 				up.setActive(false);
 				updateUserProject(up);
 			}
-			
 			for (UserTask ut : displayUserTasksByUserId(user.getIdUser())) {
-				System.out.println(displayUserTasksByUserId(user.getIdUser()).size());
 				ut.setActive(false);
 				updateUserTask(ut);
 			}
@@ -416,7 +414,7 @@ public class DAOServiceImpl implements DAOService {
 	
 	@Override
 	public List<UserTask> displayUserTasksByUserId(Long idUser) {
-		return userTaskRep.displayUserTasksByTaskId(idUser);
+		return userTaskRep.displayUserTasksByUserId(idUser);
 	}
 	
 	@Override
