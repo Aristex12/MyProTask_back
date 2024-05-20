@@ -33,7 +33,19 @@ public class UserController {
 	DAOService daoS;
 	
 	/**
-	 * Used in ? [?]
+	 * Used in Search User [ Manager ]
+	 * 
+	 * @author Alejandro
+	 * @param characteristics
+	 * @return List of users with the specific characteristics
+	 */
+	@GetMapping(value = "/searchUsersByCharacteristics")
+    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+    }
+	
+	/**
+	 * Used in ? [ Admin ]
 	 *
 	 * Update the user's status to active or inactive and their participation in the project accordingly
 	 * 
@@ -128,15 +140,6 @@ public class UserController {
 		daoS.updateUser(user);
 	}
 	
-	/**
-	 * 
-	 * @author Alejandro
-	 * @param characteristics
-	 * @return List of users with the specific characteristics
-	 */
-	@GetMapping(value = "/searchUsersByCharacteristics")
-    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
-    }
+	
 
 }

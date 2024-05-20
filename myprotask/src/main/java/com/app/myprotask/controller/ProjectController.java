@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Project;
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
@@ -29,6 +28,7 @@ public class ProjectController {
 	DAOService daoS;
 	
 	/**
+	 * Used in Search Project [ User ]
 	 * 
 	 * @author Manuel
 	 * @param characteristics
@@ -40,14 +40,14 @@ public class ProjectController {
     }
 
 	/**
-	 * Used in ? [?]
+	 * Used in Project [ Admin, Manager ]
 	 *
 	 * Update the project's status to active or inactive and their participation in the project - user accordingly
 	 * 
 	 * @author Manuel
 	 */
-	@PutMapping(value = "/updateActiveProject")
-	public void updateActiveProject(@RequestParam("idProject") Long idProject) {
+	@PutMapping(value = "/updateActiveProjectById")
+	public void updateActiveProjectById(@RequestParam("idProject") Long idProject) {
 		daoS.updateActiveProject(daoS.displayProjectById(idProject));
 	}
 
