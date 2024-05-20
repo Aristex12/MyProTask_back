@@ -86,6 +86,34 @@ public class DAOServiceImpl implements DAOService {
 	// USER TABLE METHODS PERSONALIZED
 
 	@Override
+	public List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) {
+		return userRep.searchUsersByCharacteristics(characteristicsIds, size);
+	}
+
+	@Override
+	public void updateActiveUser(User user) {
+		if (user.isActive()) {
+			user.setActive(false);
+
+			for (UserProject up : displayUserProjectByUserId(user.getIdUser())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+			
+			for (UserTask ut : displayUserTasksByUserId(user.getIdUser())) {
+				System.out.println(displayUserTasksByUserId(user.getIdUser()).size());
+				ut.setActive(false);
+				updateUserTask(ut);
+			}
+
+		} else {
+			user.setActive(true);
+		}
+		updateUser(user);
+
+	}
+
+	@Override
 	public Long searchUserByEmailPassword(String email, String password) {
 		return userRep.searchUserByEmailPassword(email, password);
 	}
@@ -163,6 +191,38 @@ public class DAOServiceImpl implements DAOService {
 	// PROJECT TABLE METHODS PERSONALIZED
 
 	@Override
+	public List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) {
+		return projectRep.searchProjectsByCharacteristics(characteristicsIds, size);
+	}
+
+	@Override
+	public void updateActiveProject(Project project) {
+
+		if (project.isActive()) {
+			project.setActive(false);
+			
+			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+			
+			for (Task t : displayTasksByProjectId(project.getIdProject())) {
+				t.setActive(false);
+				updateTask(t);
+				
+				for (UserTask ut : displayUserTasksByTaskId(t.getIdTask())) {
+					ut.setActive(false);
+					updateUserTask(ut);
+				}
+			}
+
+		} else {
+			project.setActive(true);
+		}
+		updateProject(project);
+	}
+
+	@Override
 	public List<Project> displayInactiveProjectsByUserId(Long idUser) {
 		return projectRep.displayInactiveProjectsByUserId(idUser);
 	}
@@ -233,6 +293,16 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<Task> displayTasksByProjectId(Long idProject) {
+		return taskRep.displayTasksByProjectId(idProject);
+	}
+	
+	@Override
+	public List<Task> displayActiveTasksActiveProjectByUserId(Long idUser) {
+		return taskRep.displayActiveTasksActiveProjectByUserId(idUser);
+	}
 
 	@Override
 	public List<Task> displayActiveTasksByUserId(Long idUser) {
@@ -280,6 +350,30 @@ public class DAOServiceImpl implements DAOService {
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
 	@Override
+	public void updateActiveUserProject(UserProject userProject) {
+		// We will update true or false based on the conditions, if it cannot be done no update will be performed
+		if (userProject.isActive()) {
+			userProject.setActive(false);
+			updateUserProject(userProject);
+		} else {
+			if (displayUserById(userProject.getUser().getIdUser()).isActive() && displayProjectById(userProject.getProject().getIdProject()).isActive()) {
+				userProject.setActive(true);
+				updateUserProject(userProject);
+			}
+		}		
+	}
+
+	@Override
+	public List<UserProject> displayUserProjectByProjectId(Long idProject) {
+		return userProjectRep.displayUserProjectByProjectId(idProject);
+	}
+
+	@Override
+	public List<UserProject> displayUserProjectByUserId(Long idUser) {
+		return userProjectRep.displayUserProjectByUserId(idUser);
+	}
+
+	@Override
 	public List<UserProject> displayActiveUserProject() {
 		return userProjectRep.displayActiveUserProject();
 	}
@@ -288,7 +382,7 @@ public class DAOServiceImpl implements DAOService {
 	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
 		return userProjectRep.displayActiveUserProjectByUserId(idUser);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// USERTASK TABLE METHODS
@@ -319,6 +413,21 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<UserTask> displayUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayUserTasksByTaskId(idUser);
+	}
+	
+	@Override
+	public List<UserTask> displayUserTasksByTaskId(Long idTask) {
+		return userTaskRep.displayUserTasksByTaskId(idTask);
+	}
+
+	@Override
+	public List<UserTask> displayActiveUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayActiveUserTasksByUserId(idUser);
+	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -360,5 +469,13 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
+
+	
+
+	
+
+	
+
+	
 
 }

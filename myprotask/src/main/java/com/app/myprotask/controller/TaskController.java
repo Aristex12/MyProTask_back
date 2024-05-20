@@ -32,10 +32,10 @@ public class TaskController {
 	 * @param idUser
 	 * @return all active tasks from actives projects of a user
 	 */
-//	@GetMapping(value = "/displayActiveTasksActiveProjectByUserId")
-//	public List<Task> displayActiveTasksActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
-//		return daoS.displayActiveTasksActiveProjectByUserId(idUser);
-//	}
+	@GetMapping(value = "/displayActiveTasksActiveProjectByUserId")
+	public List<Task> displayActiveTasksActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveTasksActiveProjectByUserId(idUser);
+	}
 
 	/**
 	 * Used in calendar view [ User ]
@@ -68,7 +68,7 @@ public class TaskController {
 	 * @param idUser
 	 * @return List of tasks of the project
 	 */
-	@GetMapping(value = "/displayTasksByProjectId")
+	@GetMapping(value = "/displayActiveTasksByProjectId")
 	public List<Task> displayActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
 		return daoS.displayActiveTasksByProjectId(idProject);
 	}

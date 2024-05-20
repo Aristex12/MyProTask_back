@@ -26,7 +26,11 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-
+	
+	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) ;
+	
+	void updateActiveUser(User user);
+	
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
@@ -64,6 +68,10 @@ public interface DAOService {
 	Project displayProjectById(Long id);
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	
+	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) ;
+	
+	void updateActiveProject(Project project);
 
 	List<Project> displayInactiveProjectsByUserId(Long idUser);
 
@@ -98,6 +106,10 @@ public interface DAOService {
 	Task displayTaskById(Long id);
 
 	// TASK TABLE METHODS PERSONALIZED
+	
+	List<Task> displayTasksByProjectId(Long idProject);
+	
+	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);
 
 	List<Task> displayActiveTasksByUserId(Long idUser);
 
@@ -120,6 +132,12 @@ public interface DAOService {
 	UserProject displayUserProjectById(Long id);
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+	void updateActiveUserProject(UserProject userProject);
+	
+	List<UserProject> displayUserProjectByProjectId(Long idProject);
+	
+	List<UserProject> displayUserProjectByUserId(Long idUser);
 
 	List<UserProject> displayActiveUserProject();
 
@@ -140,6 +158,12 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	List<UserTask> displayUserTasksByUserId(Long idUser);
+	
+	List<UserTask> displayUserTasksByTaskId(Long idTask);
+	
+	List<UserTask> displayActiveUserTasksByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 

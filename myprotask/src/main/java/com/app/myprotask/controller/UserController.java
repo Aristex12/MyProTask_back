@@ -19,7 +19,6 @@ import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
-import jakarta.websocket.server.PathParam;
 
 /**
  * @author Alejandro
@@ -32,6 +31,30 @@ public class UserController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * Used in Search User [ Manager ]
+	 * 
+	 * @author Alejandro
+	 * @param characteristics
+	 * @return List of users with the specific characteristics
+	 */
+	@PostMapping(value = "/searchUsersByCharacteristics")
+    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+    }
+	
+	/**
+	 * Used in ? [ Admin ]
+	 *
+	 * Update the user's status to active or inactive and their participation in the project accordingly
+	 * 
+	 * @author Manuel
+	 */
+	@PutMapping(value = "/updateActiveUser")
+	public void updateActiveUser(@RequestParam("idUser") Long idUser) {
+		daoS.updateActiveUser(daoS.displayUserById(idUser));
+	}
 
 	/**
 	 * Used in Users [ User ]
@@ -116,5 +139,7 @@ public class UserController {
 
 		daoS.updateUser(user);
 	}
+	
+	
 
 }
