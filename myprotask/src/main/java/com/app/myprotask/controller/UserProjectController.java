@@ -24,6 +24,20 @@ import com.app.myprotask.model.dao.DAOService;
 public class UserProjectController {
 	@Autowired
 	DAOService daoS;
+	
+	
+	/**
+	 * Used in History [ User ]
+	 * 
+	 * @author Manuel
+	 * @param idUser
+	 * @return a list of users and projects based on the projects in which a user participates and where the project is active
+	 */
+	@GetMapping(value = "/displayUserProjectByActiveProjectByUserId")
+	public List<UserProject> displayUserProjectByActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
+		return daoS.displayUserProjectByActiveProjectByUserId(idUser);
+	}
+	
 
 	/**
 	 * Used in ? [ ? ]

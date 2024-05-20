@@ -1,5 +1,6 @@
 package com.app.myprotask.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,16 +199,16 @@ public class DAOServiceImpl implements DAOService {
 
 		if (project.isActive()) {
 			project.setActive(false);
-			
+
 			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
 				up.setActive(false);
 				updateUserProject(up);
 			}
-			
+
 			for (Task t : displayTasksByProjectId(project.getIdProject())) {
 				t.setActive(false);
 				updateTask(t);
-				
+
 				for (UserTask ut : displayUserTasksByTaskId(t.getIdTask())) {
 					ut.setActive(false);
 					updateUserTask(ut);
@@ -291,12 +292,12 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<Task> displayTasksByProjectId(Long idProject) {
 		return taskRep.displayTasksByProjectId(idProject);
 	}
-	
+
 	@Override
 	public List<Task> displayActiveTasksActiveProjectByUserId(Long idUser) {
 		return taskRep.displayActiveTasksActiveProjectByUserId(idUser);
@@ -348,17 +349,31 @@ public class DAOServiceImpl implements DAOService {
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
 	@Override
+	public List<UserProject> displayUserProjectByActiveProjectByUserId(Long idUser) {
+
+		List<UserProject> userProjectByProjectIdByUserId = new ArrayList<>();
+		for (Project p : projectRep.displayActiveProjectsByUserId(idUser)) {
+			for (UserProject up : userProjectRep.displayUserProjectByProjectId(p.getIdProject())) {
+				userProjectByProjectIdByUserId.add(up);
+			}			
+		}
+		return userProjectByProjectIdByUserId;
+	}
+
+	@Override
 	public void updateActiveUserProject(UserProject userProject) {
-		// We will update true or false based on the conditions, if it cannot be done no update will be performed
+		// We will update true or false based on the conditions, if it cannot be done no
+		// update will be performed
 		if (userProject.isActive()) {
 			userProject.setActive(false);
 			updateUserProject(userProject);
 		} else {
-			if (displayUserById(userProject.getUser().getIdUser()).isActive() && displayProjectById(userProject.getProject().getIdProject()).isActive()) {
+			if (displayUserById(userProject.getUser().getIdUser()).isActive()
+					&& displayProjectById(userProject.getProject().getIdProject()).isActive()) {
 				userProject.setActive(true);
 				updateUserProject(userProject);
 			}
-		}		
+		}
 	}
 
 	@Override
@@ -411,12 +426,12 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<UserTask> displayUserTasksByUserId(Long idUser) {
 		return userTaskRep.displayUserTasksByUserId(idUser);
 	}
-	
+
 	@Override
 	public List<UserTask> displayUserTasksByTaskId(Long idTask) {
 		return userTaskRep.displayUserTasksByTaskId(idTask);
@@ -467,13 +482,5 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
-
-	
-
-	
-
-	
-
-	
 
 }

@@ -133,6 +133,8 @@ public interface DAOService {
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
 	
+	List<UserProject> displayUserProjectByActiveProjectByUserId(Long idUser);
+	
 	void updateActiveUserProject(UserProject userProject);
 	
 	List<UserProject> displayUserProjectByProjectId(Long idProject);
