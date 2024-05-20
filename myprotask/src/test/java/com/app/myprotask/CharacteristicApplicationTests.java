@@ -8,29 +8,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.app.myprotask.model.*;
 @SpringBootTest
-public class CaracteristicApplicationTests {
+public class CharacteristicApplicationTests {
 
 	@Test
 	public void testEmptyConstructor(){
-		Caracteristic caracteristic = new Caracteristic();
+		Characteristic characteristic = new Characteristic();
 		
-		assertNull(caracteristic.getName());
+		assertNull(characteristic.getName());
 
 	}
 	@Test
     public void testParameterizedConstructor() {
         String name = "Java";
 
-        Caracteristic caracteristic = new Caracteristic(name);
+        Characteristic characteristic = new Characteristic(name);
         
-        assertEquals(name, caracteristic.getName());
+        assertEquals(name, characteristic.getName());
     }
 	@Test
 	public void testToString() {
 	    
-		Caracteristic caracteristic = new Caracteristic("Java");
+		Characteristic characteristic = new Characteristic("Java");
 	    
-	    String expectedToString = "Caracteristic [idCaracteristic=null, name=Java]";
-	    assertEquals(expectedToString, caracteristic.toString());
+	    String expectedToString = "Characteristic [idCharacteristic=null, name=Java]";
+	    assertEquals(expectedToString, characteristic.toString());
 	}
 }

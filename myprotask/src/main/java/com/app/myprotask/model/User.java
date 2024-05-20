@@ -234,7 +234,7 @@ public class User {
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
 				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
-				+ ", isActive=" + isActive + ", userCaracteristics=" + userCharacteristics + "]";
+				+ ", isActive=" + isActive + ", userCharacteristics=" + userCharacteristics + "]";
 	}
 
 }
