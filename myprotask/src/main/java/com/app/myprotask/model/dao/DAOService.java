@@ -2,8 +2,6 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
