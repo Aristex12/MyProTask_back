@@ -19,6 +19,8 @@ public interface CharacteristicRepository extends JpaRepository<Characteristic, 
 	 * @param idUser
 	 * @return all the characteristics that the given user has
 	 */
-	@Query(value = "SELECT * FROM characteristics c, user_characteristics uc WHERE c.id_characteristics = uc.characteristics_id AND uc.user_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM characteristics c, user_characteristics uc "
+			+ "WHERE c.id_characteristics = uc.characteristics_id "
+			+ "AND uc.user_id = ?1", nativeQuery = true)
 	List<Characteristic> displayCharacteristicsByIdUser(Long idUser);
 }
