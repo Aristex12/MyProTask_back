@@ -68,7 +68,7 @@ public class TaskController {
 	 * @param idUser
 	 * @return List of tasks of the project
 	 */
-	@GetMapping(value = "/displayTasksByProjectId")
+	@GetMapping(value = "/displayActiveTasksByProjectId")
 	public List<Task> displayActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
 		return daoS.displayActiveTasksByProjectId(idProject);
 	}
