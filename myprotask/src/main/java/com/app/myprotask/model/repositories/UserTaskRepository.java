@@ -22,6 +22,10 @@ public interface UserTaskRepository extends JpaRepository<UserTask, Long> {
 	 * @author Manuel
 	 * @return all tasks and users where both are active, order
 	 */
-	@Query(value = "SELECT ut.* FROM user_tasks ut, tasks t WHERE ut.task_id = t.id_task AND ut.is_active = true AND ut.user_id = ?1 ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, t.name", nativeQuery = true)
+	@Query(value = "SELECT ut.* FROM user_tasks ut, tasks t "
+			+ "WHERE ut.task_id = t.id_task "
+			+ "AND ut.is_active = true "
+			+ "AND ut.user_id = ?1 "
+			+ "ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, t.name", nativeQuery = true)
 	List<UserTask> displayActiveUserTasksByUserId(Long idUser);
 }
