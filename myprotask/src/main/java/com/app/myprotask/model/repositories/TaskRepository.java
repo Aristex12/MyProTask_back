@@ -13,6 +13,14 @@ import com.app.myprotask.model.Task;
  */
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
+	
+	/**
+	 * @author Manuel
+	 * @param idProject
+	 * @return all project tasks
+	 */
+	@Query(value = "SELECT * FROM tasks WHERE project_id = ?1", nativeQuery = true)
+	List<Task> displayTasksByProjectId(Long idProject);
 
 	/**
 	 * @author Manuel

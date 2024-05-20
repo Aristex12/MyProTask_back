@@ -99,6 +99,12 @@ public class DAOServiceImpl implements DAOService {
 				up.setActive(false);
 				updateUserProject(up);
 			}
+			
+			for (UserTask ut : displayUserTasksByUserId(user.getIdUser())) {
+				System.out.println(displayUserTasksByUserId(user.getIdUser()).size());
+				ut.setActive(false);
+				updateUserTask(ut);
+			}
 
 		} else {
 			user.setActive(true);
@@ -194,11 +200,22 @@ public class DAOServiceImpl implements DAOService {
 
 		if (project.isActive()) {
 			project.setActive(false);
-
+			
 			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
 				up.setActive(false);
 				updateUserProject(up);
 			}
+			
+			for (Task t : displayTasksByProjectId(project.getIdProject())) {
+				t.setActive(false);
+				updateTask(t);
+				
+				for (UserTask ut : displayUserTasksByTaskId(t.getIdTask())) {
+					ut.setActive(false);
+					updateUserTask(ut);
+				}
+			}
+
 		} else {
 			project.setActive(true);
 		}
@@ -276,6 +293,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<Task> displayTasksByProjectId(Long idProject) {
+		return taskRep.displayTasksByProjectId(idProject);
+	}
 	
 	@Override
 	public List<Task> displayActiveTasksActiveProjectByUserId(Long idUser) {
@@ -391,6 +413,16 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<UserTask> displayUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayUserTasksByTaskId(idUser);
+	}
+	
+	@Override
+	public List<UserTask> displayUserTasksByTaskId(Long idTask) {
+		return userTaskRep.displayUserTasksByTaskId(idTask);
+	}
 
 	@Override
 	public List<UserTask> displayActiveUserTasksByUserId(Long idUser) {
@@ -437,6 +469,12 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
+
+	
+
+	
+
+	
 
 	
 
