@@ -45,6 +45,7 @@ public class UserProjectController {
 	 * @param idUser
 	 * @return all user projects with user id
 	 */
+	@GetMapping(value = "/displayUserProjectByUserId")
 	public List<UserProject> displayUserProjectByUserId(@RequestParam("idUser") Long idUser) {
 		return daoS.displayUserProjectByUserId(idUser);
 	}
