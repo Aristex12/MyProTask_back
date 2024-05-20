@@ -84,9 +84,14 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) {
+		return userRep.searchUsersByCharacteristics(characteristicsIds, size);
+	}
 
 	@Override
-	public void updateUserActive(User user) {
+	public void updateActiveUser(User user) {
 		if (user.isActive()) {
 			user.setActive(false);
 
@@ -178,8 +183,14 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	
 	@Override
-	public void updateProjectActive(Project project) {
+	public List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) {
+		return projectRep.searchProjectsByCharacteristics(characteristicsIds, size);
+	}
+	
+	@Override
+	public void updateActiveProject(Project project) {
 
 		if (project.isActive()) {
 			project.setActive(false);
@@ -407,5 +418,9 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
+
+	
+
+	
 
 }

@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Project;
+import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
@@ -25,16 +27,28 @@ public class ProjectController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * 
+	 * @author Manuel
+	 * @param characteristics
+	 * @return List of projects with the specific characteristics
+	 */
+	@GetMapping(value = "/searchProjectsByCharacteristics")
+    public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+        return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
+    }
 
 	/**
-	 * Used in NewProject view [ User, Member ]
+	 * Used in ? [?]
 	 *
+	 * Update the project's status to active or inactive and their participation in the project - user accordingly
+	 * 
 	 * @author Manuel
-	 * @return List of all projects
 	 */
-	@PutMapping(value = "/updateProjectActive")
-	public void updateProjectActive(@RequestParam("idProject") Long idProject) {
-		daoS.updateProjectActive(daoS.displayProjectById(idProject));
+	@PutMapping(value = "/updateActiveProject")
+	public void updateActiveProject(@RequestParam("idProject") Long idProject) {
+		daoS.updateActiveProject(daoS.displayProjectById(idProject));
 	}
 
 	/**
