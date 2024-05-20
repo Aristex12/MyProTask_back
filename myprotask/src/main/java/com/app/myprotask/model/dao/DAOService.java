@@ -2,6 +2,8 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
@@ -27,7 +29,9 @@ public interface DAOService {
 
 	// USER TABLE METHODS PERSONALIZED
 	
-	void updateUserActive(User user);
+	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) ;
+	
+	void updateActiveUser(User user);
 	
 	Long searchUserByEmailPassword(String email, String password);
 
@@ -67,7 +71,9 @@ public interface DAOService {
 
 	// PROJECT TABLE METHODS PERSONALIZED
 	
-	void updateProjectActive(Project project);
+	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) ;
+	
+	void updateActiveProject(Project project);
 
 	List<Project> displayInactiveProjectsByUserId(Long idUser);
 
@@ -124,6 +130,8 @@ public interface DAOService {
 	UserProject displayUserProjectById(Long id);
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+	void updateActiveUserProject(UserProject userProject);
 	
 	List<UserProject> displayUserProjectByProjectId(Long idProject);
 	

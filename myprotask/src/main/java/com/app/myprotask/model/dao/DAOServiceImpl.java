@@ -86,7 +86,12 @@ public class DAOServiceImpl implements DAOService {
 	// USER TABLE METHODS PERSONALIZED
 
 	@Override
-	public void updateUserActive(User user) {
+	public List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) {
+		return userRep.searchUsersByCharacteristics(characteristicsIds, size);
+	}
+
+	@Override
+	public void updateActiveUser(User user) {
 		if (user.isActive()) {
 			user.setActive(false);
 
@@ -178,8 +183,14 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
+
 	@Override
-	public void updateProjectActive(Project project) {
+	public List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) {
+		return projectRep.searchProjectsByCharacteristics(characteristicsIds, size);
+	}
+
+	@Override
+	public void updateActiveProject(Project project) {
 
 		if (project.isActive()) {
 			project.setActive(false);
@@ -310,6 +321,20 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+
+	@Override
+	public void updateActiveUserProject(UserProject userProject) {
+		// We will update true or false based on the conditions, if it cannot be done no update will be performed
+		if (userProject.isActive()) {
+			userProject.setActive(false);
+			updateUserProject(userProject);
+		} else {
+			if (displayUserById(userProject.getUser().getIdUser()).isActive() && displayProjectById(userProject.getProject().getIdProject()).isActive()) {
+				userProject.setActive(true);
+				updateUserProject(userProject);
+			}
+		}		
+	}
 
 	@Override
 	public List<UserProject> displayUserProjectByProjectId(Long idProject) {

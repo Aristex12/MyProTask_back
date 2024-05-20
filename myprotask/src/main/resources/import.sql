@@ -243,8 +243,10 @@ INSERT INTO project_characteristics (characteristic_id, project_id) VALUES (3, 6
 INSERT INTO project_characteristics (characteristic_id, project_id) VALUES (7, 6);
 INSERT INTO project_characteristics (characteristic_id, project_id) VALUES (10, 6);
 INSERT INTO project_characteristics (characteristic_id, project_id) VALUES (12, 6);
+
 INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (1, 1);
 INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (2, 1);
+INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (7, 1);
 INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (3, 2);
 INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (4, 2);
 INSERT INTO user_characteristics (characteristic_id, user_id) VALUES (5, 3);

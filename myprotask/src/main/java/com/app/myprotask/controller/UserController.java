@@ -33,14 +33,27 @@ public class UserController {
 	DAOService daoS;
 	
 	/**
-	 * Used in NewProject view [ User, Member ]
-	 *
-	 * @author Manuel
-	 * @return List of all projects
+	 * Used in Search User [ Manager ]
+	 * 
+	 * @author Alejandro
+	 * @param characteristics
+	 * @return List of users with the specific characteristics
 	 */
-	@PutMapping(value = "/updateUserActive")
-	public void updateUserActive(@RequestParam("idUser") Long idUser) {
-		daoS.updateUserActive(daoS.displayUserById(idUser));
+	@GetMapping(value = "/searchUsersByCharacteristics")
+    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+    }
+	
+	/**
+	 * Used in ? [ Admin ]
+	 *
+	 * Update the user's status to active or inactive and their participation in the project accordingly
+	 * 
+	 * @author Manuel
+	 */
+	@PutMapping(value = "/updateActiveUser")
+	public void updateActiveUser(@RequestParam("idUser") Long idUser) {
+		daoS.updateActiveUser(daoS.displayUserById(idUser));
 	}
 
 	/**
@@ -127,16 +140,6 @@ public class UserController {
 		daoS.updateUser(user);
 	}
 	
-//	/**
-//	 * 
-//	 * @author Alejandro
-//	 * @param characteristics
-//	 * @return List of users with the specific characteristics
-//	 */
-//	@GetMapping(value = "/searchUsersByCharacteristics")
-//    public List<User> buscarUsuarios(@RequestParam List<String> characteristics) {
-//		int size = characteristics.size();
-//        return userService.obtenerUsuariosPorCaracteristicas(characteristics, size);
-//    }
+	
 
 }
