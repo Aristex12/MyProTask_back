@@ -39,7 +39,7 @@ public class UserController {
 	 * @param characteristics
 	 * @return List of users with the specific characteristics
 	 */
-	@GetMapping(value = "/searchUsersByCharacteristics")
+	@PostMapping(value = "/searchUsersByCharacteristics")
     public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
         return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
     }
