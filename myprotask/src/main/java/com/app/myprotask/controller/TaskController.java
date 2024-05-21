@@ -72,5 +72,17 @@ public class TaskController {
 	public List<Task> displayActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
 		return daoS.displayActiveTasksByProjectId(idProject);
 	}
+	
+	/**
+	 * Used in Home Project [ User ]
+	 *
+	 * @author Alejandro
+	 * @param idUser
+	 * @return Count all tasks of the project
+	 */
+	@GetMapping(value = "/countActiveTasksByProjectId")
+	public Integer countActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
+		return daoS.countActiveTasksByProjectId(idProject);
+	}
 
 }
