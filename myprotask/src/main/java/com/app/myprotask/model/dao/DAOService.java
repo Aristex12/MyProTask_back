@@ -107,6 +107,8 @@ public interface DAOService {
 
 	// TASK TABLE METHODS PERSONALIZED
 	
+	Integer countActiveTasksByProjectId(Long idProject);
+	
 	List<Task> displayTasksByProjectId(Long idProject);
 	
 	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);

@@ -17,6 +17,16 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	/**
 	 * @author Manuel
 	 * @param idProject
+	 * @return count active tasks the specified project ordered by priority and name
+	 */
+	@Query(value = "SELECT COUNT(*) FROM tasks "
+			+ "WHERE project_id = ?1 "
+			+ "AND is_active = true", nativeQuery = true)
+	Integer countActiveTasksByProjectId(Long idProject);
+	
+	/**
+	 * @author Manuel
+	 * @param idProject
 	 * @return all project tasks
 	 */
 	@Query(value = "SELECT * FROM tasks WHERE project_id = ?1", nativeQuery = true)

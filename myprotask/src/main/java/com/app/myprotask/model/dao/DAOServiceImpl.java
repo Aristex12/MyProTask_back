@@ -292,6 +292,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public Integer countActiveTasksByProjectId(Long idProject) {
+		return taskRep.countActiveTasksByProjectId(idProject);
+	}
 
 	@Override
 	public List<Task> displayTasksByProjectId(Long idProject) {
@@ -482,5 +487,7 @@ public class DAOServiceImpl implements DAOService {
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
+
+	
 
 }
