@@ -40,7 +40,7 @@ public class UserCharacteristicsController {
 	 * @author Alejandro
 	 * @param userCharacteristics
 	 */
-	@PutMapping(value = "/addUserCharacteristicByIdUser")
+	@PutMapping(value = "/deleteUserCharacteristicByIdUser")
 	public void deleteUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("idCharacteristic") Long idCharacteristic) {
 		
 		daoS.deleteUserCharacteristicByIdUser(idUser, idCharacteristic);
