@@ -22,7 +22,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	@Query(value = "SELECT COUNT(*) FROM tasks "
 			+ "WHERE project_id = ?1 "
 			+ "AND is_active = true", nativeQuery = true)
-	Integer countActiveTasksByProjectId(Long idProject);
+	Integer countActiveTasksByIdProject(Long idProject);
 	
 	/**
 	 * @author Manuel
@@ -30,7 +30,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 	 * @return all project tasks
 	 */
 	@Query(value = "SELECT * FROM tasks WHERE project_id = ?1", nativeQuery = true)
-	List<Task> displayTasksByProjectId(Long idProject);
+	List<Task> displayTasksByIdProject(Long idProject);
 
 	/**
 	 * @author Manuel
@@ -46,7 +46,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 			+ "AND ut.is_active"
 			+ "ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, t.name",
 			nativeQuery = true)
-	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);
+	List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser);
 
 	/**
 	 * @author Manuel
@@ -56,7 +56,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 			+ "WHERE t.id_task = ut.task_id "
 			+ "AND ut.user_id = ?1 "
 			+ "ORDER BY project_id", nativeQuery = true)
-	List<Task> displayTasksByUserId(Long idUser);
+	List<Task> displayTasksByIdUser(Long idUser);
 
 	/**
 	 * @author Manuel
@@ -69,7 +69,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 			+ "AND ut.user_id = ?1 "
 			+ "AND ut.is_active = true "
 			+ "ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, t.name", nativeQuery = true)
-	List<Task> displayActiveTasksByUserId(Long idUser);
+	List<Task> displayActiveTasksByIdUser(Long idUser);
 
 	/**
 	 * @author Manuel
@@ -80,5 +80,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 			+ "WHERE project_id = ?1 "
 			+ "AND is_active = true "
 			+ "ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, name", nativeQuery = true)
-	List<Task> displayActiveTasksByProjectId(Long idProject);
+	List<Task> displayActiveTasksByIdProject(Long idProject);
 }

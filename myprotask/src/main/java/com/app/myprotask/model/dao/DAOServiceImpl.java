@@ -101,7 +101,7 @@ public class DAOServiceImpl implements DAOService {
 		if (user.isActive()) {
 			user.setActive(false);
 
-			for (UserProject up : displayUserProjectByUserId(user.getIdUser())) {
+			for (UserProject up : displayUserProjectByIdUser(user.getIdUser())) {
 				up.setActive(false);
 				updateUserProject(up);
 			}
@@ -210,7 +210,7 @@ public class DAOServiceImpl implements DAOService {
 				updateUserProject(up);
 			}
 
-			for (Task t : displayTasksByProjectId(project.getIdProject())) {
+			for (Task t : displayTasksByIdProject(project.getIdProject())) {
 				t.setActive(false);
 				updateTask(t);
 
@@ -227,13 +227,13 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	@Override
-	public List<Project> displayInactiveProjectsByUserId(Long idUser) {
-		return projectRep.displayInactiveProjectsByUserId(idUser);
+	public List<Project> displayInactiveProjectsByIdUser(Long idUser) {
+		return projectRep.displayInactiveProjectsByIdUser(idUser);
 	}
 
 	@Override
-	public List<Project> displayActiveProjectsByUserId(Long idUser) {
-		return projectRep.displayActiveProjectsByUserId(idUser);
+	public List<Project> displayActiveProjectsByIdUser(Long idUser) {
+		return projectRep.displayActiveProjectsByIdUser(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -299,33 +299,33 @@ public class DAOServiceImpl implements DAOService {
 	// TASK TABLE METHODS PERSONALIZED
 
 	@Override
-	public Integer countActiveTasksByProjectId(Long idProject) {
-		return taskRep.countActiveTasksByProjectId(idProject);
+	public Integer countActiveTasksByIdProject(Long idProject) {
+		return taskRep.countActiveTasksByIdProject(idProject);
 	}
 
 	@Override
-	public List<Task> displayTasksByProjectId(Long idProject) {
-		return taskRep.displayTasksByProjectId(idProject);
+	public List<Task> displayTasksByIdProject(Long idProject) {
+		return taskRep.displayTasksByIdProject(idProject);
 	}
 
 	@Override
-	public List<Task> displayActiveTasksActiveProjectByUserId(Long idUser) {
-		return taskRep.displayActiveTasksActiveProjectByUserId(idUser);
+	public List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser) {
+		return taskRep.displayActiveTasksActiveProjectByIdUser(idUser);
 	}
 
 	@Override
-	public List<Task> displayActiveTasksByUserId(Long idUser) {
-		return taskRep.displayActiveTasksByUserId(idUser);
+	public List<Task> displayActiveTasksByIdUser(Long idUser) {
+		return taskRep.displayActiveTasksByIdUser(idUser);
 	}
 
 	@Override
-	public List<Task> displayActiveTasksByProjectId(Long idProject) {
-		return taskRep.displayActiveTasksByProjectId(idProject);
+	public List<Task> displayActiveTasksByIdProject(Long idProject) {
+		return taskRep.displayActiveTasksByIdProject(idProject);
 	}
 
 	@Override
-	public List<Task> displayTasksByUserId(Long idUser) {
-		return taskRep.displayTasksByUserId(idUser);
+	public List<Task> displayTasksByIdUser(Long idUser) {
+		return taskRep.displayTasksByIdUser(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -359,15 +359,15 @@ public class DAOServiceImpl implements DAOService {
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<UserProject> displayUserProjectByActiveProjectByUserId(Long idUser) {
+	public List<UserProject> displayUserProjectByActiveProjectByIdUser(Long idUser) {
 
-		List<UserProject> userProjectByProjectIdByUserId = new ArrayList<>();
-		for (Project p : projectRep.displayActiveProjectsByUserId(idUser)) {
+		List<UserProject> userProjectByProjectIdByIdUser = new ArrayList<>();
+		for (Project p : projectRep.displayActiveProjectsByIdUser(idUser)) {
 			for (UserProject up : userProjectRep.displayUserProjectByProjectId(p.getIdProject())) {
-				userProjectByProjectIdByUserId.add(up);
+				userProjectByProjectIdByIdUser.add(up);
 			}
 		}
-		return userProjectByProjectIdByUserId;
+		return userProjectByProjectIdByIdUser;
 	}
 
 	@Override
@@ -392,7 +392,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	@Override
-	public List<UserProject> displayUserProjectByUserId(Long idUser) {
+	public List<UserProject> displayUserProjectByIdUser(Long idUser) {
 		return userProjectRep.displayUserProjectByUserId(idUser);
 	}
 
@@ -402,7 +402,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	@Override
-	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+	public List<UserProject> displayActiveUserProjectByIdUser(Long idUser) {
 		return userProjectRep.displayActiveUserProjectByUserId(idUser);
 	}
 

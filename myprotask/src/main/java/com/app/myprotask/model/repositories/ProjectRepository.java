@@ -40,7 +40,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 			+ "WHERE p.id_project = up.project_id "
 			+ "AND up.user_id = ?1 "
 			+ "AND up.is_active = false", nativeQuery = true)
-	List<Project> displayInactiveProjectsByUserId(Long idUser);
+	List<Project> displayInactiveProjectsByIdUser(Long idUser);
 	
 	/**
 	 * @author Manuel
@@ -50,7 +50,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	@Query(value = "SELECT p.* FROM projects p, user_projects up "
 			+ "WHERE p.id_project = up.project_id "
 			+ "AND up.user_id = ?1 AND p.is_active = true", nativeQuery = true)
-	List<Project> displayActiveProjectsByUserId(Long idUser);
+	List<Project> displayActiveProjectsByIdUser(Long idUser);
 	
 	
 	

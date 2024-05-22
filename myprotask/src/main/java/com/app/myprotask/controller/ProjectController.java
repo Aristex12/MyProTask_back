@@ -82,9 +82,9 @@ public class ProjectController {
 	 * @param idUser
 	 * @return List of active projects of the user
 	 */
-	@GetMapping(value = "/displayActiveProjectsByUserId")
-	public List<Project> displayActiveProjectsByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveProjectsByUserId(idUser);
+	@GetMapping(value = "/displayActiveProjectsByIdUser")
+	public List<Project> displayActiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveProjectsByIdUser(idUser);
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class ProjectController {
 	 * @param idUser
 	 * @return List of inactive projects of the user
 	 */
-	@GetMapping(value = "/displayInactiveProjectsByUserId")
-	public List<Project> displayInactiveProjectsByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayInactiveProjectsByUserId(idUser);
+	@GetMapping(value = "/displayInactiveProjectsByIdUser")
+	public List<Project> displayInactiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayInactiveProjectsByIdUser(idUser);
 	}
 }

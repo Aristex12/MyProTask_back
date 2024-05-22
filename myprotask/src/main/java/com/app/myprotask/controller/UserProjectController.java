@@ -33,9 +33,9 @@ public class UserProjectController {
 	 * @param idUser
 	 * @return a list of users and projects based on the projects in which a user participates and where the project is active
 	 */
-	@GetMapping(value = "/displayUserProjectByActiveProjectByUserId")
-	public List<UserProject> displayUserProjectByActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserProjectByActiveProjectByUserId(idUser);
+	@GetMapping(value = "/displayUserProjectByActiveProjectByIdUser")
+	public List<UserProject> displayUserProjectByActiveProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayUserProjectByActiveProjectByIdUser(idUser);
 	}
 	
 
@@ -59,9 +59,9 @@ public class UserProjectController {
 	 * @param idUser
 	 * @return all user projects with user id
 	 */
-	@GetMapping(value = "/displayUserProjectByUserId")
-	public List<UserProject> displayUserProjectByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserProjectByUserId(idUser);
+	@GetMapping(value = "/displayUserProjectByIdUser")
+	public List<UserProject> displayUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayUserProjectByIdUser(idUser);
 	}
 
 	/**
@@ -83,9 +83,9 @@ public class UserProjectController {
 	 * @return all users and all active projects from one user ordered by active
 	 *         members
 	 */
-	@GetMapping(value = "/displayActiveUserProjectByUserId")
-	public List<UserProject> displayActiveUserProjectByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveUserProjectByUserId(idUser);
+	@GetMapping(value = "/displayActiveUserProjectByIdUser")
+	public List<UserProject> displayActiveUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveUserProjectByIdUser(idUser);
 	}
 
 }

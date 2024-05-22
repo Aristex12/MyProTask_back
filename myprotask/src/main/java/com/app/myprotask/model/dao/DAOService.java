@@ -74,9 +74,9 @@ public interface DAOService {
 
 	void updateActiveProject(Project project);
 
-	List<Project> displayInactiveProjectsByUserId(Long idUser);
+	List<Project> displayInactiveProjectsByIdUser(Long idUser);
 
-	List<Project> displayActiveProjectsByUserId(Long idUser);
+	List<Project> displayActiveProjectsByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -108,17 +108,17 @@ public interface DAOService {
 
 	// TASK TABLE METHODS PERSONALIZED
 
-	Integer countActiveTasksByProjectId(Long idProject);
+	Integer countActiveTasksByIdProject(Long idProject);
 
-	List<Task> displayTasksByProjectId(Long idProject);
+	List<Task> displayTasksByIdProject(Long idProject);
 
-	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);
+	List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser);
 
-	List<Task> displayActiveTasksByUserId(Long idUser);
+	List<Task> displayActiveTasksByIdUser(Long idUser);
 
-	List<Task> displayActiveTasksByProjectId(Long idProject);
+	List<Task> displayActiveTasksByIdProject(Long idProject);
 
-	List<Task> displayTasksByUserId(Long idUser);
+	List<Task> displayTasksByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -136,17 +136,17 @@ public interface DAOService {
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
-	List<UserProject> displayUserProjectByActiveProjectByUserId(Long idUser);
+	List<UserProject> displayUserProjectByActiveProjectByIdUser(Long idUser);
 
 	void updateActiveUserProject(UserProject userProject);
 
 	List<UserProject> displayUserProjectByProjectId(Long idProject);
 
-	List<UserProject> displayUserProjectByUserId(Long idUser);
+	List<UserProject> displayUserProjectByIdUser(Long idUser);
 
 	List<UserProject> displayActiveUserProject();
 
-	List<UserProject> displayActiveUserProjectByUserId(Long idUser);
+	List<UserProject> displayActiveUserProjectByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
