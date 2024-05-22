@@ -51,8 +51,10 @@ public interface DAOService {
 	Characteristic displayCharacteristicById(Long id);
 
 	// CHARACTERISCTIC TABLE METHODS PERSONALIZED
-
+	
 	List<Characteristic> displayCharacteristicsByIdUser(Long idUser);
+
+	List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -206,8 +208,11 @@ public interface DAOService {
 
 	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
 
-	void updateUserCharacteristicByIdUser(List<UserCharacteristic> userCharacteristics);
+	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
 
-	List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser);
+	void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
+	
+	void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
+
 
 }

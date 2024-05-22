@@ -163,6 +163,11 @@ public class DAOServiceImpl implements DAOService {
 		return characteristicRep.displayCharacteristicsByIdUser(idUser);
 	}
 
+	@Override
+	public List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser) {
+		return characteristicRep.displayMissingCharacteristicsByIdUser(idUser);
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// PROJECT TABLE METHODS CRUD
@@ -527,27 +532,18 @@ public class DAOServiceImpl implements DAOService {
 	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser) {
-		return userCharRep.displayUserCharacteristicsByIdUser(idUser);
+	public UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic) {
+		return userCharRep.displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic);
 	}
 
 	@Override
-	public void updateUserCharacteristicByIdUser(List<UserCharacteristic> userCharacteristics) {
+	public void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
+		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic)));
+	}
 
-		List<UserCharacteristic> userCharacteristicsSave = displayUserCharacteristicsByIdUser(
-				userCharacteristics.get(0).getUser().getIdUser());
-		
-		for (UserCharacteristic uc : userCharacteristicsSave) {
-			if (!userCharacteristics.contains(uc)) {
-				deleteUserCharacteristic(uc);
-			}
-		}
-		
-		for (UserCharacteristic uc : userCharacteristics) {			
-			if (!userCharacteristicsSave.contains(uc)) {
-				addUserCharacteristic(uc);
-			}
-		}
+	@Override
+	public void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
+		userCharRep.delete(displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic));
 	}
 
 }

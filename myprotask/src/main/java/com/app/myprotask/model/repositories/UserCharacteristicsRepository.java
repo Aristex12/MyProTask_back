@@ -1,6 +1,5 @@
 package com.app.myprotask.model.repositories;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,10 +10,15 @@ import com.app.myprotask.model.UserCharacteristic;
 @Repository
 public interface UserCharacteristicsRepository extends JpaRepository<UserCharacteristic, Long> {
 
+	
 	/**
 	 * @author Manuel
-	 * @return all user characteristics by user 
+	 * @param idUser
+	 * @param idCharacteristic
+	 * @return User Characteristic when User and Characteristic match
 	 */
-	@Query(value = "SELECT * FROM user_characteristic WHERE user_id = ?1", nativeQuery = true)
-	List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser);
+	@Query(value = "SELECT * FROM user_characteristics "
+			+ "WHERE user_id = ?1 "
+			+ "AND characteristic_id = ?2", nativeQuery = true)
+	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
 }

@@ -32,11 +32,11 @@ public class UserCharacteristic {
 	public UserCharacteristic() {
 	}
 
-	public UserCharacteristic(User user, Characteristic characteristic, Integer experience) {
+	public UserCharacteristic(User user, Characteristic characteristic) {
 		this.user = user;
 		this.characteristic = characteristic;
-		this.experience = experience;
 	}
+	
 
 	public User getUser() {
 		return user;
