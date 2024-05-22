@@ -12,6 +12,7 @@ import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.repositories.CharacteristicRepository;
@@ -19,6 +20,7 @@ import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
 import com.app.myprotask.model.repositories.RoleRepository;
 import com.app.myprotask.model.repositories.TaskRepository;
+import com.app.myprotask.model.repositories.UserCharacteristicsRepository;
 import com.app.myprotask.model.repositories.UserProjectRepository;
 import com.app.myprotask.model.repositories.UserRepository;
 import com.app.myprotask.model.repositories.UserTaskRepository;
@@ -52,6 +54,9 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	RoleRepository roleRep;
+
+	@Autowired
+	UserCharacteristicsRepository userCharRep;
 
 	// USER TABLE METHODS CRUD
 
@@ -292,7 +297,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public Integer countActiveTasksByProjectId(Long idProject) {
 		return taskRep.countActiveTasksByProjectId(idProject);
@@ -360,7 +365,7 @@ public class DAOServiceImpl implements DAOService {
 		for (Project p : projectRep.displayActiveProjectsByUserId(idUser)) {
 			for (UserProject up : userProjectRep.displayUserProjectByProjectId(p.getIdProject())) {
 				userProjectByProjectIdByUserId.add(up);
-			}			
+			}
 		}
 		return userProjectByProjectIdByUserId;
 	}
@@ -488,6 +493,61 @@ public class DAOServiceImpl implements DAOService {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
 	}
 
-	
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERCHARACTERISTIC TABLE METHODS CRUD
+
+	@Override
+	public void addUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.save(userCharacteristic);
+	}
+
+	@Override
+	public void updateUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.save(userCharacteristic);
+
+	}
+
+	@Override
+	public void deleteUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.delete(userCharacteristic);
+
+	}
+
+	@Override
+	public List<UserCharacteristic> displayUserCharacteristics() {
+		return userCharRep.findAll();
+	}
+
+	@Override
+	public UserCharacteristic displayUserCharacteristicById(Long id) {
+		return userCharRep.findById(id).orElse(null);
+	}
+
+	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser) {
+		return userCharRep.displayUserCharacteristicsByIdUser(idUser);
+	}
+
+	@Override
+	public void updateUserCharacteristicByIdUser(List<UserCharacteristic> userCharacteristics) {
+
+		List<UserCharacteristic> userCharacteristicsSave = displayUserCharacteristicsByIdUser(
+				userCharacteristics.get(0).getUser().getIdUser());
+		
+		for (UserCharacteristic uc : userCharacteristicsSave) {
+			if (!userCharacteristics.contains(uc)) {
+				deleteUserCharacteristic(uc);
+			}
+		}
+		
+		for (UserCharacteristic uc : userCharacteristics) {			
+			if (!userCharacteristicsSave.contains(uc)) {
+				addUserCharacteristic(uc);
+			}
+		}
+	}
 
 }

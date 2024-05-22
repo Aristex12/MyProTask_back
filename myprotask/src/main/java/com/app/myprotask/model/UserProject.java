@@ -35,6 +35,9 @@ public class UserProject {
 	@Column(name = "exit_date")
 	private Date exitDate;
 
+	@Column(name = "valoration")
+	private String valoration;
+
 	@Column(name = "is_active")
 	private boolean isActive;
 
@@ -91,6 +94,14 @@ public class UserProject {
 		this.role = role;
 	}
 
+	public String getValoration() {
+		return valoration;
+	}
+
+	public void setValoration(String valoration) {
+		this.valoration = valoration;
+	}
+
 	public boolean isActive() {
 		return isActive;
 	}
@@ -106,7 +117,8 @@ public class UserProject {
 	@Override
 	public String toString() {
 		return "UserProject [idUserProject=" + idUserProject + ", user=" + user + ", project=" + project + ", joinDate="
-				+ joinDate + ", exitDate=" + exitDate + ", role=" + role + ", isActive=" + isActive + "]";
+				+ joinDate + ", exitDate=" + exitDate + ", valoration=" + valoration + ", isActive=" + isActive
+				+ ", role=" + role + "]";
 	}
 
 }

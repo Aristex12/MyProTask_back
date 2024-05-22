@@ -8,6 +8,7 @@ import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 
@@ -26,11 +27,11 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-	
-	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) ;
-	
+
+	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
+
 	void updateActiveUser(User user);
-	
+
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
@@ -68,9 +69,9 @@ public interface DAOService {
 	Project displayProjectById(Long id);
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
-	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) ;
-	
+
+	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size);
+
 	void updateActiveProject(Project project);
 
 	List<Project> displayInactiveProjectsByUserId(Long idUser);
@@ -106,11 +107,11 @@ public interface DAOService {
 	Task displayTaskById(Long id);
 
 	// TASK TABLE METHODS PERSONALIZED
-	
+
 	Integer countActiveTasksByProjectId(Long idProject);
-	
+
 	List<Task> displayTasksByProjectId(Long idProject);
-	
+
 	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);
 
 	List<Task> displayActiveTasksByUserId(Long idUser);
@@ -134,13 +135,13 @@ public interface DAOService {
 	UserProject displayUserProjectById(Long id);
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
-	
+
 	List<UserProject> displayUserProjectByActiveProjectByUserId(Long idUser);
-	
+
 	void updateActiveUserProject(UserProject userProject);
-	
+
 	List<UserProject> displayUserProjectByProjectId(Long idProject);
-	
+
 	List<UserProject> displayUserProjectByUserId(Long idUser);
 
 	List<UserProject> displayActiveUserProject();
@@ -162,11 +163,11 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
-	
+
 	List<UserTask> displayUserTasksByUserId(Long idUser);
-	
+
 	List<UserTask> displayUserTasksByTaskId(Long idTask);
-	
+
 	List<UserTask> displayActiveUserTasksByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -188,5 +189,25 @@ public interface DAOService {
 	Integer displayRoleUserProjectByIdUser(Long idUser);
 
 	Role getRoleByName(String name);
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERCHARACTERISTIC TABLE METHODS CRUD
+
+	void addUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	void updateUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	void deleteUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	List<UserCharacteristic> displayUserCharacteristics();
+
+	UserCharacteristic displayUserCharacteristicById(Long id);
+
+	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+
+	void updateUserCharacteristicByIdUser(List<UserCharacteristic> userCharacteristics);
+
+	List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser);
 
 }

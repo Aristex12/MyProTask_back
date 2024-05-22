@@ -1,6 +1,5 @@
 package com.app.myprotask.model;
 
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -9,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
@@ -64,16 +61,13 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_characteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "characteristic_id"))
-	private List<Characteristic> userCharacteristics;
 
 	public User() {
 	}
 
 	public User(String name, String lastName,
 			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
-			Role role, List<Characteristic> userCharacteristics) {
+			Role role) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
 		this.email = generateEmail();
@@ -81,7 +75,6 @@ public class User {
 		this.profilePic = "ruta/defecto.png";
 		this.role = role;
 		this.isActive = true;
-		this.userCharacteristics = userCharacteristics;
 	}
 
 	/**
@@ -218,13 +211,6 @@ public class User {
 		this.isActive = isActive;
 	}
 
-	public List<Characteristic> getUserCharacteristics() {
-		return userCharacteristics;
-	}
-
-	public void setUserCharacteristics(List<Characteristic> userCharacteristics) {
-		this.userCharacteristics = userCharacteristics;
-	}
 
 	public Long getIdUser() {
 		return idUser;
@@ -234,7 +220,7 @@ public class User {
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
 				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
-				+ ", isActive=" + isActive + ", userCharacteristics=" + userCharacteristics + "]";
+				+ ", isActive=" + isActive;
 	}
 
 }
