@@ -1,6 +1,6 @@
 package com.app.myprotask.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,7 @@ public class Event {
 	private String description;
 
 	@Column(name = "finish_date", nullable = false)
-	private Date finishDate;
+	private LocalDateTime finishDate;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -41,7 +41,7 @@ public class Event {
 	public Event() {
 	}
 
-	public Event(String title, String description, Date finishDate, User user) {
+	public Event(String title, String description, LocalDateTime finishDate, User user) {
 		this.title = title;
 		this.description = description;
 		this.finishDate = finishDate;
@@ -64,11 +64,11 @@ public class Event {
 		this.description = description;
 	}
 
-	public Date getFinishDate() {
+	public LocalDateTime getFinishDate() {
 		return finishDate;
 	}
 
-	public void setFinishDate(Date finishDate) {
+	public void setFinishDate(LocalDateTime finishDate) {
 		this.finishDate = finishDate;
 	}
 

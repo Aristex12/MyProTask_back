@@ -49,7 +49,6 @@ public class EventController {
 	 */
 	@PostMapping(value = "/addEvent")
 	public void addEvent(@RequestBody Event event) {
-
 		daoS.addEvent(event);
 	}
 	
