@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,18 +48,25 @@ public class EventController {
 	 * @return 
 	 */
 	@PostMapping(value = "/addEvent")
-	public void addEventByIdUser(@RequestBody Event event) {
+	public void addEvent(@RequestBody Event event) {
 
 		daoS.addEvent(event);
 	}
 	
-	@DeleteMapping(value = "/deleteEventByIdUser")
-	public void deleteEventByIdUser(@RequestBody Event event) {
+	@DeleteMapping(value = "/deleteEvent")
+	public void deleteEvent(@RequestParam("idEvent") Long idEvent) {
 
-		
-		daoS.deleteEvent(event);
+		daoS.deleteEvent(daoS.displayEventById(idEvent));
 	}
 	
 	
-
+	@PutMapping(value = "/updateEvent")
+	public void updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
+		Event event = daoS.displayEventById(idEvent);
+		event.setTitle(dataEvent.getTitle());
+		event.setDescription(dataEvent.getDescription());
+		event.setFinishDate(dataEvent.getFinishDate());
+		daoS.updateEvent(event);
+	}
+	
 }
