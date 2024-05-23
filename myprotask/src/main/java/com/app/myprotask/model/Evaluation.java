@@ -28,13 +28,13 @@ public class Evaluation {
 	@Column(name = "individual_work", nullable = false)
 	private Integer individualWork;
 
-	@Column(name = "iniciative", nullable = false)
-	private Integer iniciative;
+	@Column(name = "initiative", nullable = false)
+	private Integer initiative;
 
 	@Column(name = "problem_resolution", nullable = false)
 	private Integer problemResolution;
 
-	@Column(name = "observation", nullable = false)
+	@Column(name = "observation")
 	private String observation;
 
 	@Column(name = "date", nullable = false)
@@ -47,11 +47,11 @@ public class Evaluation {
 	public Evaluation() {
 	}
 
-	public Evaluation(Integer teamWork, Integer individualWork, Integer iniciative, Integer problemResolution,
+	public Evaluation(Integer teamWork, Integer individualWork, Integer initiative, Integer problemResolution,
 			String observation, UserProject userProject) {
 		this.teamWork = teamWork;
 		this.individualWork = individualWork;
-		this.iniciative = iniciative;
+		this.initiative = initiative;
 		this.problemResolution = problemResolution;
 		this.observation = observation;
 		this.date = generateLocalDate();
@@ -82,12 +82,12 @@ public class Evaluation {
 		this.individualWork = individualWork;
 	}
 
-	public Integer getIniciative() {
-		return iniciative;
+	public Integer getInitiative() {
+		return initiative;
 	}
 
-	public void setIniciative(Integer iniciative) {
-		this.iniciative = iniciative;
+	public void setInitiative(Integer initiative) {
+		this.initiative = initiative;
 	}
 
 	public Integer getProblemResolution() {
@@ -129,7 +129,7 @@ public class Evaluation {
 	@Override
 	public String toString() {
 		return "Evaluation [idCategory=" + idCategory + ", teamWork=" + teamWork + ", individualWork=" + individualWork
-				+ ", iniciative=" + iniciative + ", problemResolution=" + problemResolution + ", observation="
+				+ ", iniciative=" + initiative + ", problemResolution=" + problemResolution + ", observation="
 				+ observation + ", date=" + date + ", userProject=" + userProject + "]";
 	}
 
