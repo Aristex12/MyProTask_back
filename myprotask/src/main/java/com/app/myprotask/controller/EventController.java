@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Event;
-import com.app.myprotask.model.Project;
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
