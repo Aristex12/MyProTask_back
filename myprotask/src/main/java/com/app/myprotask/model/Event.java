@@ -19,21 +19,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "events")
 public class Event {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_event")
 	private Long idEvent;
-	
+
 	@Column(name = "title", nullable = false, length = 200)
 	private String title;
 
 	@Column(name = "description", length = 500)
 	private String description;
-	
-	@Column(name = "finish_date")
+
+	@Column(name = "finish_date", nullable = false)
 	private Date finishDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -46,6 +46,42 @@ public class Event {
 		this.description = description;
 		this.finishDate = finishDate;
 		this.user = user;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Long getIdEvent() {
+		return idEvent;
 	}
 
 	@Override
