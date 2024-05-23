@@ -29,7 +29,7 @@ public class UserCharacteristicsController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/addUserCharacteristicByIdUser")
-	public void addUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("idCharacteristic") Long idCharacteristic) {
+	public void addUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("idCharacteristic") Long idCharacteristic, @RequestParam("experience") Integer experience) {
 		
 		daoS.addUserCharacteristicByIdUser(idUser, idCharacteristic);
 	}
