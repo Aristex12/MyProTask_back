@@ -29,8 +29,8 @@ public interface CharacteristicRepository extends JpaRepository<Characteristic, 
 	 * @param idUser
 	 * @return all the characteristics that the given user is missing
 	 */
-	@Query(value = "SELECT c.* FROM characteristics c"
-			+ "LEFT JOIN user_characteristics uc ON c.id_characteristic = uc.characteristic_id"
+	@Query(value = "SELECT c.* FROM characteristics c "
+			+ "LEFT JOIN user_characteristics uc ON c.id_characteristic = uc.characteristic_id "
 			+ "WHERE uc.user_id != 1 OR uc.user_id IS NULL", nativeQuery = true)
 	List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser);
 }
