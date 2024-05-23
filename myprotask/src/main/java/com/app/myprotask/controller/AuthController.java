@@ -35,25 +35,20 @@ public class AuthController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
         User user;
         try {
-            // Log del email y la contraseña antes de la autenticación
             System.out.println("Email: " + authenticationRequest.getEmail());
             System.out.println("Password: " + authenticationRequest.getPassword());
 
-            // Busca el usuario por email
             user = userRepository.findByEmail(authenticationRequest.getEmail());
             if (user == null) {
                 System.out.println("User not found");
                 throw new BadCredentialsException("Incorrect email or password");
             }
 
-            System.out.println("Encoded password from DB: " + user.getPassword());
             if (!passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())) {
-                System.out.println("Provided password: " + authenticationRequest.getPassword());
                 System.out.println("Password does not match");
                 throw new BadCredentialsException("Incorrect email or password");
             }
 
-            // Autentica al usuario
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
             );
@@ -61,8 +56,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect email or password");
         }
 
-        // Genera el token JWT
-        final String jwt = jwtUtil.generateToken(user.getEmail());
+        final String jwt = jwtUtil.generateToken(user.getIdUser(), user.getEmail(), user.getRole().getName(), user.getName(), user.getLastName());
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }

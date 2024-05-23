@@ -18,11 +18,15 @@ public class JWTUtil {
     @Autowired
     private JwtProperties jwtProperties;
 
-    public String generateToken(String username) {
+    public String generateToken(Long userId, String email, String role, String firstName, String lastName) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecret());
             return JWT.create()
-                    .withSubject(username)
+            		.withClaim("userId", userId)
+                    .withSubject(email)
+                    .withClaim("firstName", firstName)
+                    .withClaim("lastName", lastName)
+                    .withClaim("role", role)
                     .withIssuedAt(new Date())
                     .withExpiresAt(new Date(System.currentTimeMillis() + jwtProperties.getExpiration()))
                     .sign(algorithm);
@@ -31,13 +35,29 @@ public class JWTUtil {
         }
     }
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         return decodeJWT(token).getSubject();
     }
 
+    public Long extractUserId(String token) {
+        return decodeJWT(token).getClaim("userId").asLong();
+    }
+
+    public String extractRole(String token) {
+        return decodeJWT(token).getClaim("role").asString();
+    }
+
+    public String extractFirstName(String token) {
+        return decodeJWT(token).getClaim("firstName").asString();
+    }
+
+    public String extractLastName(String token) {
+        return decodeJWT(token).getClaim("lastName").asString();
+    }
+
     public boolean validateToken(String token, UserDetails userDetails) {
-        String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        String email = extractEmail(token);
+        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
