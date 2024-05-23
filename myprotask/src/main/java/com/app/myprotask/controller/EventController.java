@@ -1,5 +1,7 @@
 package com.app.myprotask.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Event;
-import com.app.myprotask.model.Project;
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
@@ -35,7 +35,7 @@ public class EventController {
 	 * @return all events of a specific user
 	 */
 	@GetMapping(value = "/displayEventsByIdUser")
-	public Project displayEventsByIdUser(@RequestParam("idEvent") Long idEvent) {
+	public List<Event> displayEventsByIdUser(@RequestParam("idEvent") Long idEvent) {
 		return daoS.displayEventsByIdUser(idEvent);
 	}
 	
