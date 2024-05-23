@@ -1,6 +1,5 @@
 package com.app.myprotask.model;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,6 +45,9 @@ public class User {
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
 	private String password;
 
+	@Column(name = "description", length = 500)
+	private String description;
+
 	@Column(name = "profile_pic")
 	@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.")
 	private String profilePic;
@@ -54,13 +56,15 @@ public class User {
 	@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.")
 	private String cv;
 
+	@Column(name = "avg_last_eva")
+	private Double avgLastEva;
+
 	@Column(name = "is_active")
 	private boolean isActive;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id")
 	private Role role;
-
 
 	public User() {
 	}
@@ -179,6 +183,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getProfilePic() {
 		return profilePic;
 	}
@@ -193,6 +205,14 @@ public class User {
 
 	public void setCv(String cv) {
 		this.cv = cv;
+	}
+
+	public Double getAvgLastEva() {
+		return avgLastEva;
+	}
+
+	public void setAvgLastEva(Double avgLastEva) {
+		this.avgLastEva = avgLastEva;
 	}
 
 	public Role getRole() {
@@ -211,7 +231,6 @@ public class User {
 		this.isActive = isActive;
 	}
 
-
 	public Long getIdUser() {
 		return idUser;
 	}
@@ -219,8 +238,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
-				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
-				+ ", isActive=" + isActive;
+				+ email + ", password=" + password + ", description=" + description + ", profilePic=" + profilePic
+				+ ", cv=" + cv + ", avgLastEva=" + avgLastEva + ", isActive=" + isActive + ", role=" + role + "]";
 	}
 
 }

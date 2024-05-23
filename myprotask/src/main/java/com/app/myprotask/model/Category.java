@@ -16,14 +16,18 @@ public class Category {
 	@Column(name = "id_category")
 	private Long idCategory;
 
-	@Column(name = "name", length = 100, unique = true)
+	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
+
+	@Column(name = "is_technical", nullable = false)
+	private boolean isTechnical;
 
 	public Category() {
 	}
 
-	public Category(String name) {
+	public Category(String name, boolean isTechnical) {
 		this.name = name;
+		this.isTechnical = isTechnical;
 	}
 
 	public String getName() {
@@ -34,13 +38,21 @@ public class Category {
 		this.name = name;
 	}
 
+	public boolean isTechnical() {
+		return isTechnical;
+	}
+
+	public void setTechnical(boolean isTechnical) {
+		this.isTechnical = isTechnical;
+	}
+
 	public Long getIdCategory() {
 		return idCategory;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [idCategory=" + idCategory + ", name=" + name + "]";
+		return "Category [idCategory=" + idCategory + ", name=" + name + ", isTechnical=" + isTechnical + "]";
 	}
 
 }
