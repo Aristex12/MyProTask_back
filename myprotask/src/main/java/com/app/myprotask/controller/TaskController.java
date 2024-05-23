@@ -32,10 +32,10 @@ public class TaskController {
 	 * @param idUser
 	 * @return all active tasks from actives projects of a user
 	 */
-//	@GetMapping(value = "/displayActiveTasksActiveProjectByUserId")
-//	public List<Task> displayActiveTasksActiveProjectByUserId(@RequestParam("idUser") Long idUser) {
-//		return daoS.displayActiveTasksActiveProjectByUserId(idUser);
-//	}
+	@GetMapping(value = "/displayActiveTasksActiveProjectByIdUser")
+	public List<Task> displayActiveTasksActiveProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveTasksActiveProjectByIdUser(idUser);
+	}
 
 	/**
 	 * Used in calendar view [ User ]
@@ -44,9 +44,9 @@ public class TaskController {
 	 * @param idUser
 	 * @return lists of all tasks of the user ordered by projects
 	 */
-	@GetMapping(value = "/displayTasksByUserId")
-	public List<Task> displayTasksByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayTasksByUserId(idUser);
+	@GetMapping(value = "/displayTasksByIdUser")
+	public List<Task> displayTasksByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayTasksByIdUser(idUser);
 	}
 
 	/**
@@ -56,9 +56,9 @@ public class TaskController {
 	 * @param idUser
 	 * @return List of tasks of the user
 	 */
-	@GetMapping(value = "/displayActiveTasksByUserId")
-	public List<Task> displayActiveTasksByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveTasksByUserId(idUser);
+	@GetMapping(value = "/displayActiveTasksByIdUser")
+	public List<Task> displayActiveTasksByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayActiveTasksByIdUser(idUser);
 	}
 
 	/**
@@ -68,9 +68,21 @@ public class TaskController {
 	 * @param idUser
 	 * @return List of tasks of the project
 	 */
-	@GetMapping(value = "/displayTasksByProjectId")
-	public List<Task> displayActiveTasksByProjectId(@RequestParam("idProject") Long idProject) {
-		return daoS.displayActiveTasksByProjectId(idProject);
+	@GetMapping(value = "/displayActiveTasksByIdProject")
+	public List<Task> displayActiveTasksByIdProject(@RequestParam("idProject") Long idProject) {
+		return daoS.displayActiveTasksByIdProject(idProject);
+	}
+	
+	/**
+	 * Used in Home Project [ User ]
+	 *
+	 * @author Alejandro
+	 * @param idUser
+	 * @return Count all tasks of the project
+	 */
+	@GetMapping(value = "/countActiveTasksByIdProject")
+	public Integer countActiveTasksByIdProject(@RequestParam("idProject") Long idProject) {
+		return daoS.countActiveTasksByIdProject(idProject);
 	}
 
 }

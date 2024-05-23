@@ -1,5 +1,6 @@
 package com.app.myprotask.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.repositories.CharacteristicRepository;
@@ -18,6 +20,7 @@ import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
 import com.app.myprotask.model.repositories.RoleRepository;
 import com.app.myprotask.model.repositories.TaskRepository;
+import com.app.myprotask.model.repositories.UserCharacteristicsRepository;
 import com.app.myprotask.model.repositories.UserProjectRepository;
 import com.app.myprotask.model.repositories.UserRepository;
 import com.app.myprotask.model.repositories.UserTaskRepository;
@@ -52,6 +55,9 @@ public class DAOServiceImpl implements DAOService {
 	@Autowired
 	RoleRepository roleRep;
 
+	@Autowired
+	UserCharacteristicsRepository userCharRep;
+
 	// USER TABLE METHODS CRUD
 
 	@Override
@@ -84,6 +90,32 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) {
+		return userRep.searchUsersByCharacteristics(characteristicsIds, size);
+	}
+
+	@Override
+	public void updateActiveUser(User user) {
+		if (user.isActive()) {
+			user.setActive(false);
+
+			for (UserProject up : displayUserProjectByIdUser(user.getIdUser())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+			for (UserTask ut : displayUserTasksByUserId(user.getIdUser())) {
+				ut.setActive(false);
+				updateUserTask(ut);
+			}
+
+		} else {
+			user.setActive(true);
+		}
+		updateUser(user);
+
+	}
 
 	@Override
 	public Long searchUserByEmailPassword(String email, String password) {
@@ -131,6 +163,11 @@ public class DAOServiceImpl implements DAOService {
 		return characteristicRep.displayCharacteristicsByIdUser(idUser);
 	}
 
+	@Override
+	public List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser) {
+		return characteristicRep.displayMissingCharacteristicsByIdUser(idUser);
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// PROJECT TABLE METHODS CRUD
@@ -163,13 +200,45 @@ public class DAOServiceImpl implements DAOService {
 	// PROJECT TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<Project> displayInactiveProjectsByUserId(Long idUser) {
-		return projectRep.displayInactiveProjectsByUserId(idUser);
+	public List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) {
+		return projectRep.searchProjectsByCharacteristics(characteristicsIds, size);
 	}
 
 	@Override
-	public List<Project> displayActiveProjectsByUserId(Long idUser) {
-		return projectRep.displayActiveProjectsByUserId(idUser);
+	public void updateActiveProject(Project project) {
+
+		if (project.isActive()) {
+			project.setActive(false);
+
+			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
+				up.setActive(false);
+				updateUserProject(up);
+			}
+
+			for (Task t : displayTasksByIdProject(project.getIdProject())) {
+				t.setActive(false);
+				updateTask(t);
+
+				for (UserTask ut : displayUserTasksByTaskId(t.getIdTask())) {
+					ut.setActive(false);
+					updateUserTask(ut);
+				}
+			}
+
+		} else {
+			project.setActive(true);
+		}
+		updateProject(project);
+	}
+
+	@Override
+	public List<Project> displayInactiveProjectsByIdUser(Long idUser) {
+		return projectRep.displayInactiveProjectsByIdUser(idUser);
+	}
+
+	@Override
+	public List<Project> displayActiveProjectsByIdUser(Long idUser) {
+		return projectRep.displayActiveProjectsByIdUser(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -235,18 +304,33 @@ public class DAOServiceImpl implements DAOService {
 	// TASK TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<Task> displayActiveTasksByUserId(Long idUser) {
-		return taskRep.displayActiveTasksByUserId(idUser);
+	public Integer countActiveTasksByIdProject(Long idProject) {
+		return taskRep.countActiveTasksByIdProject(idProject);
 	}
 
 	@Override
-	public List<Task> displayActiveTasksByProjectId(Long idProject) {
-		return taskRep.displayActiveTasksByProjectId(idProject);
+	public List<Task> displayTasksByIdProject(Long idProject) {
+		return taskRep.displayTasksByIdProject(idProject);
 	}
 
 	@Override
-	public List<Task> displayTasksByUserId(Long idUser) {
-		return taskRep.displayTasksByUserId(idUser);
+	public List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser) {
+		return taskRep.displayActiveTasksActiveProjectByIdUser(idUser);
+	}
+
+	@Override
+	public List<Task> displayActiveTasksByIdUser(Long idUser) {
+		return taskRep.displayActiveTasksByIdUser(idUser);
+	}
+
+	@Override
+	public List<Task> displayActiveTasksByIdProject(Long idProject) {
+		return taskRep.displayActiveTasksByIdProject(idProject);
+	}
+
+	@Override
+	public List<Task> displayTasksByIdUser(Long idUser) {
+		return taskRep.displayTasksByIdUser(idUser);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -280,15 +364,53 @@ public class DAOServiceImpl implements DAOService {
 	// USERPROJECT TABLE METHODS PERSONALIZED
 
 	@Override
+	public List<UserProject> displayUserProjectByActiveProjectByIdUser(Long idUser) {
+
+		List<UserProject> userProjectByProjectIdByIdUser = new ArrayList<>();
+		for (Project p : projectRep.displayActiveProjectsByIdUser(idUser)) {
+			for (UserProject up : userProjectRep.displayUserProjectByProjectId(p.getIdProject())) {
+				userProjectByProjectIdByIdUser.add(up);
+			}
+		}
+		return userProjectByProjectIdByIdUser;
+	}
+
+	@Override
+	public void updateActiveUserProject(UserProject userProject) {
+		// We will update true or false based on the conditions, if it cannot be done no
+		// update will be performed
+		if (userProject.isActive()) {
+			userProject.setActive(false);
+			updateUserProject(userProject);
+		} else {
+			if (displayUserById(userProject.getUser().getIdUser()).isActive()
+					&& displayProjectById(userProject.getProject().getIdProject()).isActive()) {
+				userProject.setActive(true);
+				updateUserProject(userProject);
+			}
+		}
+	}
+
+	@Override
+	public List<UserProject> displayUserProjectByProjectId(Long idProject) {
+		return userProjectRep.displayUserProjectByProjectId(idProject);
+	}
+
+	@Override
+	public List<UserProject> displayUserProjectByIdUser(Long idUser) {
+		return userProjectRep.displayUserProjectByUserId(idUser);
+	}
+
+	@Override
 	public List<UserProject> displayActiveUserProject() {
 		return userProjectRep.displayActiveUserProject();
 	}
 
 	@Override
-	public List<UserProject> displayActiveUserProjectByUserId(Long idUser) {
+	public List<UserProject> displayActiveUserProjectByIdUser(Long idUser) {
 		return userProjectRep.displayActiveUserProjectByUserId(idUser);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// USERTASK TABLE METHODS
@@ -319,6 +441,21 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<UserTask> displayUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayUserTasksByUserId(idUser);
+	}
+
+	@Override
+	public List<UserTask> displayUserTasksByTaskId(Long idTask) {
+		return userTaskRep.displayUserTasksByTaskId(idTask);
+	}
+
+	@Override
+	public List<UserTask> displayActiveUserTasksByUserId(Long idUser) {
+		return userTaskRep.displayActiveUserTasksByUserId(idUser);
+	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -359,6 +496,54 @@ public class DAOServiceImpl implements DAOService {
 	@Override
 	public Integer displayRoleUserProjectByIdUser(Long idUser) {
 		return roleRep.displayRoleUserProjectByIdUser(idUser);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERCHARACTERISTIC TABLE METHODS CRUD
+
+	@Override
+	public void addUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.save(userCharacteristic);
+	}
+
+	@Override
+	public void updateUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.save(userCharacteristic);
+
+	}
+
+	@Override
+	public void deleteUserCharacteristic(UserCharacteristic userCharacteristic) {
+		userCharRep.delete(userCharacteristic);
+
+	}
+
+	@Override
+	public List<UserCharacteristic> displayUserCharacteristics() {
+		return userCharRep.findAll();
+	}
+
+	@Override
+	public UserCharacteristic displayUserCharacteristicById(Long id) {
+		return userCharRep.findById(id).orElse(null);
+	}
+
+	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+
+	@Override
+	public UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic) {
+		return userCharRep.displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic);
+	}
+
+	@Override
+	public void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience) {
+		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic),experience));
+	}
+
+	@Override
+	public void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
+		userCharRep.delete(displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic));
 	}
 
 }

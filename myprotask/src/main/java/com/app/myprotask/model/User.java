@@ -1,7 +1,5 @@
 package com.app.myprotask.model;
 
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,8 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
@@ -46,8 +42,11 @@ public class User {
 	private String email;
 
 	@Column(name = "password", nullable = false)
-	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.")
 	private String password;
+
+	@Column(name = "description", length = 500)
+	private String description;
 
 	@Column(name = "profile_pic")
 	@Pattern(regexp = ".+\\.(png|jpg|jpeg)$", message = "El archivo debe ser de formato PNG, JPG o JPEG.")
@@ -57,6 +56,9 @@ public class User {
 	@Pattern(regexp = ".+\\.pdf$", message = "El archivo debe ser de formato PDF.")
 	private String cv;
 
+	@Column(name = "avg_last_eva")
+	private Double avgLastEva;
+
 	@Column(name = "is_active")
 	private boolean isActive;
 
@@ -64,16 +66,12 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_characteristics", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "characteristic_id"))
-	private List<Characteristic> userCharacteristics;
-
 	public User() {
 	}
 
 	public User(String name, String lastName,
-			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
-			Role role, List<Characteristic> userCharacteristics) {
+			@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~])(?=.*[0-9]).{8,}$", message = "La contraseña debe contener al menos una mayúscula, un carácter especial, un número y tener una longitud mínima de 8 caracteres.") String password,
+			Role role) {
 		this.name = splitNameBySpaces(name);
 		this.lastName = splitLastNameBySpaces(lastName);
 		this.email = generateEmail();
@@ -81,7 +79,6 @@ public class User {
 		this.profilePic = "ruta/defecto.png";
 		this.role = role;
 		this.isActive = true;
-		this.userCharacteristics = userCharacteristics;
 	}
 
 	/**
@@ -186,6 +183,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getProfilePic() {
 		return profilePic;
 	}
@@ -200,6 +205,14 @@ public class User {
 
 	public void setCv(String cv) {
 		this.cv = cv;
+	}
+
+	public Double getAvgLastEva() {
+		return avgLastEva;
+	}
+
+	public void setAvgLastEva(Double avgLastEva) {
+		this.avgLastEva = avgLastEva;
 	}
 
 	public Role getRole() {
@@ -218,14 +231,6 @@ public class User {
 		this.isActive = isActive;
 	}
 
-	public List<Characteristic> getUserCharacteristics() {
-		return userCharacteristics;
-	}
-
-	public void setUserCharacteristics(List<Characteristic> userCharacteristics) {
-		this.userCharacteristics = userCharacteristics;
-	}
-
 	public Long getIdUser() {
 		return idUser;
 	}
@@ -233,8 +238,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", name=" + name + ", lastName=" + lastName + ", das=" + das + ", email="
-				+ email + ", password=" + password + ", profilePic=" + profilePic + ", cv=" + cv + ", role=" + role
-				+ ", isActive=" + isActive + ", userCaracteristics=" + userCharacteristics + "]";
+				+ email + ", password=" + password + ", description=" + description + ", profilePic=" + profilePic
+				+ ", cv=" + cv + ", avgLastEva=" + avgLastEva + ", isActive=" + isActive + ", role=" + role + "]";
 	}
 
 }
