@@ -18,10 +18,10 @@ import com.app.myprotask.model.dao.DAOService;
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
 		RequestMethod.DELETE })
 public class UserCharacteristicsController {
-	
+
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * Add UserCharacteristics with the specific characteristic
 	 * 
@@ -29,11 +29,12 @@ public class UserCharacteristicsController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/addUserCharacteristicByIdUser")
-	public void addUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("idCharacteristic") Long idCharacteristic, @RequestParam("experience") Integer experience) {
-		
-		daoS.addUserCharacteristicByIdUser(idUser, idCharacteristic);
+	public void addUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser,
+			@RequestParam("idCharacteristic") Long idCharacteristic, @RequestParam("experience") Integer experience) {
+
+		daoS.addUserCharacteristicByIdUser(idUser, idCharacteristic, experience);
 	}
-	
+
 	/**
 	 * Delete UserCharacteristics with the specific characteristic
 	 * 
@@ -41,8 +42,9 @@ public class UserCharacteristicsController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/deleteUserCharacteristicByIdUser")
-	public void deleteUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("idCharacteristic") Long idCharacteristic) {
-		
+	public void deleteUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser,
+			@RequestParam("idCharacteristic") Long idCharacteristic) {
+
 		daoS.deleteUserCharacteristicByIdUser(idUser, idCharacteristic);
 	}
 }

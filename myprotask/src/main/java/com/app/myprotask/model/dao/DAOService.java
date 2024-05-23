@@ -210,7 +210,7 @@ public interface DAOService {
 
 	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
 
-	void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
+	void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience);
 	
 	void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
 

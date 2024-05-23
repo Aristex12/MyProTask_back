@@ -537,8 +537,8 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	@Override
-	public void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
-		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic)));
+	public void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience) {
+		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic),experience));
 	}
 
 	@Override
