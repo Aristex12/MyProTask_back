@@ -3,6 +3,7 @@ package com.app.myprotask.model.dao;
 import java.util.List;
 
 import com.app.myprotask.model.Characteristic;
+import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
@@ -27,7 +28,7 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-
+	
 	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
 
 	void updateActiveUser(User user);
@@ -214,5 +215,22 @@ public interface DAOService {
 	
 	void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
 
+	//////////////////////////////////////////////////////////////////////////////
+
+	// EVENT TABLE METHODS CRUD
+	
+	void addEvent(Event event);
+
+	void updateEvent(Event event);
+
+	void deleteEvent(Event event);
+
+	List<Event> displayEvents();
+
+	Event displayEventById(Long id);
+	
+	// EVENT TABLE METHODS PERSONALIZED
+
+	List<Event> displayEventsByIdUser(Long idUser);
 
 }

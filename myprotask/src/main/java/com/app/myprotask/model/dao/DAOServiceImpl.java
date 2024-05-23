@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.myprotask.model.Characteristic;
+import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
@@ -16,6 +17,7 @@ import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.repositories.CharacteristicRepository;
+import com.app.myprotask.model.repositories.EventRepository;
 import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
 import com.app.myprotask.model.repositories.RoleRepository;
@@ -57,6 +59,9 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	UserCharacteristicsRepository userCharRep;
+	
+	@Autowired
+	EventRepository eventRep;
 
 	// USER TABLE METHODS CRUD
 
@@ -545,5 +550,43 @@ public class DAOServiceImpl implements DAOService {
 	public void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
 		userCharRep.delete(displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic));
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////
+
+	// EVENT TABLE METHODS CRUD
+
+	@Override
+	public void addEvent(Event event) {
+		eventRep.save(event);		
+	}
+
+	@Override
+	public void updateEvent(Event event) {
+		eventRep.save(event);		
+	}
+
+	@Override
+	public void deleteEvent(Event event) {
+		eventRep.delete(event);		
+	}
+
+	@Override
+	public List<Event> displayEvents() {
+		return eventRep.findAll();
+	}
+
+	@Override
+	public Event displayEventById(Long id) {
+		return eventRep.findById(id).orElse(null);
+	}
+	
+	// EVENT TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<Event> displayEventsByIdUser(Long idUser) {
+		return eventRep.displayEventsByIdUser(idUser);
+	}
+
+	
 
 }
