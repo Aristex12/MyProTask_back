@@ -18,7 +18,10 @@ import com.app.myprotask.model.dao.DAOService;
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
         RequestMethod.DELETE })
 public class UserController {
-
+	
+	@Autowired
+    BCryptPasswordEncoder passwordEncoder;  // Inyectar BCryptPasswordEncoder
+	
 	@Autowired
 	DAOService daoS;
 	
@@ -46,8 +49,7 @@ public class UserController {
 		daoS.updateActiveUser(daoS.displayUserById(idUser));
 	}
 
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;  // Inyectar BCryptPasswordEncoder
+    
 
     @GetMapping(value = "/displayUserById")
     public User displayUserById(@RequestParam("idUser") Long idUser) {
