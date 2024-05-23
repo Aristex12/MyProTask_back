@@ -62,29 +62,21 @@ public class UserController {
         return daoS.searchUserByEmailPassword(email, password);
     }
 
-//	/**
-//	 * Used in register view [ Admin ]
-//	 * 
-//	 * Inserts a new user with data received from the form, here we will
-//	 * automatically generate the DAS and email
-//	 *
-//	 * @author Manuel
-//	 * @param user
-//	 */
-//	@PostMapping(value = "/addUser")
-//	public void addUser(@RequestBody User userData) {
-//
-//		List<Characteristic> userCharacteristics = new ArrayList<>();
-//
-//		// I create a list of characteristics by retrieving them using the obtained ID,
-//		// and we add them to the user to be inserted
-//		for (Characteristic c : userData.getUserCharacteristics()) {
-//			userCharacteristics.add(daoS.displayCharacteristicById(c.getIdCharacteristic()));
-//		}
-//
-//		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(),
-//				daoS.getRoleByName("employee"), userCharacteristics));
-//	}
+	/**
+	 * Used in register view [ Admin ]
+	 * 
+	 * Inserts a new user with data received from the form, here we will
+	 * automatically generate the DAS and email
+	 *
+	 * @author Manuel
+	 * @param user
+	 */
+	@PostMapping(value = "/addUser")
+	public void addUser(@RequestParam ("name") String name, @RequestParam ("lastName") String lastName) {
+
+		daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"),
+				daoS.getRoleByName("employee")));
+	}
 
 	/**
 	 * Used in EditUser [ User ]
