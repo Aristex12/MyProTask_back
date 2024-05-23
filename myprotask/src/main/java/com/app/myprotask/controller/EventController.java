@@ -1,5 +1,7 @@
 package com.app.myprotask.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +37,7 @@ public class EventController {
 	 * @return all events of a specific user
 	 */
 	@GetMapping(value = "/displayEventsByIdUser")
-	public Project displayEventsByIdUser(@RequestParam("idEvent") Long idEvent) {
+	public List<Event> displayEventsByIdUser(@RequestParam("idEvent") Long idEvent) {
 		return daoS.displayEventsByIdUser(idEvent);
 	}
 	
