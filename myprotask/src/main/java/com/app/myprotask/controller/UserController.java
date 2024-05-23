@@ -87,13 +87,32 @@ public class UserController {
 	 * @param idUser
 	 * @param userCharacteristics
 	 */
-	@PutMapping(value = "/updateUserByIdUser")
-	public void updateUserByIdUser(@RequestParam("idUser") Long idUser, @RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic) {
+	@PutMapping(value = "/updateCvProfilePicUserById")
+	public void updateCvProfilePicUserById(@RequestParam("idUser") Long idUser, @RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic) {
 
 		User user = daoS.displayUserById(idUser);
 
 		user.setCv(cv);
 		user.setProfilePic(profilePic);
+
+		daoS.updateUser(user);
+	}
+	
+	/**
+	 * Used in EditUser [ User ]
+	 * 
+	 * Updates the introduced user with the new password
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @param password
+	 */
+	@PutMapping(value = "/updatePasswordUserById")
+	public void updatePasswordUserById(@RequestParam("idUser") Long idUser, @RequestParam("password") String password) {
+
+		User user = daoS.displayUserById(idUser);
+
+		user.setPassword(password);
 
 		daoS.updateUser(user);
 	}
