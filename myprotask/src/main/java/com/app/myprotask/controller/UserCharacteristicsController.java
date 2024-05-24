@@ -1,7 +1,8 @@
 package com.app.myprotask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class UserCharacteristicsController {
 	 * @author Alejandro
 	 * @param userCharacteristics
 	 */
-	@PutMapping(value = "/addUserCharacteristicByIdUser")
+	@PostMapping(value = "/addUserCharacteristicByIdUser")
 	public void addUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser,
 			@RequestParam("idCharacteristic") Long idCharacteristic, @RequestParam("experience") Integer experience) {
 
@@ -37,7 +38,7 @@ public class UserCharacteristicsController {
 	 * @author Alejandro
 	 * @param userCharacteristics
 	 */
-	@PutMapping(value = "/deleteUserCharacteristicByIdUser")
+	@DeleteMapping(value = "/deleteUserCharacteristicByIdUser")
 	public void deleteUserCharacteristicByIdUser(@RequestParam("idUser") Long idUser,
 			@RequestParam("idCharacteristic") Long idCharacteristic) {
 
