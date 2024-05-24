@@ -43,7 +43,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 			+ "AND ut.user_id = ?1 "
 			+ "AND t.is_active = true "
 			+ "AND p.is_active = true "
-			+ "AND ut.is_active"
+			+ "AND ut.is_active "
 			+ "ORDER BY CASE WHEN priority = 'HIGH' THEN 1 WHEN priority = 'MID' THEN 2 WHEN priority = 'LOW' THEN 3 END, t.name",
 			nativeQuery = true)
 	List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser);
