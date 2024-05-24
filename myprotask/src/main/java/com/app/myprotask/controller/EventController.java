@@ -33,7 +33,7 @@ public class EventController {
 	 * @return all events of a specific user
 	 */
 	@GetMapping(value = "/displayEventsByIdUser")
-	public List<Event> displayEventsByIdUser(@RequestParam("idEvent") Long idEvent) {
+	public List<Event> displayEventsByIdUser(@RequestParam("idUser") Long idEvent) {
 		return daoS.displayEventsByIdUser(idEvent);
 	}
 	
@@ -61,7 +61,6 @@ public class EventController {
 	 */
 	@DeleteMapping(value = "/deleteEvent")
 	public void deleteEvent(@RequestParam("idEvent") Long idEvent) {
-
 		daoS.deleteEvent(daoS.displayEventById(idEvent));
 	}
 	
