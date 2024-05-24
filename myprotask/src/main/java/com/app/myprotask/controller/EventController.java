@@ -26,6 +26,7 @@ public class EventController {
 	DAOService daoS;
 	
 	/**
+	 * Used in Calendar view [User]
 	 * 
 	 * @author Alejandro
 	 * @param idEvent
@@ -37,6 +38,8 @@ public class EventController {
 	}
 	
 	/**
+	 * Used in Calendar view [User]
+	 * 
 	 * Add one event of a specific user
 	 * 
 	 * @author Alejandro
@@ -48,13 +51,29 @@ public class EventController {
 		daoS.addEvent(event);
 	}
 	
+	/**
+	 * Used in Calendar view [User]
+	 * 
+	 * Delete one event
+	 * 
+	 * @author Alejandro
+	 * @param idEvent
+	 */
 	@DeleteMapping(value = "/deleteEvent")
 	public void deleteEvent(@RequestParam("idEvent") Long idEvent) {
 
 		daoS.deleteEvent(daoS.displayEventById(idEvent));
 	}
 	
-	
+	/**
+	 * Used in Calendar view [User]
+	 * 
+	 * Update the title, description and finish date of a specific Event
+	 * 
+	 * @author Alejandro
+	 * @param idEvent
+	 * @param dataEvent
+	 */
 	@PutMapping(value = "/updateEvent")
 	public void updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
 		Event event = daoS.displayEventById(idEvent);

@@ -15,6 +15,9 @@ import com.app.myprotask.jwt.JWTUtil;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.repositories.UserRepository;
 
+/**
+ * @author Aris
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

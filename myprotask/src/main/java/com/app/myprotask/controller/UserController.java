@@ -49,6 +49,13 @@ public class UserController {
 
     
 
+	/**
+	 * Used in Profile view [User]
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @return All the objct of an specific user
+	 */
     @GetMapping(value = "/displayUserById")
     public User displayUserById(@RequestParam("idUser") Long idUser) {
         return daoS.displayUserById(idUser);

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.dao.DAOService;
  
+/**
+ * @author Alejandro
+ */
 @RestController
 @RequestMapping(value = "api/characteristic")
 public class CharacteristicController {

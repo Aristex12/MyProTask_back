@@ -36,7 +36,6 @@ public class UserProjectController {
 	
 
 	/**
-	 * Used in ? [ ? ]
 	 * 
 	 * Update the user project data to true or false depending on which one it has, and if the validations are valid 
 	 * 

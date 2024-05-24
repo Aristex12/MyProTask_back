@@ -96,6 +96,13 @@ public class ProjectController {
 		return daoS.displayInactiveProjectsByIdUser(idUser);
 	}
 
+	/**
+	 * Used in History view [Member, Manager]
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @return List of all projects of a specific user
+	 */
 	@GetMapping(value = "/displayProjectsByIdUser")
 	public List<Project> displayProjectsByIdUser(@RequestParam("idUser") Long idUser) {
 		return daoS.displayProjectsByIdUser(idUser);

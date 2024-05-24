@@ -20,6 +20,8 @@ public class UserCharacteristicsController {
 	DAOService daoS;
 
 	/**
+	 * Used in EditProfile view [User]
+	 * 
 	 * Add UserCharacteristics with the specific characteristic
 	 * 
 	 * @author Alejandro
@@ -33,6 +35,8 @@ public class UserCharacteristicsController {
 	}
 
 	/**
+	 * Used in EditProfile view [User]
+	 * 
 	 * Delete UserCharacteristics with the specific characteristic
 	 * 
 	 * @author Alejandro
