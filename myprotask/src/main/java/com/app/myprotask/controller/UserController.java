@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
-
 /**
  * @author Alejandro
  */
 @RestController
 @RequestMapping(value = "api/user")
 public class UserController {
-	
+
 	@Autowired
-    BCryptPasswordEncoder passwordEncoder;  // Inyectar BCryptPasswordEncoder
-	
+	BCryptPasswordEncoder passwordEncoder; // Inyectar BCryptPasswordEncoder
+
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * Used in Search User [ Manager ]
 	 * 
@@ -31,23 +30,26 @@ public class UserController {
 	 * @return List of users with the specific characteristics
 	 */
 	@PostMapping(value = "/searchUsersByCharacteristics")
-    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
-    }
-	
+	public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+		return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+	}
+
 	/**
 	 * Used in ? [ Admin ]
 	 *
-	 * Update the user's status to active or inactive and their participation in the project accordingly
+	 * Update the user's status to active or inactive and their participation in the
+	 * project accordingly
 	 * 
 	 * @author Manuel
 	 */
 	@PutMapping(value = "/updateActiveUser")
-	public void updateActiveUser(@RequestParam("idUser") Long idUser) {	
-		daoS.updateActiveUser(daoS.displayUserById(idUser));
+	public void updateActiveUser(@RequestParam("idUser") Long idUser) {
+		try {
+			daoS.updateActiveUser(daoS.displayUserById(idUser));
+		} catch (Exception e) {
+			throw new RuntimeException("The user entered does not exist in the database", e);
+		}
 	}
-
-    
 
 	/**
 	 * Used in Profile view [User]
@@ -56,16 +58,16 @@ public class UserController {
 	 * @param idUser
 	 * @return All the objct of an specific user
 	 */
-    @GetMapping(value = "/displayUserById")
-    public User displayUserById(@RequestParam("idUser") Long idUser) {
-        return daoS.displayUserById(idUser);
-    }
+	@GetMapping(value = "/displayUserById")
+	public User displayUserById(@RequestParam("idUser") Long idUser) {
+		return daoS.displayUserById(idUser);
+	}
 
-    @GetMapping(value = "/searchUserByEmailPassword")
-    public Long searchUserByEmailPassword(@RequestParam("email") String email,
-                                          @RequestParam("password") String password) {
-        return daoS.searchUserByEmailPassword(email, password);
-    }
+	@GetMapping(value = "/searchUserByEmailPassword")
+	public Long searchUserByEmailPassword(@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+		return daoS.searchUserByEmailPassword(email, password);
+	}
 
 	/**
 	 * Used in register view [ Admin ]
@@ -77,10 +79,9 @@ public class UserController {
 	 * @param user
 	 */
 	@PostMapping(value = "/addUser")
-	public void addUser(@RequestParam ("name") String name, @RequestParam ("lastName") String lastName) {
-		
-		daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"),
-				daoS.getRoleByName("employee")));
+	public void addUser(@RequestParam("name") String name, @RequestParam("lastName") String lastName) {
+
+		daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
 	}
 
 	/**
@@ -93,7 +94,8 @@ public class UserController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/updateCvProfilePicUserById")
-	public void updateCvProfilePicUserById(@RequestParam("idUser") Long idUser, @RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic) {
+	public void updateCvProfilePicUserById(@RequestParam("idUser") Long idUser, @RequestParam("cv") String cv,
+			@RequestParam("profilePic") String profilePic) {
 
 		User user = daoS.displayUserById(idUser);
 
@@ -102,7 +104,7 @@ public class UserController {
 
 		daoS.updateUser(user);
 	}
-	
+
 	/**
 	 * Used in EditUser [ User ]
 	 * 
@@ -121,7 +123,5 @@ public class UserController {
 
 		daoS.updateUser(user);
 	}
-	
-	
 
 }

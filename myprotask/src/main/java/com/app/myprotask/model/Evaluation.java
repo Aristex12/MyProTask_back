@@ -58,6 +58,17 @@ public class Evaluation {
 		this.userProject = userProject;
 	}
 
+	public Evaluation(Integer teamWork, Integer individualWork, Integer initiative, Integer problemResolution,
+			String observation, Date date, UserProject userProject) {
+		this.teamWork = teamWork;
+		this.individualWork = individualWork;
+		this.initiative = initiative;
+		this.problemResolution = problemResolution;
+		this.observation = observation;
+		this.date = date;
+		this.userProject = userProject;
+	}
+
 	/**
 	 * @author Manuel
 	 * @return the current date

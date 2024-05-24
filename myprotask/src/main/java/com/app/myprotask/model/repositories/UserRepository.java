@@ -15,7 +15,13 @@ import com.app.myprotask.model.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+	
+	/**
+	 * @author Manuel
+	 * @param name
+	 * @param lastName
+	 * @return number of users with name and lastname are existing
+	 */
 	@Query(value = "SELECT COUNT(*) FROM users WHERE name = ?1 AND last_name = ?2", nativeQuery = true)
 	Integer countUserByNameLastName(String name, String lastName);
 

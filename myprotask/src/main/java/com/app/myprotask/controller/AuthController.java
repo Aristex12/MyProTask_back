@@ -43,15 +43,18 @@ public class AuthController {
 
             user = userRepository.findByEmail(authenticationRequest.getEmail());
             if (user == null) {
-                System.out.println("User not found");
-                throw new BadCredentialsException("Incorrect email or password");
+                throw new BadCredentialsException("Incorrect email");
             }
 
             if (!passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())) {
-                System.out.println("Password does not match");
-                throw new BadCredentialsException("Incorrect email or password");
+                throw new BadCredentialsException("Incorrect password");
             }
 
+            if (!user.isActive()) {
+            	System.out.println("User is inactive");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is inactive");
+            }
+            
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
             );
