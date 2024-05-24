@@ -59,7 +59,7 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	UserCharacteristicsRepository userCharRep;
-	
+
 	@Autowired
 	EventRepository eventRep;
 
@@ -67,8 +67,14 @@ public class DAOServiceImpl implements DAOService {
 
 	@Override
 	public void addUser(User user) {
-		userRep.save(user);
+		int contUsers = countUserByNameLastName(user.getName(), user.getLastName());
 
+		if (contUsers != 0) {
+			user.setEmail(user.generateEmailDuplicate(++contUsers));			
+		}
+
+		userRep.save(user);
+		
 		user.setDas(user.generateNumberDAS());
 
 		userRep.save(user);
@@ -95,6 +101,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
+
+	@Override
+	public Integer countUserByNameLastName(String name, String lastName) {
+		return userRep.countUserByNameLastName(name, lastName);
+	}
 
 	@Override
 	public List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) {
@@ -203,7 +214,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<Project> displayProjectsByIdUser(Long idUser) {
 		return projectRep.displayProjectsByIdUser(idUser);
@@ -548,31 +559,32 @@ public class DAOServiceImpl implements DAOService {
 
 	@Override
 	public void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience) {
-		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic),experience));
+		userCharRep.save(new UserCharacteristic(displayUserById(idUser), displayCharacteristicById(idCharacteristic),
+				experience));
 	}
 
 	@Override
 	public void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic) {
 		userCharRep.delete(displayUserCharacteristicByIdUserIdCharacteristic(idUser, idCharacteristic));
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// EVENT TABLE METHODS CRUD
 
 	@Override
 	public void addEvent(Event event) {
-		eventRep.save(event);		
+		eventRep.save(event);
 	}
 
 	@Override
 	public void updateEvent(Event event) {
-		eventRep.save(event);		
+		eventRep.save(event);
 	}
 
 	@Override
 	public void deleteEvent(Event event) {
-		eventRep.delete(event);		
+		eventRep.delete(event);
 	}
 
 	@Override
@@ -584,7 +596,7 @@ public class DAOServiceImpl implements DAOService {
 	public Event displayEventById(Long id) {
 		return eventRep.findById(id).orElse(null);
 	}
-	
+
 	// EVENT TABLE METHODS PERSONALIZED
 
 	@Override

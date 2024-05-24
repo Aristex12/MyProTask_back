@@ -29,6 +29,8 @@ public interface DAOService {
 
 	// USER TABLE METHODS PERSONALIZED
 	
+	Integer countUserByNameLastName(String name, String lastName);
+	
 	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
 
 	void updateActiveUser(User user);

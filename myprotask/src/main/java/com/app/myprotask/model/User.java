@@ -109,8 +109,18 @@ public class User {
 	 * @author Manuel
 	 * @return the email using the format name.lastname@mpt.com
 	 */
-	private String generateEmail() {
+	public String generateEmail() {
 		return splitNameByDotes() + "." + splitLastNameByDotes() + "@mpt.com";
+	}
+	
+	/**
+	 * Used in the addUser when user is duplicate name and lastName
+	 * 
+	 * @author Manuel
+	 * @return the email using the format name.lastname@mpt.com
+	 */
+	public String generateEmailDuplicate(Integer userCount) {
+		return splitNameByDotes() + "." + splitLastNameByDotes() + userCount + "@mpt.com";
 	}
 
 	/**
