@@ -110,7 +110,7 @@ public class UserController {
 
 		User user = daoS.displayUserById(idUser);
 
-		user.setPassword(password);
+		user.setPassword(passwordEncoder.encode(password));
 
 		daoS.updateUser(user);
 	}
