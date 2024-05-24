@@ -31,7 +31,11 @@ public class UserController {
 	 */
 	@PostMapping(value = "/searchUsersByCharacteristics")
 	public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-		return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+		try {
+			return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while searching users by characteristics", e);
+		}
 	}
 
 	/**
@@ -60,13 +64,27 @@ public class UserController {
 	 */
 	@GetMapping(value = "/displayUserById")
 	public User displayUserById(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserById(idUser);
+		try {
+			return daoS.displayUserById(idUser);
+		} catch (Exception e) {
+			throw new RuntimeException("The user entered does not exist in the database", e);
+		}
 	}
 
+	/**
+	 * @author Manuel
+	 * @param email
+	 * @param password
+	 * @return id user when email and password are matches
+	 */
 	@GetMapping(value = "/searchUserByEmailPassword")
 	public Long searchUserByEmailPassword(@RequestParam("email") String email,
 			@RequestParam("password") String password) {
-		return daoS.searchUserByEmailPassword(email, password);
+		try {
+			return daoS.searchUserByEmailPassword(email, password);
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while searching for the user by email and password", e);
+		}
 	}
 
 	/**
@@ -80,8 +98,11 @@ public class UserController {
 	 */
 	@PostMapping(value = "/addUser")
 	public void addUser(@RequestParam("name") String name, @RequestParam("lastName") String lastName) {
-
-		daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
+		try {
+			daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while adding the user", e);
+		}
 	}
 
 	/**
@@ -96,13 +117,14 @@ public class UserController {
 	@PutMapping(value = "/updateCvProfilePicUserById")
 	public void updateCvProfilePicUserById(@RequestParam("idUser") Long idUser, @RequestParam("cv") String cv,
 			@RequestParam("profilePic") String profilePic) {
-
-		User user = daoS.displayUserById(idUser);
-
-		user.setCv(cv);
-		user.setProfilePic(profilePic);
-
-		daoS.updateUser(user);
+		try {
+			User user = daoS.displayUserById(idUser);
+			user.setCv(cv);
+			user.setProfilePic(profilePic);
+			daoS.updateUser(user);
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while updating the user's CV and profile picture", e);
+		}
 	}
 
 	/**
@@ -116,12 +138,12 @@ public class UserController {
 	 */
 	@PutMapping(value = "/updatePasswordUserById")
 	public void updatePasswordUserById(@RequestParam("idUser") Long idUser, @RequestParam("password") String password) {
-
-		User user = daoS.displayUserById(idUser);
-
-		user.setPassword(passwordEncoder.encode(password));
-
-		daoS.updateUser(user);
+		try {
+			User user = daoS.displayUserById(idUser);
+			user.setPassword(passwordEncoder.encode(password));
+			daoS.updateUser(user);
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while updating the user's password", e);
+		}
 	}
-
 }

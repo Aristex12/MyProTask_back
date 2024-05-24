@@ -32,9 +32,14 @@ public class ProjectController {
 	 * @return List of projects with the specific characteristics
 	 */
 	@PostMapping(value = "/searchProjectsByCharacteristics")
-	public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-		return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
-	}
+    public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+        try {
+            return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
+        } catch (Exception e) {
+           
+            throw new RuntimeException("An error occurred while searching projects by characteristics", e);
+        }
+    }
 
 	/**
 	 * Used in Project [ Admin, Manager ]
@@ -45,9 +50,13 @@ public class ProjectController {
 	 * @author Manuel
 	 */
 	@PutMapping(value = "/updateActiveProjectById")
-	public void updateActiveProjectById(@RequestParam("idProject") Long idProject) {
-		daoS.updateActiveProject(daoS.displayProjectById(idProject));
-	}
+    public void updateActiveProjectById(@RequestParam("idProject") Long idProject) {
+        try {
+            daoS.updateActiveProject(daoS.displayProjectById(idProject));
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while updating the active project", e);
+        }
+    }
 
 	/**
 	 * Used in NewProject view [ User, Member ]
@@ -56,10 +65,13 @@ public class ProjectController {
 	 * @return List of all projects
 	 */
 	@GetMapping(value = "/displayProjects")
-	public List<Project> displayProjects() {
-		return daoS.displayProjects();
-	}
-
+    public List<Project> displayProjects() {
+        try {
+            return daoS.displayProjects();
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while displaying projects", e);
+        }
+    }
 	/**
 	 * Used in User view [ User ]
 	 *
