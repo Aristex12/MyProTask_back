@@ -13,6 +13,10 @@ import com.app.myprotask.model.Project;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 	
+	@Query(value = "SELECT p.* FROM projects p, user_projects up "
+			+ "WHERE p.id_project = up.project_id "
+			+ "AND up.user_id = ?1", nativeQuery = true)
+	List<Project> displayProjectsByIdUser(Long idUser);
 	
 	/**
 	 * @author Manuel

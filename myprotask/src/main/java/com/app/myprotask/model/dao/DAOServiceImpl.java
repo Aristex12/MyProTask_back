@@ -203,6 +203,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<Project> displayProjectsByIdUser(Long idUser) {
+		return projectRep.displayProjectsByIdUser(idUser);
+	}
 
 	@Override
 	public List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) {
@@ -586,7 +591,5 @@ public class DAOServiceImpl implements DAOService {
 	public List<Event> displayEventsByIdUser(Long idUser) {
 		return eventRep.displayEventsByIdUser(idUser);
 	}
-
-	
 
 }

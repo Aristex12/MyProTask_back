@@ -23,7 +23,7 @@ public class ProjectController {
 
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * Used in Search Project [ User ]
 	 * 
@@ -32,14 +32,15 @@ public class ProjectController {
 	 * @return List of projects with the specific characteristics
 	 */
 	@PostMapping(value = "/searchProjectsByCharacteristics")
-    public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-        return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
-    }
+	public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+		return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
+	}
 
 	/**
 	 * Used in Project [ Admin, Manager ]
 	 *
-	 * Update the project's status to active or inactive and their participation in the project - user accordingly
+	 * Update the project's status to active or inactive and their participation in
+	 * the project - user accordingly
 	 * 
 	 * @author Manuel
 	 */
@@ -93,5 +94,10 @@ public class ProjectController {
 	@GetMapping(value = "/displayInactiveProjectsByIdUser")
 	public List<Project> displayInactiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
 		return daoS.displayInactiveProjectsByIdUser(idUser);
+	}
+
+	@GetMapping(value = "/displayProjectsByIdUser")
+	public List<Project> displayProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		return daoS.displayProjectsByIdUser(idUser);
 	}
 }
