@@ -23,6 +23,17 @@ public class UserProjectController {
 	@Autowired
 	DAOService daoS;
 
+	@GetMapping(value = "/countUserProjectByIdProject")
+	public ResponseEntity<?> countUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(daoS.countUserProjectByIdProject(idProject));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while counting user projects for project ID: " + idProject
+							+ ". Error message: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in History [ User ]
 	 * 

@@ -362,6 +362,12 @@ public class DAOServiceImpl implements DAOService {
 	//////////////////////////////////////////////////////////////////////////////
 
 	// PROJECTTASK TABLE METHODS CRUD
+	
+	@Override
+	public Integer countUserProjectByIdProject(Long idProject) {
+		return userProjectRep.countUserProjectByIdProject(idProject);
+	}
+	
 	@Override
 	public void addUserProject(UserProject userProject) {
 		userProjectRep.save(userProject);
