@@ -1,57 +1,93 @@
 package com.app.myprotask.controller;
- 
+
 import java.util.List;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.dao.DAOService;
- 
+
 /**
  * @author Alejandro
  */
 @RestController
 @RequestMapping(value = "api/characteristic")
 public class CharacteristicController {
- 
+
 	@Autowired
 	DAOService daoS;
- 
+
 	/**
-	 * Used in newProject [ Admin ] 
+	 * Used in newProject [ Admin ]
 	 * 
 	 * @author Alejandro
 	 * @return list of all characteristics
 	 */
 	@GetMapping(value = "/displayCharacteristics")
-	public List<Characteristic> displayCharacteristics() {
-		return daoS.displayCharacteristics();
+	public ResponseEntity<?> displayCharacteristics() {
+		try {
+			List<Characteristic> characteristics = daoS.displayCharacteristics();
+			if (!characteristics.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(characteristics);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Characteristics not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying characteristics: " + e.getMessage());
+		}
 	}
-	
+
 	/**
-	 * Used in profile [ User ] 
+	 * Used in profile [ User ]
 	 * 
 	 * @author Alejandro
 	 * @return A list of all characteristics that a specific user has
 	 */
 	@GetMapping(value = "/displayCharacteristicsByIdUser")
-	public List<Characteristic> displayCharacteristicsByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayCharacteristicsByIdUser(idUser);
+	public ResponseEntity<?> displayCharacteristicsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Characteristic> characteristics = daoS.displayCharacteristicsByIdUser(idUser);
+			if (!characteristics.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(characteristics);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("Characteristics not found for user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying characteristics for user with ID " + idUser + ": "
+							+ e.getMessage());
+		}
 	}
-	
+
 	/**
-	 * Used in profile [ User ] 
+	 * Used in profile [ User ]
 	 * 
 	 * @author Alejandro
 	 * @return A list of all characteristics that the user doesn't have
 	 */
 	@GetMapping(value = "/displayMissingCharacteristicsByIdUser")
-	public List<Characteristic> displayMissingCharacteristicsByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayMissingCharacteristicsByIdUser(idUser);
+	public ResponseEntity<?> displayMissingCharacteristicsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Characteristic> missingCharacteristics = daoS.displayMissingCharacteristicsByIdUser(idUser);
+			if (!missingCharacteristics.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(missingCharacteristics);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No missing characteristics found for user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying missing characteristics for user with ID " + idUser + ": "
+							+ e.getMessage());
+		}
 	}
- 
+
 }

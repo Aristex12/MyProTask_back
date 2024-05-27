@@ -23,10 +23,10 @@ import com.app.myprotask.model.dao.DAOService;
 @RestController
 @RequestMapping(value = "api/event")
 public class EventController {
-	
+
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * Used in Calendar view [User]
 	 * 
@@ -35,18 +35,20 @@ public class EventController {
 	 * @return all events of a specific user
 	 */
 	@GetMapping(value = "/displayEventsByIdUser")
-    public ResponseEntity<Object> displayEventsByIdUser(@RequestParam("idUser") Long idUser) {
-        try {
-            List<Event> events = daoS.displayEventsByIdUser(idUser);
-            if (events.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No events found for the user.");
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(events);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching events.");
-        }
-    }
-	
+	public ResponseEntity<Object> displayEventsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Event> events = daoS.displayEventsByIdUser(idUser);
+			if (!events.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(events);
+			} else {
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No events found for the user.");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while fetching events: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in Calendar view [User]
 	 * 
@@ -54,18 +56,19 @@ public class EventController {
 	 * 
 	 * @author Alejandro
 	 * @param idEvent
-	 * @return 
+	 * @return
 	 */
-	 @PostMapping(value = "/addEvent")
-	    public ResponseEntity<String> addEvent(@RequestBody Event event) {
-	        try {
-	            daoS.addEvent(event);
-	            return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add event");
-	        }
-	    }
-	
+	@PostMapping(value = "/addEvent")
+	public ResponseEntity<String> addEvent(@RequestBody Event event) {
+		try {
+			daoS.addEvent(event);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to add event: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in Calendar view [User]
 	 * 
@@ -74,20 +77,22 @@ public class EventController {
 	 * @author Alejandro
 	 * @param idEvent
 	 */
-	 @DeleteMapping(value = "/deleteEvent")
-	    public ResponseEntity<String> deleteEvent(@RequestParam("idEvent") Long idEvent) {
-	        try {
-	            Event event = daoS.displayEventById(idEvent);
-	            if (event == null) {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-	            }
-	            daoS.deleteEvent(event);
-	            return ResponseEntity.status(HttpStatus.OK).body("Event deleted successfully");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete event");
-	        }
-	    }
-	
+	@DeleteMapping(value = "/deleteEvent")
+	public ResponseEntity<String> deleteEvent(@RequestParam("idEvent") Long idEvent) {
+		try {
+			Event event = daoS.displayEventById(idEvent);
+			if (event != null) {
+				daoS.deleteEvent(event);
+				return ResponseEntity.status(HttpStatus.OK).body("Event deleted successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to delete event: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in Calendar view [User]
 	 * 
@@ -97,21 +102,23 @@ public class EventController {
 	 * @param idEvent
 	 * @param dataEvent
 	 */
-	 @PutMapping(value = "/updateEvent")
-	    public ResponseEntity<String> updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
-	        try {
-	            Event event = daoS.displayEventById(idEvent);
-	            if (event == null) {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-	            }
-	            event.setTitle(dataEvent.getTitle());
-	            event.setDescription(dataEvent.getDescription());
-	            event.setFinishDate(dataEvent.getFinishDate());
-	            daoS.updateEvent(event);
-	            return ResponseEntity.status(HttpStatus.OK).body("Event updated successfully");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update event");
-	        }
-	    }
-	
+	@PutMapping(value = "/updateEvent")
+	public ResponseEntity<String> updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
+		try {
+			Event event = daoS.displayEventById(idEvent);
+			if (event != null) {
+				event.setTitle(dataEvent.getTitle());
+				event.setDescription(dataEvent.getDescription());
+				event.setFinishDate(dataEvent.getFinishDate());
+				daoS.updateEvent(event);
+				return ResponseEntity.status(HttpStatus.OK).body("Event updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to update event: " + e.getMessage());
+		}
+	}
+
 }

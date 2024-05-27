@@ -3,6 +3,8 @@ package com.app.myprotask.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,14 +34,16 @@ public class ProjectController {
 	 * @return List of projects with the specific characteristics
 	 */
 	@PostMapping(value = "/searchProjectsByCharacteristics")
-    public List<Project> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-        try {
-            return daoS.searchProjectsByCharacteristics(characteristicsIds, characteristicsIds.size());
-        } catch (Exception e) {
-           
-            throw new RuntimeException("An error occurred while searching projects by characteristics", e);
-        }
-    }
+	public ResponseEntity<?> searchProjectsByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+		try {
+			List<Project> projects = daoS.searchProjectsByCharacteristics(characteristicsIds,
+					characteristicsIds.size());
+			return ResponseEntity.status(HttpStatus.OK).body(projects);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching projects by characteristics: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * Used in Project [ Admin, Manager ]
@@ -50,13 +54,15 @@ public class ProjectController {
 	 * @author Manuel
 	 */
 	@PutMapping(value = "/updateActiveProjectById")
-    public void updateActiveProjectById(@RequestParam("idProject") Long idProject) {
-        try {
-            daoS.updateActiveProject(daoS.displayProjectById(idProject));
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred while updating the active project", e);
-        }
-    }
+	public ResponseEntity<String> updateActiveProjectById(@RequestParam("idProject") Long idProject) {
+		try {
+			daoS.updateActiveProject(daoS.displayProjectById(idProject));
+			return ResponseEntity.status(HttpStatus.OK).body("Project updated successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the active project: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * Used in NewProject view [ User, Member ]
@@ -65,13 +71,20 @@ public class ProjectController {
 	 * @return List of all projects
 	 */
 	@GetMapping(value = "/displayProjects")
-    public List<Project> displayProjects() {
-        try {
-            return daoS.displayProjects();
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred while displaying projects", e);
-        }
-    }
+	public ResponseEntity<?> displayProjects() {
+		try {
+			List<Project> projects = daoS.displayProjects();
+			if (!projects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(projects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No projects found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying projects: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in User view [ User ]
 	 *
@@ -80,8 +93,18 @@ public class ProjectController {
 	 * @return a specific project
 	 */
 	@GetMapping(value = "/displayProjectById")
-	public Project displayProjectById(@RequestParam("idProject") Long idProject) {
-		return daoS.displayProjectById(idProject);
+	public ResponseEntity<?> displayProjectById(@RequestParam("idProject") Long idProject) {
+		try {
+			Project project = daoS.displayProjectById(idProject);
+			if (project != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(project);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying the project: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -92,8 +115,20 @@ public class ProjectController {
 	 * @return List of active projects of the user
 	 */
 	@GetMapping(value = "/displayActiveProjectsByIdUser")
-	public List<Project> displayActiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveProjectsByIdUser(idUser);
+	public ResponseEntity<?> displayActiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Project> projects = daoS.displayActiveProjectsByIdUser(idUser);
+			if (!projects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(projects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No active projects found for user with ID " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying active projects for user with ID " + idUser + ": "
+							+ e.getMessage());
+		}
 	}
 
 	/**
@@ -104,8 +139,20 @@ public class ProjectController {
 	 * @return List of inactive projects of the user
 	 */
 	@GetMapping(value = "/displayInactiveProjectsByIdUser")
-	public List<Project> displayInactiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayInactiveProjectsByIdUser(idUser);
+	public ResponseEntity<?> displayInactiveProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Project> projects = daoS.displayInactiveProjectsByIdUser(idUser);
+			if (!projects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(projects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No inactive projects found for user with ID " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying inactive projects for user with ID " + idUser + ": "
+							+ e.getMessage());
+		}
 	}
 
 	/**
@@ -116,7 +163,18 @@ public class ProjectController {
 	 * @return List of all projects of a specific user
 	 */
 	@GetMapping(value = "/displayProjectsByIdUser")
-	public List<Project> displayProjectsByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayProjectsByIdUser(idUser);
+	public ResponseEntity<?> displayProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Project> projects = daoS.displayProjectsByIdUser(idUser);
+			if (!projects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(projects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No projects found for user with ID " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+					"An error occurred while displaying projects for user with ID " + idUser + ": " + e.getMessage());
+		}
 	}
+
 }

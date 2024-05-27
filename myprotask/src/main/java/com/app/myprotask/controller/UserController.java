@@ -33,15 +33,19 @@ public class UserController {
 	 */
 	@PostMapping(value = "/searchUsersByCharacteristics")
 	public ResponseEntity<?> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-	    try {
-	        List<User> users = daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
-	        return ResponseEntity.status(HttpStatus.OK).body(users);
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while searching users by characteristics: " + e.getMessage());
-	    }
+		try {
+			List<User> users = daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+			if (!users.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(users);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No users found with the specified characteristics");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching users by characteristics: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * Used in ? [ Admin ]
@@ -53,20 +57,19 @@ public class UserController {
 	 */
 	@PutMapping(value = "/updateActiveUser")
 	public ResponseEntity<String> updateActiveUser(@RequestParam("idUser") Long idUser) {
-	    try {
-	        User user = daoS.displayUserById(idUser);
-	        if (user == null) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-	        
-	        daoS.updateActiveUser(user);
-	        return ResponseEntity.status(HttpStatus.OK).body("User status updated successfully");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while updating the user's status: " + e.getMessage());
-	    }
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				daoS.updateActiveUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("User status updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the user's status: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * Used in Profile view [User]
@@ -77,19 +80,18 @@ public class UserController {
 	 */
 	@GetMapping(value = "/displayUserById")
 	public ResponseEntity<?> displayUserById(@RequestParam("idUser") Long idUser) {
-	    try {
-	        User user = daoS.displayUserById(idUser);
-	        if (user != null) {
-	            return ResponseEntity.status(HttpStatus.OK).body(user);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while displaying the user by ID: " + e.getMessage());
-	    }
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(user);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying the user by ID: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * @author Manuel
@@ -99,21 +101,19 @@ public class UserController {
 	 */
 	@GetMapping(value = "/searchUserByEmailPassword")
 	public ResponseEntity<?> searchUserByEmailPassword(@RequestParam("email") String email,
-	                                                   @RequestParam("password") String password) {
-	    try {
-	        Long userId = daoS.searchUserByEmailPassword(email, password);
-	        if (userId != null) {
-	            return ResponseEntity.status(HttpStatus.OK).body(userId);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while searching for the user by email and password: " + e.getMessage());
-	    }
+			@RequestParam("password") String password) {
+		try {
+			Long userId = daoS.searchUserByEmailPassword(email, password);
+			if (userId != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(userId);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching for the user by email and password: " + e.getMessage());
+		}
 	}
-
-
 
 	/**
 	 * Used in register view [ Admin ]
@@ -126,16 +126,15 @@ public class UserController {
 	 */
 	@PostMapping(value = "/addUser")
 	public ResponseEntity<String> addUser(@RequestParam("name") String name,
-	                                       @RequestParam("lastName") String lastName) {
-	    try {
-	        daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
-	        return ResponseEntity.status(HttpStatus.OK).body("User added successfully");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while adding the user: " + e.getMessage());
-	    }
+			@RequestParam("lastName") String lastName) {
+		try {
+			daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
+			return ResponseEntity.status(HttpStatus.OK).body("User added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while adding the user: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * Used in EditUser [ User ]
@@ -148,25 +147,22 @@ public class UserController {
 	 */
 	@PutMapping(value = "/updateCvProfilePicUserById")
 	public ResponseEntity<String> updateCvProfilePicUserById(@RequestParam("idUser") Long idUser,
-	                                                         @RequestParam("cv") String cv,
-	                                                         @RequestParam("profilePic") String profilePic) {
-	    try {
-	        User user = daoS.displayUserById(idUser);
-	        if (user == null) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-
-	        user.setCv(cv);
-	        user.setProfilePic(profilePic);
-	        daoS.updateUser(user);
-
-	        return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
-	    }
+			@RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				user.setCv(cv);
+				user.setProfilePic(profilePic);
+				daoS.updateUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * Used in EditUser [ User ]
@@ -179,23 +175,25 @@ public class UserController {
 	 */
 	@PutMapping(value = "/updatePasswordUserById")
 	public ResponseEntity<String> updatePasswordUserById(@RequestParam("idUser") Long idUser,
-	                                                     @RequestParam("password") String password) {
-	    try {
-	        User user = daoS.displayUserById(idUser);
-	        if (user == null) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-	        if (!User.verifyPassword(password)) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-	                                 .body("The password does not meet the requirements");
-	        }
-	        user.setPassword(passwordEncoder.encode(password));
-	        daoS.updateUser(user);
-	        return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while updating the user's password: " + e.getMessage());
-	    }
+			@RequestParam("password") String password) {
+		User user = daoS.displayUserById(idUser);
+		if (user != null) {
+			if (User.verifyPassword(password)) {
+				try {
+					user.setPassword(passwordEncoder.encode(password));
+					daoS.updateUser(user);
+					return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
+				} catch (Exception e) {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+							.body("An error occurred while updating the user's password: " + e.getMessage());
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body("The password does not meet the requirements");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+		}
 	}
 
 }
