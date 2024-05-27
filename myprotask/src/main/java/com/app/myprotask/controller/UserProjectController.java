@@ -3,6 +3,8 @@ package com.app.myprotask.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +32,14 @@ public class UserProjectController {
 	 * @return a list of users and projects based on the projects in which a user participates and where the project is active
 	 */
 	@GetMapping(value = "/displayUserProjectByActiveProjectByIdUser")
-	public List<UserProject> displayUserProjectByActiveProjectByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserProjectByActiveProjectByIdUser(idUser);
-	}
-	
+	public ResponseEntity<?> displayUserProjectByActiveProjectByIdUser(@RequestParam("idUser") Long idUser) {
+        try {
+            List<UserProject> userProjects = daoS.displayUserProjectByActiveProjectByIdUser(idUser);
+            return ResponseEntity.status(HttpStatus.OK).body(userProjects);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while retrieving user projects");
+        }
+    }
 
 	/**
 	 * 
@@ -43,9 +49,15 @@ public class UserProjectController {
 	 * @param idUserProject
 	 */
 	@PutMapping(value = "/updateActiveUserProjectById")
-	public void updateActiveUserProjectById(@RequestParam("idUserProject") Long idUserProject) {
-		daoS.updateActiveUserProject(daoS.displayUserProjectById(idUserProject));
+	public ResponseEntity<String> updateActiveUserProjectById(@RequestParam("idUserProject") Long idUserProject) {
+	    try {
+	        daoS.updateActiveUserProject(daoS.displayUserProjectById(idUserProject));
+	        return ResponseEntity.status(HttpStatus.OK).body("User project isActive updated successfully");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating user project");
+	    }
 	}
+
 	
 	/**
 	 * Used in History [ User ]
@@ -55,9 +67,16 @@ public class UserProjectController {
 	 * @return all user projects with user id
 	 */
 	@GetMapping(value = "/displayUserProjectByIdUser")
-	public List<UserProject> displayUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserProjectByIdUser(idUser);
+	public ResponseEntity<?> displayUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+	    try {
+	        List<UserProject> userProjects = daoS.displayUserProjectByIdUser(idUser);
+	        return ResponseEntity.status(HttpStatus.OK).body(userProjects);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while displaying user projects by user ID: " + idUser + e.getMessage());
+	    }
 	}
+
 
 	/**
 	 * Used in Users [ Admin ]
@@ -66,9 +85,16 @@ public class UserProjectController {
 	 * @return all users and all active projects ordered by active members
 	 */
 	@GetMapping(value = "/displayActiveUserProject")
-	public List<UserProject> displayActiveUserProject() {
-		return daoS.displayActiveUserProject();
+	public ResponseEntity<?> displayActiveUserProject() {
+	    try {
+	        List<UserProject> activeUserProjects = daoS.displayActiveUserProject();
+	        return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while displaying active user projects: " + e.getMessage());
+	    }
 	}
+
 
 	/**
 	 * Used in Users [ User ]
@@ -79,8 +105,15 @@ public class UserProjectController {
 	 *         members
 	 */
 	@GetMapping(value = "/displayActiveUserProjectByIdUser")
-	public List<UserProject> displayActiveUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveUserProjectByIdUser(idUser);
+	public ResponseEntity<?> displayActiveUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+	    try {
+	        List<UserProject> activeUserProjects = daoS.displayActiveUserProjectByIdUser(idUser);
+	        return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while displaying active user projects for user with ID " + idUser + ": " + e.getMessage());
+	    }
 	}
+
 
 }

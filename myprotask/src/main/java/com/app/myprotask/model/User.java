@@ -82,6 +82,21 @@ public class User {
 	}
 
 	/**
+	 * @author Manuel
+	 * @param password
+	 * @return true if it meets the specified pattern and false if it does not
+	 */
+	public static boolean verifyPassword(String password) {
+		boolean passwordCorrect = false;
+		
+		if (password.matches("^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~])(?=.*[0-9]).{8,}$")) {
+			passwordCorrect = true;
+		}
+		return passwordCorrect;
+
+	}
+
+	/**
 	 * Used in the constructor of the class
 	 * 
 	 * @author Manuel
@@ -112,7 +127,7 @@ public class User {
 	public String generateEmail() {
 		return splitNameByDotes() + "." + splitLastNameByDotes() + "@mpt.com";
 	}
-	
+
 	/**
 	 * Used in the addUser when user is duplicate name and lastName
 	 * 
