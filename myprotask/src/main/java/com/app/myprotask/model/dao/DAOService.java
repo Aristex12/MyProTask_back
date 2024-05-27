@@ -2,6 +2,7 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
+import com.app.myprotask.model.Category;
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
@@ -28,9 +29,9 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-	
+
 	Integer countUserByNameLastName(String name, String lastName);
-	
+
 	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
 
 	void updateActiveUser(User user);
@@ -54,7 +55,7 @@ public interface DAOService {
 	Characteristic displayCharacteristicById(Long id);
 
 	// CHARACTERISCTIC TABLE METHODS PERSONALIZED
-	
+
 	List<Characteristic> displayCharacteristicsByIdUser(Long idUser);
 
 	List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser);
@@ -74,7 +75,7 @@ public interface DAOService {
 	Project displayProjectById(Long id);
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
+
 	List<Project> displayProjectsByIdUser(Long idUser);
 
 	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size);
@@ -216,13 +217,13 @@ public interface DAOService {
 	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
 
 	void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience);
-	
+
 	void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
 
 	//////////////////////////////////////////////////////////////////////////////
 
 	// EVENT TABLE METHODS CRUD
-	
+
 	void addEvent(Event event);
 
 	void updateEvent(Event event);
@@ -232,9 +233,23 @@ public interface DAOService {
 	List<Event> displayEvents();
 
 	Event displayEventById(Long id);
-	
+
 	// EVENT TABLE METHODS PERSONALIZED
 
 	List<Event> displayEventsByIdUser(Long idUser);
+
+	// CATEGORY TABLE METHODS CRUD
+
+	void addCategory(Category category);
+
+	void updateCategory(Category category);
+
+	void deleteCategory(Category category);
+
+	List<Category> displayCategories();
+
+	Category displayCategoryById(Long id);
+
+	// CATEGORY TABLE METHODS PERSONALIZED
 
 }

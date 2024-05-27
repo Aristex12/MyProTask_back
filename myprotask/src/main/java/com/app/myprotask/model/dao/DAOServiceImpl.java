@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.myprotask.model.Category;
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
@@ -16,6 +17,7 @@ import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
+import com.app.myprotask.model.repositories.CategoryRepository;
 import com.app.myprotask.model.repositories.CharacteristicRepository;
 import com.app.myprotask.model.repositories.EventRepository;
 import com.app.myprotask.model.repositories.ProjectRepository;
@@ -62,6 +64,9 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	EventRepository eventRep;
+	
+	@Autowired
+	CategoryRepository categoryRep;
 
 	// USER TABLE METHODS CRUD
 
@@ -603,5 +608,35 @@ public class DAOServiceImpl implements DAOService {
 	public List<Event> displayEventsByIdUser(Long idUser) {
 		return eventRep.displayEventsByIdUser(idUser);
 	}
+	
+	// CATEGORY TABLE METHODS CRUD
+
+	@Override
+	public void addCategory(Category category) {
+		categoryRep.save(category);		
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		categoryRep.save(category);				
+	}
+
+	@Override
+	public void deleteCategory(Category category) {
+		categoryRep.save(category);		
+	}
+
+	@Override
+	public List<Category> displayCategories() {
+		return categoryRep.findAll();
+	}
+
+	@Override
+	public Category displayCategoryById(Long id) {
+		return categoryRep.findById(id).orElse(null);
+	}
+	
+	// CATEGORY TABLE METHODS PERSONALIZED
+
 
 }
