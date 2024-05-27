@@ -3,6 +3,8 @@ package com.app.myprotask.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,9 +35,17 @@ public class EventController {
 	 * @return all events of a specific user
 	 */
 	@GetMapping(value = "/displayEventsByIdUser")
-	public List<Event> displayEventsByIdUser(@RequestParam("idUser") Long idEvent) {
-		return daoS.displayEventsByIdUser(idEvent);
-	}
+    public ResponseEntity<Object> displayEventsByIdUser(@RequestParam("idUser") Long idUser) {
+        try {
+            List<Event> events = daoS.displayEventsByIdUser(idUser);
+            if (events.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No events found for the user.");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(events);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching events.");
+        }
+    }
 	
 	/**
 	 * Used in Calendar view [User]
@@ -46,10 +56,15 @@ public class EventController {
 	 * @param idEvent
 	 * @return 
 	 */
-	@PostMapping(value = "/addEvent")
-	public void addEvent(@RequestBody Event event) {
-		daoS.addEvent(event);
-	}
+	 @PostMapping(value = "/addEvent")
+	    public ResponseEntity<String> addEvent(@RequestBody Event event) {
+	        try {
+	            daoS.addEvent(event);
+	            return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add event");
+	        }
+	    }
 	
 	/**
 	 * Used in Calendar view [User]
@@ -59,10 +74,19 @@ public class EventController {
 	 * @author Alejandro
 	 * @param idEvent
 	 */
-	@DeleteMapping(value = "/deleteEvent")
-	public void deleteEvent(@RequestParam("idEvent") Long idEvent) {
-		daoS.deleteEvent(daoS.displayEventById(idEvent));
-	}
+	 @DeleteMapping(value = "/deleteEvent")
+	    public ResponseEntity<String> deleteEvent(@RequestParam("idEvent") Long idEvent) {
+	        try {
+	            Event event = daoS.displayEventById(idEvent);
+	            if (event == null) {
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+	            }
+	            daoS.deleteEvent(event);
+	            return ResponseEntity.status(HttpStatus.OK).body("Event deleted successfully");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete event");
+	        }
+	    }
 	
 	/**
 	 * Used in Calendar view [User]
@@ -73,13 +97,21 @@ public class EventController {
 	 * @param idEvent
 	 * @param dataEvent
 	 */
-	@PutMapping(value = "/updateEvent")
-	public void updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
-		Event event = daoS.displayEventById(idEvent);
-		event.setTitle(dataEvent.getTitle());
-		event.setDescription(dataEvent.getDescription());
-		event.setFinishDate(dataEvent.getFinishDate());
-		daoS.updateEvent(event);
-	}
+	 @PutMapping(value = "/updateEvent")
+	    public ResponseEntity<String> updateEvent(@RequestParam("idEvent") Long idEvent, @RequestBody Event dataEvent) {
+	        try {
+	            Event event = daoS.displayEventById(idEvent);
+	            if (event == null) {
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+	            }
+	            event.setTitle(dataEvent.getTitle());
+	            event.setDescription(dataEvent.getDescription());
+	            event.setFinishDate(dataEvent.getFinishDate());
+	            daoS.updateEvent(event);
+	            return ResponseEntity.status(HttpStatus.OK).body("Event updated successfully");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update event");
+	        }
+	    }
 	
 }
