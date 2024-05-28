@@ -1,37 +1,29 @@
 package com.app.myprotask.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
-
 
 /**
  * @author Alejandro
  */
 @RestController
 @RequestMapping(value = "api/user")
-@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
-		RequestMethod.DELETE })
 public class UserController {
 
 	@Autowired
+	BCryptPasswordEncoder passwordEncoder; // Inyectar BCryptPasswordEncoder
+
+	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * Used in Search User [ Manager ]
 	 * 
@@ -40,59 +32,87 @@ public class UserController {
 	 * @return List of users with the specific characteristics
 	 */
 	@PostMapping(value = "/searchUsersByCharacteristics")
-    public List<User> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
-        return daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
-    }
-	
+	public ResponseEntity<?> searchUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+		try {
+			List<User> users = daoS.searchUsersByCharacteristics(characteristicsIds, characteristicsIds.size());
+			if (!users.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(users);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No users found with the specified characteristics");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching users by characteristics: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in ? [ Admin ]
 	 *
-	 * Update the user's status to active or inactive and their participation in the project accordingly
+	 * Update the user's status to active or inactive and their participation in the
+	 * project accordingly
 	 * 
 	 * @author Manuel
 	 */
 	@PutMapping(value = "/updateActiveUser")
-	public void updateActiveUser(@RequestParam("idUser") Long idUser) {
-		daoS.updateActiveUser(daoS.displayUserById(idUser));
+	public ResponseEntity<String> updateActiveUser(@RequestParam("idUser") Long idUser) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				daoS.updateActiveUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("User status updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the user's status: " + e.getMessage());
+		}
 	}
 
 	/**
-	 * Used in Users [ User ]
-	 *
+	 * Used in Profile view [User]
+	 * 
 	 * @author Alejandro
 	 * @param idUser
-	 * @return a specific user
+	 * @return All the objct of an specific user
 	 */
 	@GetMapping(value = "/displayUserById")
-	public User displayUserById(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserById(idUser);
+	public ResponseEntity<?> displayUserById(@RequestParam("idUser") Long idUser) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(user);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying the user by ID: " + e.getMessage());
+		}
 	}
 
 	/**
-	 * Used in Log in view [ All ]
-	 *
-	 * @author Alejandro
+	 * @author Manuel
 	 * @param email
 	 * @param password
-	 * @return long of the user if exist
+	 * @return id user when email and password are matches
 	 */
 	@GetMapping(value = "/searchUserByEmailPassword")
-	public Long searchUserByEmailPassword(@RequestParam("email") String email,
+	public ResponseEntity<?> searchUserByEmailPassword(@RequestParam("email") String email,
 			@RequestParam("password") String password) {
-		return daoS.searchUserByEmailPassword(email, password);
-	}
-
-	/**
-	 * Used in Log in view [ All ]
-	 *
-	 * @author Alejandro
-	 * @param das
-	 * @param password
-	 * @return long of the user if exist
-	 */
-	@GetMapping(value = "/searchUserByDasPassword")
-	public Long searchUserByDasPassword(@RequestParam("das") String das, @RequestParam("password") String password) {
-		return daoS.searchUserByDasPassword(das, password);
+		try {
+			Long userId = daoS.searchUserByEmailPassword(email, password);
+			if (userId != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(userId);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching for the user by email and password: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -105,18 +125,15 @@ public class UserController {
 	 * @param user
 	 */
 	@PostMapping(value = "/addUser")
-	public void addUser(@RequestBody User userData) {
-
-		List<Characteristic> userCharacteristics = new ArrayList<>();
-
-		// I create a list of characteristics by retrieving them using the obtained ID,
-		// and we add them to the user to be inserted
-		for (Characteristic c : userData.getUserCharacteristics()) {
-			userCharacteristics.add(daoS.displayCharacteristicById(c.getIdCharacteristic()));
+	public ResponseEntity<String> addUser(@RequestParam("name") String name,
+			@RequestParam("lastName") String lastName) {
+		try {
+			daoS.addUser(new User(name, lastName, passwordEncoder.encode("Abcdefg1!"), daoS.getRoleByName("employee")));
+			return ResponseEntity.status(HttpStatus.OK).body("User added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while adding the user: " + e.getMessage());
 		}
-
-		daoS.addUser(new User(userData.getName(), userData.getLastName(), userData.getPassword(),
-				daoS.getRoleByName("employee"), userCharacteristics));
 	}
 
 	/**
@@ -128,18 +145,55 @@ public class UserController {
 	 * @param idUser
 	 * @param userCharacteristics
 	 */
-	@PutMapping(value = "/updateUserByIdUser/{idUser}")
-	public void updateUserByIdUser(@PathVariable("idUser") Long idUser, @RequestBody User userData) {
-
-		User user = daoS.displayUserById(idUser);
-
-		user.setCv(userData.getCv());
-		user.setProfilePic(userData.getProfilePic());
-		user.setUserCharacteristics(userData.getUserCharacteristics());
-
-		daoS.updateUser(user);
+	@PutMapping(value = "/updateCvProfilePicUserById")
+	public ResponseEntity<String> updateCvProfilePicUserById(@RequestParam("idUser") Long idUser,
+			@RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				user.setCv(cv);
+				user.setProfilePic(profilePic);
+				daoS.updateUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
+		}
 	}
-	
-	
+
+	/**
+	 * Used in EditUser [ User ]
+	 * 
+	 * Updates the introduced user with the new password
+	 * 
+	 * @author Alejandro
+	 * @param idUser
+	 * @param password
+	 */
+	@PutMapping(value = "/updatePasswordUserById")
+	public ResponseEntity<String> updatePasswordUserById(@RequestParam("idUser") Long idUser,
+			@RequestParam("password") String password) {
+		User user = daoS.displayUserById(idUser);
+		if (user != null) {
+			if (User.verifyPassword(password)) {
+				try {
+					user.setPassword(passwordEncoder.encode(password));
+					daoS.updateUser(user);
+					return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
+				} catch (Exception e) {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+							.body("An error occurred while updating the user's password: " + e.getMessage());
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body("The password does not meet the requirements");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+		}
+	}
 
 }

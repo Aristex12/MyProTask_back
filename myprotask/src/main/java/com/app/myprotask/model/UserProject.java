@@ -1,6 +1,7 @@
 package com.app.myprotask.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -48,7 +49,16 @@ public class UserProject {
 	public UserProject(User user, Project project) {
 		this.user = user;
 		this.project = project;
+		this.joinDate = generateLocalDate();
 		this.isActive = true;
+	}
+
+	/**
+	 * @author Manuel
+	 * @return the current date
+	 */
+	private Date generateLocalDate() {
+		return Date.valueOf(LocalDate.now());
 	}
 
 	public User getUser() {
@@ -106,7 +116,7 @@ public class UserProject {
 	@Override
 	public String toString() {
 		return "UserProject [idUserProject=" + idUserProject + ", user=" + user + ", project=" + project + ", joinDate="
-				+ joinDate + ", exitDate=" + exitDate + ", role=" + role + ", isActive=" + isActive + "]";
+				+ joinDate + ", exitDate=" + exitDate + ", isActive=" + isActive + ", role=" + role + "]";
 	}
 
 }

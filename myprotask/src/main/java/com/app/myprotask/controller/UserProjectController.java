@@ -3,11 +3,11 @@ package com.app.myprotask.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,25 +19,64 @@ import com.app.myprotask.model.dao.DAOService;
  */
 @RestController
 @RequestMapping(value = "api/userProject")
-@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET,
-		RequestMethod.DELETE })
 public class UserProjectController {
 	@Autowired
 	DAOService daoS;
 
+	@GetMapping(value = "/countUserProjectByIdProject")
+	public ResponseEntity<?> countUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(daoS.countUserProjectByIdProject(idProject));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while counting user projects for project ID: " + idProject
+							+ ". Error message: " + e.getMessage());
+		}
+	}
+
 	/**
-	 * Used in ? [ ? ]
+	 * Used in History [ User ]
 	 * 
-	 * Update the user project data to true or false depending on which one it has, and if the validations are valid 
+	 * @author Manuel
+	 * @param idUser
+	 * @return a list of users and projects based on the projects in which a user
+	 *         participates and where the project is active
+	 */
+	@GetMapping(value = "/displayUserProjectByActiveProjectByIdUser")
+	public ResponseEntity<?> displayUserProjectByActiveProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<UserProject> userProjects = daoS.displayUserProjectByActiveProjectByIdUser(idUser);
+			if (!userProjects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(userProjects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No user projects found for user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while retrieving user projects: " + e.getMessage());
+		}
+	}
+
+	/**
+	 * 
+	 * Update the user project data to true or false depending on which one it has,
+	 * and if the validations are valid
 	 * 
 	 * @author Manuel
 	 * @param idUserProject
 	 */
 	@PutMapping(value = "/updateActiveUserProjectById")
-	public void updateActiveUserProjectById(@RequestParam("idUserProject") Long idUserProject) {
-		daoS.updateActiveUserProject(daoS.displayUserProjectById(idUserProject));
+	public ResponseEntity<String> updateActiveUserProjectById(@RequestParam("idUserProject") Long idUserProject) {
+		try {
+			daoS.updateActiveUserProject(daoS.displayUserProjectById(idUserProject));
+			return ResponseEntity.status(HttpStatus.OK).body("User project isActive updated successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating user project: " + e.getMessage());
+		}
 	}
-	
+
 	/**
 	 * Used in History [ User ]
 	 * 
@@ -45,9 +84,21 @@ public class UserProjectController {
 	 * @param idUser
 	 * @return all user projects with user id
 	 */
-	@GetMapping(value = "/displayUserProjectByUserId")
-	public List<UserProject> displayUserProjectByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayUserProjectByUserId(idUser);
+	@GetMapping(value = "/displayUserProjectByIdUser")
+	public ResponseEntity<?> displayUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<UserProject> userProjects = daoS.displayUserProjectByIdUser(idUser);
+			if (!userProjects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(userProjects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No user projects found for user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying user projects by user ID: " + idUser + ". Error message: "
+							+ e.getMessage());
+		}
 	}
 
 	/**
@@ -57,8 +108,18 @@ public class UserProjectController {
 	 * @return all users and all active projects ordered by active members
 	 */
 	@GetMapping(value = "/displayActiveUserProject")
-	public List<UserProject> displayActiveUserProject() {
-		return daoS.displayActiveUserProject();
+	public ResponseEntity<?> displayActiveUserProject() {
+		try {
+			List<UserProject> activeUserProjects = daoS.displayActiveUserProject();
+			if (!activeUserProjects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No active user projects found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying active user projects: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -69,9 +130,21 @@ public class UserProjectController {
 	 * @return all users and all active projects from one user ordered by active
 	 *         members
 	 */
-	@GetMapping(value = "/displayActiveUserProjectByUserId")
-	public List<UserProject> displayActiveUserProjectByUserId(@RequestParam("idUser") Long idUser) {
-		return daoS.displayActiveUserProjectByUserId(idUser);
+	@GetMapping(value = "/displayActiveUserProjectByIdUser")
+	public ResponseEntity<?> displayActiveUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<UserProject> activeUserProjects = daoS.displayActiveUserProjectByIdUser(idUser);
+			if (!activeUserProjects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No active user projects found for user with ID " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying active user projects for user with ID " + idUser + ": "
+							+ e.getMessage());
+		}
 	}
 
 }

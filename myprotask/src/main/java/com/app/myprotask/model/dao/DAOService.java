@@ -2,12 +2,15 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
+import com.app.myprotask.model.Category;
 import com.app.myprotask.model.Characteristic;
+import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
 import com.app.myprotask.model.Role;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.User;
+import com.app.myprotask.model.UserCharacteristic;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 
@@ -26,11 +29,13 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-	
-	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size) ;
-	
+
+	Integer countUserByNameLastName(String name, String lastName);
+
+	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
+
 	void updateActiveUser(User user);
-	
+
 	Long searchUserByEmailPassword(String email, String password);
 
 	Long searchUserByDasPassword(String das, String password);
@@ -53,6 +58,8 @@ public interface DAOService {
 
 	List<Characteristic> displayCharacteristicsByIdUser(Long idUser);
 
+	List<Characteristic> displayMissingCharacteristicsByIdUser(Long idUser);
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// PROJECT TABLE METHODS CRUD
@@ -68,14 +75,16 @@ public interface DAOService {
 	Project displayProjectById(Long id);
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
-	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size) ;
-	
+
+	List<Project> displayProjectsByIdUser(Long idUser);
+
+	List<Project> searchProjectsByCharacteristics(List<Long> characteristicsIds, int size);
+
 	void updateActiveProject(Project project);
 
-	List<Project> displayInactiveProjectsByUserId(Long idUser);
+	List<Project> displayInactiveProjectsByIdUser(Long idUser);
 
-	List<Project> displayActiveProjectsByUserId(Long idUser);
+	List<Project> displayActiveProjectsByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -106,16 +115,18 @@ public interface DAOService {
 	Task displayTaskById(Long id);
 
 	// TASK TABLE METHODS PERSONALIZED
-	
-	List<Task> displayTasksByProjectId(Long idProject);
-	
-	List<Task> displayActiveTasksActiveProjectByUserId(Long idUser);
 
-	List<Task> displayActiveTasksByUserId(Long idUser);
+	Integer countActiveTasksByIdProject(Long idProject);
 
-	List<Task> displayActiveTasksByProjectId(Long idProject);
+	List<Task> displayTasksByIdProject(Long idProject);
 
-	List<Task> displayTasksByUserId(Long idUser);
+	List<Task> displayActiveTasksActiveProjectByIdUser(Long idUser);
+
+	List<Task> displayActiveTasksByIdUser(Long idUser);
+
+	List<Task> displayActiveTasksByIdProject(Long idProject);
+
+	List<Task> displayTasksByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -133,15 +144,19 @@ public interface DAOService {
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
 	
+	Integer countUserProjectByIdProject(Long idProject);
+
+	List<UserProject> displayUserProjectByActiveProjectByIdUser(Long idUser);
+
 	void updateActiveUserProject(UserProject userProject);
-	
+
 	List<UserProject> displayUserProjectByProjectId(Long idProject);
-	
-	List<UserProject> displayUserProjectByUserId(Long idUser);
+
+	List<UserProject> displayUserProjectByIdUser(Long idUser);
 
 	List<UserProject> displayActiveUserProject();
 
-	List<UserProject> displayActiveUserProjectByUserId(Long idUser);
+	List<UserProject> displayActiveUserProjectByIdUser(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
 
@@ -158,11 +173,11 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
-	
+
 	List<UserTask> displayUserTasksByUserId(Long idUser);
-	
+
 	List<UserTask> displayUserTasksByTaskId(Long idTask);
-	
+
 	List<UserTask> displayActiveUserTasksByUserId(Long idUser);
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -184,5 +199,59 @@ public interface DAOService {
 	Integer displayRoleUserProjectByIdUser(Long idUser);
 
 	Role getRoleByName(String name);
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// USERCHARACTERISTIC TABLE METHODS CRUD
+
+	void addUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	void updateUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	void deleteUserCharacteristic(UserCharacteristic userCharacteristic);
+
+	List<UserCharacteristic> displayUserCharacteristics();
+
+	UserCharacteristic displayUserCharacteristicById(Long id);
+
+	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+
+	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
+
+	void addUserCharacteristicByIdUser(Long idUser, Long idCharacteristic, Integer experience);
+
+	void deleteUserCharacteristicByIdUser(Long idUser, Long idCharacteristic);
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	// EVENT TABLE METHODS CRUD
+
+	void addEvent(Event event);
+
+	void updateEvent(Event event);
+
+	void deleteEvent(Event event);
+
+	List<Event> displayEvents();
+
+	Event displayEventById(Long id);
+
+	// EVENT TABLE METHODS PERSONALIZED
+
+	List<Event> displayEventsByIdUser(Long idUser);
+
+	// CATEGORY TABLE METHODS CRUD
+
+	void addCategory(Category category);
+
+	void updateCategory(Category category);
+
+	void deleteCategory(Category category);
+
+	List<Category> displayCategories();
+
+	Category displayCategoryById(Long id);
+
+	// CATEGORY TABLE METHODS PERSONALIZED
 
 }

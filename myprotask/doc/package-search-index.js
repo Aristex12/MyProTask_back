@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.app.myprotask"},{"l":"com.app.myprotask.controller"},{"l":"com.app.myprotask.jwt"},{"l":"com.app.myprotask.model"},{"l":"com.app.myprotask.model.dao"},{"l":"com.app.myprotask.model.enums"},{"l":"com.app.myprotask.model.repositories"},{"l":"com.app.myprotask.security"}];updateSearchResults();
