@@ -26,6 +26,23 @@ public class ProjectController {
 	@Autowired
 	DAOService daoS;
 
+	@GetMapping(value = "/displayProjectsByActiveUserProjectsByIdUser")
+	public ResponseEntity<?> displayProjectsByActiveUserProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+		try {
+			List<Project> projects = daoS.displayProjectsByActiveUserProjectsByIdUser(idUser);
+			if (!projects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(projects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No projects found for active user projects by user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying projects by active user projects for user with ID "
+							+ idUser + ": " + e.getMessage());
+		}
+	}
+
 	/**
 	 * Used in Search Project [ User ]
 	 * 

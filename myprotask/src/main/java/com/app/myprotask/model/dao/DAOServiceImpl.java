@@ -224,6 +224,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<Project> displayProjectsByActiveUserProjectsByIdUser(Long idUser) {
+		return projectRep.displayProjectsByActiveUserProjectsByIdUser(idUser);
+	}
 
 	@Override
 	public List<Project> displayProjectsByIdUser(Long idUser) {
