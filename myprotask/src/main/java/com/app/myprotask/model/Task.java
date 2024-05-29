@@ -57,7 +57,7 @@ public class Task {
 	public Task() {
 	}
 
-	public Task(String name, String description, Date startDate, Date finishDate, PriorityTasks priority,
+	public Task(String name, String description, Date finishDate, PriorityTasks priority,
 			Project project) {
 		this.name = name;
 		this.description = description;

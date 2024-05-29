@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.dao.DAOService;
 
@@ -22,6 +25,22 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+
+	@PostMapping(value = "/addTask")
+	public ResponseEntity<String> addTask(@RequestBody Task task, @RequestParam("idProject") Long idProject) {
+	    try {
+	        Project project = daoS.displayProjectById(idProject);
+	        if (project != null) {
+	            daoS.addTask(new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(), project));
+	            return ResponseEntity.status(HttpStatus.CREATED).body("Task added successfully");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID: " + idProject + " not found");
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the task: " + e.getMessage());
+	    }
+	}
+
 
 	/**
 	 * Used in View Tasks [ Member ]
