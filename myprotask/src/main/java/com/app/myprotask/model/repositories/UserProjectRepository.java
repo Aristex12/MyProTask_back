@@ -22,7 +22,7 @@ public interface UserProjectRepository extends JpaRepository<UserProject, Long> 
 	 * @param idProject
 	 * @return all active users projects of project 
 	 */
-	@Query(value = "SELECT * FROM user_projects WHERE project_id = ?1 AND is_active = true", nativeQuery = true)
+	@Query(value = "SELECT * FROM user_projects WHERE project_id = ?1 AND is_active = true ORDER BY role_id = 3 DESC", nativeQuery = true)
 	List<UserProject> displayActiveUserProjectByIdProject(Long idProject);
 
 	/**
