@@ -25,6 +25,27 @@ public class UserController {
 	DAOService daoS;
 
 	/**
+	 * @author Manuel
+	 * @param idProject
+	 * @return List of all users with the specific project
+	 */
+	@GetMapping(value = "/displayUsersByIdProject")
+	public ResponseEntity<?> displayUsersByIdProject(@RequestParam("idProject") Long idProject) {
+	    try {
+	        List<User> users = daoS.displayUsersByIdProject(idProject);
+	        if (!users.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.OK).body(users);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No users found for project with ID: " + idProject);
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while displaying users by project ID: " + e.getMessage());
+	    }
+	}
+
+
+	/**
 	 * Used in Search User [ Manager ]
 	 * 
 	 * @author Alejandro
@@ -147,11 +168,12 @@ public class UserController {
 	 */
 	@PutMapping(value = "/updateCvProfilePicDescriptionUserById")
 	public ResponseEntity<String> updateCvProfilePicDescriptionUserById(@RequestParam("idUser") Long idUser,
-			@RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic, @RequestParam("description") String description) {
+			@RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic,
+			@RequestParam("description") String description) {
 		try {
 			User user = daoS.displayUserById(idUser);
 			if (user != null) {
-				
+
 				user.setCv(cv);
 				user.setProfilePic(profilePic);
 				user.setDescription(description);
@@ -162,7 +184,8 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the user's CV, profile picture and description: " + e.getMessage());
+					.body("An error occurred while updating the user's CV, profile picture and description: "
+							+ e.getMessage());
 		}
 	}
 

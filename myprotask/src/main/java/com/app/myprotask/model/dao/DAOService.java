@@ -29,7 +29,9 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-
+	
+	List<User> displayUsersByIdProject(Long idProject);
+	
 	Integer countUserByNameLastName(String name, String lastName);
 
 	List<User> searchUsersByCharacteristics(List<Long> characteristicsIds, int size);
