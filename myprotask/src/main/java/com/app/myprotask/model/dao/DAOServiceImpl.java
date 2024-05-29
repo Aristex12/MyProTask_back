@@ -374,8 +374,8 @@ public class DAOServiceImpl implements DAOService {
 	// PROJECTTASK TABLE METHODS CRUD
 	
 	@Override
-	public Integer countUserProjectByIdProject(Long idProject) {
-		return userProjectRep.countUserProjectByIdProject(idProject);
+	public Integer countActiveUserProjectByIdProject(Long idProject) {
+		return userProjectRep.countActiveUserProjectByIdProject(idProject);
 	}
 	
 	@Override
@@ -404,6 +404,12 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+
+	@Override
+	public List<UserProject> displayActiveUserProjectByIdProject(Long idProject) {
+		return userProjectRep.displayActiveUserProjectByIdProject(idProject);
+	}
 
 	@Override
 	public List<UserProject> displayUserProjectByActiveProjectByIdUser(Long idUser) {
@@ -651,6 +657,7 @@ public class DAOServiceImpl implements DAOService {
 	public Category displayCategoryById(Long id) {
 		return categoryRep.findById(id).orElse(null);
 	}
+
 
 	
 	// CATEGORY TABLE METHODS PERSONALIZED

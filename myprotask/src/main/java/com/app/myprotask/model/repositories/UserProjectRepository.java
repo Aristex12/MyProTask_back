@@ -20,10 +20,18 @@ public interface UserProjectRepository extends JpaRepository<UserProject, Long> 
 	/**
 	 * @author Manuel
 	 * @param idProject
+	 * @return all active users projects of project 
+	 */
+	@Query(value = "SELECT * FROM user_projects WHERE project_id = ?1 AND is_active = true", nativeQuery = true)
+	List<UserProject> displayActiveUserProjectByIdProject(Long idProject);
+
+	/**
+	 * @author Manuel
+	 * @param idProject
 	 * @return count UserProjects in the specific project
 	 */
-	@Query(value = "SELECT COUNT(*) FROM user_projects WHERE project_id = ?1", nativeQuery = true)
-	Integer countUserProjectByIdProject(Long idProject);
+	@Query(value = "SELECT COUNT(*) FROM user_projects WHERE project_id = ?1 AND is_active = true", nativeQuery = true)
+	Integer countActiveUserProjectByIdProject(Long idProject);
 
 	/**
 	 * 
