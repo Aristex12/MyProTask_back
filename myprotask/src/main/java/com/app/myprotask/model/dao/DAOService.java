@@ -2,6 +2,7 @@ package com.app.myprotask.model.dao;
 
 import java.util.List;
 
+
 import com.app.myprotask.model.Category;
 import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Event;
@@ -29,6 +30,8 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
+	
+	List<User> displayUsersByCharacteristics(List<Long> characteristicIds);
 	
 	List<User> displayUsersByIdProject(Long idProject);
 	

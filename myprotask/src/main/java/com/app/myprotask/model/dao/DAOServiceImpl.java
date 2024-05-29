@@ -108,6 +108,11 @@ public class DAOServiceImpl implements DAOService {
 	// USER TABLE METHODS PERSONALIZED
 	
 	@Override
+	public List<User> displayUsersByCharacteristics(List<Long> characteristicIds) {
+		return userRep.displayUsersByCharacteristics(characteristicIds);
+	}
+	
+	@Override
 	public List<User> displayUsersByIdProject(Long idProject) {
 		return userRep.displayUsersByIdProject(idProject);
 	}
@@ -663,8 +668,6 @@ public class DAOServiceImpl implements DAOService {
 	public Category displayCategoryById(Long id) {
 		return categoryRep.findById(id).orElse(null);
 	}
-
-
 	
 	// CATEGORY TABLE METHODS PERSONALIZED
 
