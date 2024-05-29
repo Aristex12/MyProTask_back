@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -46,19 +47,20 @@ public class ProjectApplicationTests {
 
     @Test
     public void testToString() {
-        String name = "Test project";
-        String description = "Test description";
-        Date startDate = Date.valueOf(LocalDate.now());
-        Date finishDate = Date.valueOf(LocalDate.now());
+
+        String name = "New Project";
+        String description = "Project Description";
+        Date startDate = Date.valueOf(LocalDate.of(2024, 1, 1));
+        Date finishDate = Date.valueOf(LocalDate.of(2024, 12, 31));
+        String projectPic = "ruta/defecto.png";
         int vacancies = 10;
-        List<Characteristic> projectCaracteristics = new ArrayList<>();
+        boolean isActive = true;
+        List<Characteristic> characteristics = Collections.singletonList(new Characteristic());
 
-        Project project = new Project(name, description, finishDate, vacancies, projectCaracteristics);
-
-        String expectedToString = "Project [idProject=null, name=Test project, description=Test description, startDate="
-                + startDate + ", finishDate=" + finishDate + ", vacancies=10, isActive=true, projectCaracteristics="
-                + projectCaracteristics + "]";
-
-        assertEquals(expectedToString, project.toString());
+        Project project = new Project(name, description, finishDate, vacancies, characteristics);
+        project.setStartDate(startDate);
+        
+        String expected = "Project [idProject=null, name=New Project, description=Project Description, startDate=2024-01-01, finishDate=2024-12-31, projectPic=ruta/defecto.png, vacancies=10, isActive=true, projectCharacteristics=" + characteristics + "]";
+        assertEquals(expected, project.toString(), "toString output should match");
     }
 }

@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,37 +37,32 @@ public class TaskApplicationTests {
     public void testParameterizedConstructor() {
         String name = "Test Task";
         String description = "Test description";
-        Date finishDate = new Date();
+        Date finishDate = Date.valueOf(LocalDate.of(2024, 12, 31));
         PriorityTasks priority = PriorityTasks.HIGH;
         Project project = new Project();
 
-        Task task = new Task(name, description,null,
-                new java.sql.Date(finishDate.getTime()), priority, project);
+        Task task = new Task(name, description, null, finishDate, priority, project);
 
         assertEquals(name, task.getName());
-        assertEquals(description, task.getDescription());
-        assertEquals(new java.sql.Date(finishDate.getTime()), task.getFinishDate());
+        assertEquals(Date.valueOf(LocalDate.now()), task.getStartDate());
+        assertEquals(finishDate, task.getFinishDate());
+        assertEquals(true, task.isActive());
         assertEquals(priority, task.getPriority());
         assertEquals(project, task.getProject());
     }
-    @Test
-    public void testToString() {
-        String name = "Test Task";
-        String description = "Test description";
-        Date startDate = new Date();
-        Date finishDate = new Date();
-        PriorityTasks priority = PriorityTasks.HIGH;
-        Project project = new Project();
+   @Test
+   public void testToString() {
+       String name = "Task Name";
+       String description = "Task Description";
+       Date finishDate = Date.valueOf(LocalDate.of(2024, 12, 31));
+       PriorityTasks priority = PriorityTasks.HIGH;
+       Project project = new Project();
 
-        Task task = new Task(name, description, new java.sql.Date(startDate.getTime()),
-                new java.sql.Date(finishDate.getTime()), priority, project);
+       Task task = new Task(name, description, null, finishDate, priority, project);
+       task.setStartDate(null);
 
-        String expectedToString = "Task [idTask=null, name=Test Task, description=Test description, startDate=" 
-                + new java.sql.Date(startDate.getTime()) + ", finishDate=" + new java.sql.Date(finishDate.getTime())
-                + ", taskPic=ruta/defecto.png, isActive=true, priority=HIGH, project=" + project + "]";
-
-        assertEquals(expectedToString, task.toString());
-       
-    }
+       String expected = "Task [idTask=null, name=Task Name, description=Task Description, startDate=null, finishDate=2024-12-31, isActive=true, priority=HIGH, project=" + project + "]";
+       assertEquals(expected, task.toString());
+   }
 }
 

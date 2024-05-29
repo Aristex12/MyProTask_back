@@ -53,8 +53,11 @@ public class UserProjectApplicationTests {
     @Test
     public void testToString() {
         User user = new User();
+
         Project project = new Project();
+
         Role role = new Role("Member");
+
         Date joinDate = new Date(System.currentTimeMillis());
         Date exitDate = new Date(System.currentTimeMillis());
 
@@ -64,8 +67,7 @@ public class UserProjectApplicationTests {
         userProject.setExitDate(exitDate);
         userProject.setActive(true);
 
-        String expectedToString = "UserProject [idUserProject=null, user=" + user + ", project=" + project
-                + ", joinDate=" + joinDate + ", exitDate=" + exitDate + ", role=" + role + ", isActive=true]";
+        String expectedToString = "UserProject [idUserProject=null, user="+user+", project="+project+" , joinDate=" + joinDate + ", exitDate=" + exitDate + ", role=Role [idRole=null, name=Member], isActive=true]";
 
         assertEquals(expectedToString, userProject.toString());
     }

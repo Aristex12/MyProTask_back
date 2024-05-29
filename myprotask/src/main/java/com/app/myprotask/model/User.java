@@ -89,7 +89,7 @@ public class User {
 	public static boolean verifyPassword(String password) {
 		boolean passwordCorrect = false;
 		
-		if (password.matches("^(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~])(?=.*[0-9]).{8,}$")) {
+		if (password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~])(?=.*[0-9]).{8,}$")) {
 			passwordCorrect = true;
 		}
 		return passwordCorrect;

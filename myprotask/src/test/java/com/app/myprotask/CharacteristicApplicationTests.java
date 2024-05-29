@@ -15,22 +15,27 @@ public class CharacteristicApplicationTests {
 		Characteristic characteristic = new Characteristic();
 		
 		assertNull(characteristic.getName());
+		assertNull(characteristic.getCategory());
 
 	}
 	@Test
     public void testParameterizedConstructor() {
         String name = "Java";
-
-        Characteristic characteristic = new Characteristic(name);
+        Category category = new Category("Technology", true);
+        Characteristic characteristic = new Characteristic(name,category);
         
         assertEquals(name, characteristic.getName());
+        assertEquals(category, characteristic.getCategory());
     }
 	@Test
-	public void testToString() {
-	    
-		Characteristic characteristic = new Characteristic("Java");
-	    
-	    String expectedToString = "Characteristic [idCharacteristic=null, name=Java]";
-	    assertEquals(expectedToString, characteristic.toString());
-	}
+    public void testToString() {
+        
+        String name = "Speed";
+        Category category = new Category("Technology", true);
+        
+        Characteristic characteristic = new Characteristic(name, category);
+        
+        String expected = "Characteristic [idCharacteristic=null, name=Speed, category=Category [idCategory=null, name=Technology, isTechnical=true]]";
+        assertEquals(expected, characteristic.toString());
+    }
 }
