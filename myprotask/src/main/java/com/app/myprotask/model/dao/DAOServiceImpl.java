@@ -338,6 +338,12 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
+	
+
+	@Override
+	public List<Task> displayTasksByProjectsByIdUser(Long idUser) {
+		return taskRep.displayTasksByProjectsByIdUser(idUser);
+	}
 
 	@Override
 	public Integer countActiveTasksByIdProject(Long idProject) {

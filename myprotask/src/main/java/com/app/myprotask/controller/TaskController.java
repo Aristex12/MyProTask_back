@@ -25,7 +25,35 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * @author Manuel
+	 * @param idUser
+	 * @return all tasks from all projects in which the given user participates
+	 */
+	@GetMapping(value = "/displayTasksByProjectsByIdUser")
+	public ResponseEntity<?> displayTasksByProjectsByIdUser(@RequestParam("idUser") Long idUser) {
+	    try {
+	        List<Task> tasks = daoS.displayTasksByProjectsByIdUser(idUser);
+	        if (!tasks.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.OK).body(tasks);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                    .body("No tasks found for user with ID: " + idUser);
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("An error occurred while retrieving tasks for user with ID: " + idUser + ". Error message: " + e.getMessage());
+	    }
+	}
 
+
+	/**
+	 * @author Manuel
+	 * @param task
+	 * @param idProject
+	 * @return HTTP message indicating whether the task was successfully created or if an error occurred
+	 */
 	@PostMapping(value = "/addTask")
 	public ResponseEntity<String> addTask(@RequestBody Task task, @RequestParam("idProject") Long idProject) {
 		try {
