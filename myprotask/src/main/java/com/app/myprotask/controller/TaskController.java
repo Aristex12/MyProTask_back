@@ -28,19 +28,23 @@ public class TaskController {
 
 	@PostMapping(value = "/addTask")
 	public ResponseEntity<String> addTask(@RequestBody Task task, @RequestParam("idProject") Long idProject) {
-	    try {
-	        Project project = daoS.displayProjectById(idProject);
-	        if (project != null) {
-	            daoS.addTask(new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(), project));
-	            return ResponseEntity.status(HttpStatus.CREATED).body("Task added successfully");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID: " + idProject + " not found");
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while adding the task: " + e.getMessage());
-	    }
-	}
+		try {
+			Project project = daoS.displayProjectById(idProject);
 
+			if (project != null) {
+
+				daoS.addTask(new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(),
+						project));
+				return ResponseEntity.status(HttpStatus.CREATED).body("Task added successfully");
+
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID: " + idProject + " not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while adding the task: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * Used in View Tasks [ Member ]

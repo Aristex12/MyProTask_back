@@ -151,6 +151,7 @@ public class UserController {
 		try {
 			User user = daoS.displayUserById(idUser);
 			if (user != null) {
+				
 				user.setCv(cv);
 				user.setProfilePic(profilePic);
 				user.setDescription(description);
@@ -161,7 +162,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
+					.body("An error occurred while updating the user's CV, profile picture and description: " + e.getMessage());
 		}
 	}
 
