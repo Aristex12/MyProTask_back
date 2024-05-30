@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = "SELECT u.* FROM users u, user_characteristics uc, characteristics c "
 			+ "WHERE u.id_user = uc.user_id " + "AND uc.characteristic_id = c.id_characteristic "
 			+ "AND c.id_characteristic IN :characteristicIds " + "GROUP BY u.id_user "
-			+ "HAVING COUNT(DISTINCT c.id_characteristic) >= 1", nativeQuery = true)
+			+ "HAVING COUNT(DISTINCT c.id_characteristic) >= 1 ORDER BY COUNT(DISTINCT c.id_characteristic) DESC, u.name", nativeQuery = true)
 	List<User> displayUsersByCharacteristics(@Param("characteristicIds") List<Long> characteristicIds);
 
 	/**
