@@ -188,26 +188,32 @@ public class UserController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/updateCvProfilePicDescriptionUserById")
-	public ResponseEntity<String> updateCvProfilePicDescriptionUserById(@RequestParam("idUser") Long idUser,
-			@RequestParam("cv") String cv, @RequestParam("profilePic") String profilePic,
-			@RequestParam("description") String description) {
-		try {
-			User user = daoS.displayUserById(idUser);
-			if (user != null) {
-
-				user.setCv(cv);
-				user.setProfilePic(profilePic);
-				user.setDescription(description);
-				daoS.updateUser(user);
-				return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the user's CV, profile picture and description: "
-							+ e.getMessage());
-		}
+	public ResponseEntity<String> updateCvProfilePicDescriptionUserById(
+	        @RequestParam("idUser") Long idUser,
+	        @RequestParam(value = "cv", required = false) String cv,
+	        @RequestParam(value = "profilePic", required = false) String profilePic,
+	        @RequestParam(value = "description", required = false) String description) {
+	    try {
+	        User user = daoS.displayUserById(idUser);
+	        if (user != null) {
+	            if (cv != null) {
+	                user.setCv(cv);
+	            }
+	            if (profilePic != null) {
+	                user.setProfilePic(profilePic);
+	            }
+	            if (description != null) {
+	                user.setDescription(description);
+	            }
+	            daoS.updateUser(user);
+	            return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
+	    }
 	}
 
 	/**
