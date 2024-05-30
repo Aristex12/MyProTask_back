@@ -500,6 +500,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	@Override
+	public UserTask displayUserTaskByIdTaskIdUser(Long idTask, Long idUser) {
+		return userTaskRep.displayUserTaskByIdTaskIdUser(idTask, idUser);
+	}
 
 	@Override
 	public List<UserTask> displayUserTasksByUserId(Long idUser) {
@@ -668,6 +673,8 @@ public class DAOServiceImpl implements DAOService {
 	public Category displayCategoryById(Long id) {
 		return categoryRep.findById(id).orElse(null);
 	}
+
+	
 	
 	// CATEGORY TABLE METHODS PERSONALIZED
 

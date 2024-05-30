@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,32 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+
+	/**
+	 * @author Manuel
+	 * @param taskData
+	 * @param idTask
+	 * @return a text indicating whether the task data has been updated or if there has been a problem
+	 */
+	@PutMapping(value = "/updateTaskById")
+	public ResponseEntity<String> updateTaskById(@RequestBody Task taskData, @RequestParam("idTask") Long idTask) {
+		try {
+			Task task = daoS.displayTaskById(idTask);
+			if (task != null) {
+				task.setName(taskData.getName());
+				task.setDescription(taskData.getDescription());
+				task.setFinishDate(taskData.getFinishDate());
+				task.setPriority(taskData.getPriority());
+				daoS.updateTask(task);
+				return ResponseEntity.status(HttpStatus.OK).body("Task updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the task: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * @author Manuel

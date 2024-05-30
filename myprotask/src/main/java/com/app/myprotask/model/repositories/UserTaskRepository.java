@@ -17,6 +17,14 @@ import com.app.myprotask.model.UserTask;
 @Repository
 public interface UserTaskRepository extends JpaRepository<UserTask, Long> {
 
+	/**
+	 * @author Manuel
+	 * @param idTask
+	 * @param idUser
+	 * @return User Task when two ids matches
+	 */
+	@Query(value = "SELECT * FROM user_tasks WHERE task_id = ?1 AND user_id = ?2", nativeQuery = true)
+	UserTask displayUserTaskByIdTaskIdUser(Long idTask, Long idUser);
 	
 	/**
 	 * @author Manuel

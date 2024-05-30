@@ -184,6 +184,8 @@ public interface DAOService {
 	UserTask displayUserTaskById(Long id);
 
 	// USERTASK TABLE METHODS PERSONALIZED
+	
+	UserTask displayUserTaskByIdTaskIdUser(Long idTask, Long idUser);
 
 	List<UserTask> displayUserTasksByUserId(Long idUser);
 
