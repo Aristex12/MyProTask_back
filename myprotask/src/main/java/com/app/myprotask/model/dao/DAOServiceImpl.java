@@ -344,6 +344,25 @@ public class DAOServiceImpl implements DAOService {
 
 	// TASK TABLE METHODS PERSONALIZED
 	
+	@Override
+	public void updateActiveTask(Task task) {
+		if (task.isActive()) {
+			
+			task.setActive(false);
+			updateTask(task);
+			
+			for (UserTask ut : displayUserTasksByTaskId(task.getIdTask())) {
+				ut.setActive(false);
+				updateUserTask(ut);
+			}
+		}else {
+			if (task.getProject().isActive()) {
+				task.setActive(true);
+			}
+		}
+		
+	}
+	
 
 	@Override
 	public List<Task> displayTasksByProjectsByIdUser(Long idUser) {
@@ -673,7 +692,6 @@ public class DAOServiceImpl implements DAOService {
 	public Category displayCategoryById(Long id) {
 		return categoryRep.findById(id).orElse(null);
 	}
-
 	
 	
 	// CATEGORY TABLE METHODS PERSONALIZED

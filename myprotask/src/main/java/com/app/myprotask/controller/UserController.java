@@ -206,7 +206,7 @@ public class UserController {
 	                user.setDescription(description);
 	            }
 	            daoS.updateUser(user);
-	            return ResponseEntity.status(HttpStatus.OK).body("CV and profile picture updated successfully");
+	            return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
 	        } else {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
 	        }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Task;
+import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.dao.DAOService;
 
@@ -27,6 +28,29 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 *
+	 * Update the task's status to active or inactive and their participation in the
+	 * user_tasks accordingly
+	 * 
+	 * @author Manuel
+	 */
+	@PutMapping(value = "/updateActiveTask")
+	public ResponseEntity<String> updateActiveTask(@RequestParam("idTask") Long idTask) {
+		try {
+			Task task = daoS.displayTaskById(idTask);
+			if (task != null) {
+				daoS.updateActiveTask(task);
+				return ResponseEntity.status(HttpStatus.OK).body("Task status updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the task's status: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * @author Manuel

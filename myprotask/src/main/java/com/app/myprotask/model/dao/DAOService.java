@@ -123,6 +123,8 @@ public interface DAOService {
 
 	// TASK TABLE METHODS PERSONALIZED
 	
+	void updateActiveTask(Task task);
+	
 	List<Task> displayTasksByProjectsByIdUser(Long idUser);
 
 	Integer countActiveTasksByIdProject(Long idProject);
