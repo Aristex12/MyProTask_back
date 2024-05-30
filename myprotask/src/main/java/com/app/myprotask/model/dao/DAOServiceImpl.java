@@ -371,7 +371,7 @@ public class DAOServiceImpl implements DAOService {
 		if (task.isActive()) {
 
 			task.setActive(false);
-			updateTask(task);
+			
 
 			for (UserTask ut : displayUserTasksByTaskId(task.getIdTask())) {
 				ut.setActive(false);
@@ -382,6 +382,7 @@ public class DAOServiceImpl implements DAOService {
 				task.setActive(true);
 			}
 		}
+		updateTask(task);
 
 	}
 
