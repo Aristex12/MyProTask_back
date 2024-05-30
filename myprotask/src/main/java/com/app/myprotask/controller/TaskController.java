@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Task;
-import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.dao.DAOService;
 

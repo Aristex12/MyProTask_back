@@ -64,7 +64,7 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	EventRepository eventRep;
-	
+
 	@Autowired
 	CategoryRepository categoryRep;
 
@@ -75,11 +75,11 @@ public class DAOServiceImpl implements DAOService {
 		int contUsers = countUserByNameLastName(user.getName(), user.getLastName());
 
 		if (contUsers != 0) {
-			user.setEmail(user.generateEmailDuplicate(++contUsers));			
+			user.setEmail(user.generateEmailDuplicate(++contUsers));
 		}
 
 		userRep.save(user);
-		
+
 		user.setDas(user.generateNumberDAS());
 
 		userRep.save(user);
@@ -106,12 +106,12 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<User> displayUsersByCharacteristics(List<Long> characteristicIds) {
 		return userRep.displayUsersByCharacteristics(characteristicIds);
 	}
-	
+
 	@Override
 	public List<User> displayUsersByIdProject(Long idProject) {
 		return userRep.displayUsersByIdProject(idProject);
@@ -229,7 +229,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// PROJECT TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public List<Project> displayProjectsByActiveUserProjectsByIdUser(Long idUser) {
 		return projectRep.displayProjectsByActiveUserProjectsByIdUser(idUser);
@@ -313,6 +313,28 @@ public class DAOServiceImpl implements DAOService {
 
 	// REQUEST TABLE METHODS PERSONALIZED
 
+	@Override
+	public List<Request> displayRequestsByProjectsIdUser(Long idUser) {
+
+		List<Request> requestsUser = new ArrayList<>();
+		List<Request> requestsProjects = new ArrayList<>();
+		List<Project> projects = displayProjectsByIdUser(idUser);
+
+		for (Project project : projects) {
+
+			requestsProjects = displayRequestsByIdProject(project.getIdProject());
+			for (Request request : requestsProjects) {
+				requestsUser.add(request);
+			}
+		}
+		return requestsUser;
+	}
+
+	@Override
+	public List<Request> displayRequestsByIdProject(Long idProject) {
+		return requestRep.displayRequestsByIdProject(idProject);
+	}
+
 	//////////////////////////////////////////////////////////////////////////////
 
 	// TASK TABLE METHODS CRUD
@@ -343,26 +365,25 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// TASK TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public void updateActiveTask(Task task) {
 		if (task.isActive()) {
-			
+
 			task.setActive(false);
 			updateTask(task);
-			
+
 			for (UserTask ut : displayUserTasksByTaskId(task.getIdTask())) {
 				ut.setActive(false);
 				updateUserTask(ut);
 			}
-		}else {
+		} else {
 			if (task.getProject().isActive()) {
 				task.setActive(true);
 			}
 		}
-		
+
 	}
-	
 
 	@Override
 	public List<Task> displayTasksByProjectsByIdUser(Long idUser) {
@@ -402,12 +423,12 @@ public class DAOServiceImpl implements DAOService {
 	//////////////////////////////////////////////////////////////////////////////
 
 	// PROJECTTASK TABLE METHODS CRUD
-	
+
 	@Override
 	public Integer countActiveUserProjectByIdProject(Long idProject) {
 		return userProjectRep.countActiveUserProjectByIdProject(idProject);
 	}
-	
+
 	@Override
 	public void addUserProject(UserProject userProject) {
 		userProjectRep.save(userProject);
@@ -434,7 +455,6 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
-	
 
 	@Override
 	public List<UserProject> displayActiveUserProjectByIdProject(Long idProject) {
@@ -519,7 +539,7 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERTASK TABLE METHODS PERSONALIZED
-	
+
 	@Override
 	public UserTask displayUserTaskByIdTaskIdUser(Long idTask, Long idUser) {
 		return userTaskRep.displayUserTaskByIdTaskIdUser(idTask, idUser);
@@ -665,22 +685,22 @@ public class DAOServiceImpl implements DAOService {
 	public List<Event> displayEventsByIdUser(Long idUser) {
 		return eventRep.displayEventsByIdUser(idUser);
 	}
-	
+
 	// CATEGORY TABLE METHODS CRUD
 
 	@Override
 	public void addCategory(Category category) {
-		categoryRep.save(category);		
+		categoryRep.save(category);
 	}
 
 	@Override
 	public void updateCategory(Category category) {
-		categoryRep.save(category);				
+		categoryRep.save(category);
 	}
 
 	@Override
 	public void deleteCategory(Category category) {
-		categoryRep.save(category);		
+		categoryRep.save(category);
 	}
 
 	@Override
@@ -692,9 +712,7 @@ public class DAOServiceImpl implements DAOService {
 	public Category displayCategoryById(Long id) {
 		return categoryRep.findById(id).orElse(null);
 	}
-	
-	
-	// CATEGORY TABLE METHODS PERSONALIZED
 
+	// CATEGORY TABLE METHODS PERSONALIZED
 
 }

@@ -43,6 +43,7 @@ public class Request {
 
 	public Request(String message, User user, Project project) {
 		this.message = message;
+		this.isAccepted = false;
 		this.user = user;
 		this.project = project;
 	}

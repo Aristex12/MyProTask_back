@@ -95,7 +95,7 @@ public interface DAOService {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	// REQUEST TABLE METHODS
+	// REQUEST TABLE METHODS CRUD
 
 	void addRequest(Request request);
 
@@ -106,6 +106,14 @@ public interface DAOService {
 	List<Request> displayRequests();
 
 	Request displayRequestById(Long id);
+	
+	// REQUEST TABLE METHODS PERSONALIZED
+	
+	List<Request> displayRequestsByProjectsIdUser(Long idUser);
+
+	
+	List<Request> displayRequestsByIdProject(Long idProject);
+
 
 	//////////////////////////////////////////////////////////////////////////////
 
