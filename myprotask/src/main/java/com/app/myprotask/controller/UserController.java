@@ -23,6 +23,27 @@ public class UserController {
 
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * @author Manuel
+	 * @param characteristicsIds
+	 * @return all users who match at least 1 characteristic from the provided ones, sorted by matches.
+	 */
+	@PostMapping(value = "/displayUsersByCharacteristics")
+	public ResponseEntity<?> displayUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+		try {
+			List<User> users = daoS.displayUsersByCharacteristics(characteristicsIds);
+			if (!users.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(users);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No users found with the specified characteristics");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while searching users by characteristics: " + e.getMessage());
+		}
+	}
 
 	/**
 	 * @author Manuel

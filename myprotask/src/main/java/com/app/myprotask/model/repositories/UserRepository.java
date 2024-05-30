@@ -18,11 +18,21 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	/**
 	 * @author Manuel
+	 * @param characteristicIds
+	 * @return all users who match at least 1 characteristic from the provided ones, sorted by matches.
+	 */
+	@Query(value = "SELECT u.* FROM users u, user_characteristics uc, characteristics c "
+			+ "WHERE u.id_user = uc.user_id " + "AND uc.characteristic_id = c.id_characteristic "
+			+ "AND c.id_characteristic IN :characteristicIds " + "GROUP BY u.id_user "
+			+ "HAVING COUNT(DISTINCT c.id_characteristic) >= 1 ORDER BY COUNT(DISTINCT c.id_characteristic) DESC, u.name", nativeQuery = true)
+	List<User> displayUsersByCharacteristics(@Param("characteristicIds") List<Long> characteristicIds);
+
+	/**
+	 * @author Manuel
 	 * @param idProject
 	 * @return List of all users with the specific project
 	 */
-	@Query(value = "SELECT u.* FROM users u, user_projects up "
-			+ "WHERE up.project_id = ?1 "
+	@Query(value = "SELECT u.* FROM users u, user_projects up " + "WHERE up.project_id = ?1 "
 			+ "AND u.id_user = up.user_id", nativeQuery = true)
 	List<User> displayUsersByIdProject(Long idProject);
 
