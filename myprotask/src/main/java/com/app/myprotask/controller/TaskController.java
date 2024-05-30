@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Task;
+import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
@@ -25,7 +26,7 @@ public class TaskController {
 
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * @author Manuel
 	 * @param idUser
@@ -33,38 +34,40 @@ public class TaskController {
 	 */
 	@GetMapping(value = "/displayTasksByProjectsByIdUser")
 	public ResponseEntity<?> displayTasksByProjectsByIdUser(@RequestParam("idUser") Long idUser) {
-	    try {
-	        List<Task> tasks = daoS.displayTasksByProjectsByIdUser(idUser);
-	        if (!tasks.isEmpty()) {
-	            return ResponseEntity.status(HttpStatus.OK).body(tasks);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	                    .body("No tasks found for user with ID: " + idUser);
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body("An error occurred while retrieving tasks for user with ID: " + idUser + ". Error message: " + e.getMessage());
-	    }
+		try {
+			List<Task> tasks = daoS.displayTasksByProjectsByIdUser(idUser);
+			if (!tasks.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(tasks);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No tasks found for user with ID: " + idUser);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while retrieving tasks for user with ID: " + idUser + ". Error message: "
+							+ e.getMessage());
+		}
 	}
-
 
 	/**
 	 * @author Manuel
 	 * @param task
 	 * @param idProject
-	 * @return HTTP message indicating whether the task was successfully created or if an error occurred
+	 * @return HTTP message indicating whether the task was successfully created or
+	 *         if an error occurred
 	 */
 	@PostMapping(value = "/addTask")
-	public ResponseEntity<String> addTask(@RequestBody Task task, @RequestParam("idProject") Long idProject) {
+	public ResponseEntity<String> addTask(@RequestBody Task task, @RequestParam("idProject") Long idProject,
+			@RequestParam("idUser") Long idUser) {
 		try {
 			Project project = daoS.displayProjectById(idProject);
 
 			if (project != null) {
+				Task taskNew = new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(),
+						project);
+				daoS.addTask(taskNew);
 
-				daoS.addTask(new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(),
-						project));
-				return ResponseEntity.status(HttpStatus.CREATED).body("Task added successfully");
-
+				daoS.addUserTask(new UserTask(daoS.displayUserById(idUser), taskNew));
+				return ResponseEntity.status(HttpStatus.CREATED).body("Task successfully added to user ID: " + idUser);
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID: " + idProject + " not found");
 			}
