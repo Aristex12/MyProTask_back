@@ -70,7 +70,7 @@ public class ProjectController {
 	 * 
 	 * @author Manuel
 	 */
-	@PutMapping(value = "/updateActiveProjectById")
+	@GetMapping(value = "/updateActiveProjectById")
 	public ResponseEntity<String> updateActiveProjectById(@RequestParam("idProject") Long idProject) {
 		try {
 			daoS.updateActiveProject(daoS.displayProjectById(idProject));
