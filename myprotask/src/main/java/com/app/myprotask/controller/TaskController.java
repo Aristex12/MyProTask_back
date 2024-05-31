@@ -59,23 +59,33 @@ public class TaskController {
 	 */
 	@PutMapping(value = "/updateTaskById")
 	public ResponseEntity<String> updateTaskById(@RequestBody Task taskData, @RequestParam("idTask") Long idTask) {
-		try {
-			Task task = daoS.displayTaskById(idTask);
-			if (task != null) {
-				task.setName(taskData.getName());
-				task.setDescription(taskData.getDescription());
-				task.setFinishDate(taskData.getFinishDate());
-				task.setPriority(taskData.getPriority());
-				daoS.updateTask(task);
-				return ResponseEntity.status(HttpStatus.OK).body("Task updated successfully");
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the task: " + e.getMessage());
-		}
+	    try {
+	        Task task = daoS.displayTaskById(idTask);
+	        if (task != null) {
+	            // Solo actualizar los campos si están presentes en taskData
+	            if (taskData.getName() != null) {
+	                task.setName(taskData.getName());
+	            }
+	            if (taskData.getDescription() != null) {
+	                task.setDescription(taskData.getDescription());
+	            }
+	            if (taskData.getFinishDate() != null) {
+	                task.setFinishDate(taskData.getFinishDate());
+	            }
+	            if (taskData.getPriority() != null) {
+	                task.setPriority(taskData.getPriority());
+	            }
+	            daoS.updateTask(task);
+	            return ResponseEntity.status(HttpStatus.OK).body("Task updated successfully");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("An error occurred while updating the task: " + e.getMessage());
+	    }
 	}
+
 
 	/**
 	 * @author Manuel
