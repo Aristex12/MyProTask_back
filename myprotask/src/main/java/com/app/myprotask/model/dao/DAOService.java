@@ -30,8 +30,10 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
+	
+	List<User> displayActiveUsersByIdProject(Long idProject);
 
-	List<User> displayUsersByCharacteristics(List<Long> characteristicIds);
+	List<User> displayUsersByCharacteristics(List<Long> characteristicIds, Long idProject);
 
 	List<User> displayUsersByIdProject(Long idProject);
 

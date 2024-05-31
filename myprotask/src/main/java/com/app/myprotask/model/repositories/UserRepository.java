@@ -15,6 +15,15 @@ import com.app.myprotask.model.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	
+	/**
+	 * @author Manuel
+	 * @param idProject
+	 * @return List of all users with the specific project
+	 */
+	@Query(value = "SELECT u.* FROM users u, user_projects up WHERE up.project_id = ?1 "
+			+ "AND u.id_user = up.user_id AND up.is_active", nativeQuery = true)
+	List<User> displayActiveUsersByIdProject(Long idProject);
 
 	/**
 	 * @author Manuel

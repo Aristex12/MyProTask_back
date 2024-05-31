@@ -23,16 +23,18 @@ public class UserController {
 
 	@Autowired
 	DAOService daoS;
-	
+
 	/**
 	 * @author Manuel
 	 * @param characteristicsIds
-	 * @return all users who match at least 1 characteristic from the provided ones, sorted by matches.
+	 * @return all users who match at least 1 characteristic from the provided ones,
+	 *         sorted by matches.
 	 */
 	@PostMapping(value = "/displayUsersByCharacteristics")
-	public ResponseEntity<?> displayUsersByCharacteristics(@RequestBody List<Long> characteristicsIds) {
+	public ResponseEntity<?> displayUsersByCharacteristics(@RequestBody List<Long> characteristicsIds,
+			@RequestParam("idProject") Long idProject) {
 		try {
-			List<User> users = daoS.displayUsersByCharacteristics(characteristicsIds);
+			List<User> users = daoS.displayUsersByCharacteristics(characteristicsIds, idProject);
 			if (!users.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.OK).body(users);
 			} else {
@@ -52,19 +54,19 @@ public class UserController {
 	 */
 	@GetMapping(value = "/displayUsersByIdProject")
 	public ResponseEntity<?> displayUsersByIdProject(@RequestParam("idProject") Long idProject) {
-	    try {
-	        List<User> users = daoS.displayUsersByIdProject(idProject);
-	        if (!users.isEmpty()) {
-	            return ResponseEntity.status(HttpStatus.OK).body(users);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No users found for project with ID: " + idProject);
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while displaying users by project ID: " + e.getMessage());
-	    }
+		try {
+			List<User> users = daoS.displayUsersByIdProject(idProject);
+			if (!users.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(users);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No users found for project with ID: " + idProject);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying users by project ID: " + e.getMessage());
+		}
 	}
-
 
 	/**
 	 * Used in Search User [ Manager ]
@@ -188,32 +190,31 @@ public class UserController {
 	 * @param userCharacteristics
 	 */
 	@PutMapping(value = "/updateCvProfilePicDescriptionUserById")
-	public ResponseEntity<String> updateCvProfilePicDescriptionUserById(
-	        @RequestParam("idUser") Long idUser,
-	        @RequestParam(value = "cv", required = false) String cv,
-	        @RequestParam(value = "profilePic", required = false) String profilePic,
-	        @RequestParam(value = "description", required = false) String description) {
-	    try {
-	        User user = daoS.displayUserById(idUser);
-	        if (user != null) {
-	            if (cv != null) {
-	                user.setCv(cv);
-	            }
-	            if (profilePic != null) {
-	                user.setProfilePic(profilePic);
-	            }
-	            if (description != null) {
-	                user.setDescription(description);
-	            }
-	            daoS.updateUser(user);
-	            return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                .body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
-	    }
+	public ResponseEntity<String> updateCvProfilePicDescriptionUserById(@RequestParam("idUser") Long idUser,
+			@RequestParam(value = "cv", required = false) String cv,
+			@RequestParam(value = "profilePic", required = false) String profilePic,
+			@RequestParam(value = "description", required = false) String description) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			if (user != null) {
+				if (cv != null) {
+					user.setCv(cv);
+				}
+				if (profilePic != null) {
+					user.setProfilePic(profilePic);
+				}
+				if (description != null) {
+					user.setDescription(description);
+				}
+				daoS.updateUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("User updated successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while updating the user's CV and profile picture: " + e.getMessage());
+		}
 	}
 
 	/**

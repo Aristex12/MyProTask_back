@@ -113,8 +113,27 @@ public class DAOServiceImpl implements DAOService {
 	// USER TABLE METHODS PERSONALIZED
 
 	@Override
-	public List<User> displayUsersByCharacteristics(List<Long> characteristicIds) {
-		return userRep.displayUsersByCharacteristics(characteristicIds);
+	public List<User> displayActiveUsersByIdProject(Long idProject) {
+		return userRep.displayActiveUsersByIdProject(idProject);
+	}
+
+	@Override
+	public List<User> displayUsersByCharacteristics(List<Long> characteristicIds, Long idProject) {
+		
+		List<User> allUsers = userRep.displayUsersByCharacteristics(characteristicIds);
+
+		List<User> userProjects = displayActiveUsersByIdProject(idProject);
+
+		List<User> finalUsers = new ArrayList<>();
+
+		for (User user : allUsers) {
+
+			if (userProjects.contains(user)) {
+				finalUsers.add(user);
+			}
+		}
+		return finalUsers;
+
 	}
 
 	@Override
