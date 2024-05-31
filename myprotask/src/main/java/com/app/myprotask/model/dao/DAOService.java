@@ -30,7 +30,9 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
-	
+
+	void updateAvgLastEvaUserById(User user);
+
 	List<User> displayActiveUsersByIdProject(Long idProject);
 
 	List<User> displayUsersByCharacteristics(List<Long> characteristicIds, Long idProject);
@@ -290,8 +292,7 @@ public interface DAOService {
 	Evaluation displayEvaluationById(Long id);
 
 	// EVALUATION TABLE METHODS PERSONALIZED
-	
-	List<Evaluation> displayEvaluationsByIdUser(Long idUser);
 
+	List<Evaluation> displayEvaluationsByIdUser(Long idUser);
 
 }

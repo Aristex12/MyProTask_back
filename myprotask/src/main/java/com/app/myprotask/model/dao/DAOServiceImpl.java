@@ -1,5 +1,7 @@
 package com.app.myprotask.model.dao;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,13 +115,35 @@ public class DAOServiceImpl implements DAOService {
 	// USER TABLE METHODS PERSONALIZED
 
 	@Override
+	public void updateAvgLastEvaUserById(User user) {
+	    List<Evaluation> evaluationsUser = displayEvaluationsByIdUser(user.getIdUser());
+
+	    double total = 0;
+
+	    for (Evaluation evaluation : evaluationsUser) {
+	        total += evaluation.getTeamWork() + evaluation.getIndividualWork() + evaluation.getInitiative()
+	                + evaluation.getProblemResolution();
+	    }
+
+	    if (!evaluationsUser.isEmpty()) {
+	        double average = (total / 4) / evaluationsUser.size();
+	        BigDecimal avgRounded = new BigDecimal(average).setScale(2, RoundingMode.HALF_UP);
+	        user.setAvgLastEva(avgRounded.doubleValue());
+	        updateUser(user);
+	    } else {
+	        user.setAvgLastEva(0.0);
+	        updateUser(user);
+	    }
+	}
+
+	@Override
 	public List<User> displayActiveUsersByIdProject(Long idProject) {
 		return userRep.displayActiveUsersByIdProject(idProject);
 	}
 
 	@Override
 	public List<User> displayUsersByCharacteristics(List<Long> characteristicIds, Long idProject) {
-		
+
 		List<User> allUsers = userRep.displayUsersByCharacteristics(characteristicIds);
 
 		List<User> userProjects = displayActiveUsersByIdProject(idProject);

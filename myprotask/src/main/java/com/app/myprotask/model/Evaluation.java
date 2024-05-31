@@ -19,8 +19,8 @@ public class Evaluation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_category")
-	private Long idCategory;
+	@Column(name = "id_evaluation")
+	private Long idEvaluations;
 
 	@Column(name = "team_work", nullable = false)
 	private Integer teamWork;
@@ -133,13 +133,13 @@ public class Evaluation {
 		this.userProject = userProject;
 	}
 
-	public Long getIdCategory() {
-		return idCategory;
+	public Long getIdEvaluations() {
+		return idEvaluations;
 	}
 
 	@Override
 	public String toString() {
-		return "Evaluation [idCategory=" + idCategory + ", teamWork=" + teamWork + ", individualWork=" + individualWork
+		return "Evaluation [idEvaluations=" + idEvaluations + ", teamWork=" + teamWork + ", individualWork=" + individualWork
 				+ ", iniciative=" + initiative + ", problemResolution=" + problemResolution + ", observation="
 				+ observation + ", date=" + date + ", userProject=" + userProject + "]";
 	}

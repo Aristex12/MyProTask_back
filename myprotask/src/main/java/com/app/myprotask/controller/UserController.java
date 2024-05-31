@@ -24,6 +24,28 @@ public class UserController {
 	@Autowired
 	DAOService daoS;
 
+	
+	/**
+	 * Updates the user's average based on all the evaluations of all the projects they have
+	 * 
+	 * @author Manuel
+	 * @param idUser
+	 */
+	@PutMapping(value = "/updateAvgLastEvaUserById")
+    public ResponseEntity<String> updateAvgLastEvaUserById(@RequestParam("idUser") Long idUser) {
+        try {
+            User user = daoS.displayUserById(idUser);
+            if (user != null) {
+                daoS.updateAvgLastEvaUserById(user);
+                return ResponseEntity.status(HttpStatus.OK).body("User average updated successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error: " + e.getMessage());
+        }
+    }
+
 	/**
 	 * @author Manuel
 	 * @param characteristicsIds
