@@ -22,11 +22,40 @@ import com.app.myprotask.model.dao.DAOService;
 public class UserProjectController {
 	@Autowired
 	DAOService daoS;
+	
+	
+	/**
+	 * @author Manuel
+	 * @param idProject
+	 * @return all active users projects of project 
+	 */
+	@GetMapping(value = "/displayActiveUserProjectByIdProject")
+	public ResponseEntity<?> displayActiveUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
+	    try {
+	        List<UserProject> activeUserProjects = daoS.displayActiveUserProjectByIdProject(idProject);
+	        if (!activeUserProjects.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("No active user projects found for project with ID: " + idProject);
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while displaying active user projects for project with ID " + idProject + ": " + e.getMessage());
+	    }
+	}
 
-	@GetMapping(value = "/countUserProjectByIdProject")
-	public ResponseEntity<?> countUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
+
+	
+	/**
+	 * @author Manuel
+	 * @param idProject
+	 * @return count of active users projects of project 
+	 */
+	@GetMapping(value = "/countActiveUserProjectByIdProject")
+	public ResponseEntity<?> countActiveUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(daoS.countUserProjectByIdProject(idProject));
+			return ResponseEntity.status(HttpStatus.OK).body(daoS.countActiveUserProjectByIdProject(idProject));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("An error occurred while counting user projects for project ID: " + idProject

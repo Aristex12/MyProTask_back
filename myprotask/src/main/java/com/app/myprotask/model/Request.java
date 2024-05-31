@@ -30,11 +30,11 @@ public class Request {
 	@Column(name = "is_accepted")
 	private boolean isAccepted;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -43,6 +43,7 @@ public class Request {
 
 	public Request(String message, User user, Project project) {
 		this.message = message;
+		this.isAccepted = false;
 		this.user = user;
 		this.project = project;
 	}

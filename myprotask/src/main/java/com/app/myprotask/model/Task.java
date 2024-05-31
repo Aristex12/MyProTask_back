@@ -34,19 +34,19 @@ public class Task {
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
-	@Column(name = "description", length = 500)
+	@Column(name = "description", nullable = false, length = 500)
 	private String description;
 
 	@Column(name = "start_date")
 	private Date startDate;
 
-	@Column(name = "finish_date")
+	@Column(name = "finish_date", nullable = false)
 	private Date finishDate;
 
 	@Column(name = "is_active")
 	private boolean isActive;
 
-	@Column(name = "priority")
+	@Column(name = "priority", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PriorityTasks priority;
 
@@ -57,7 +57,7 @@ public class Task {
 	public Task() {
 	}
 
-	public Task(String name, String description, Date startDate, Date finishDate, PriorityTasks priority,
+	public Task(String name, String description, Date finishDate, PriorityTasks priority,
 			Project project) {
 		this.name = name;
 		this.description = description;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.myprotask.model.Event;
+import com.app.myprotask.model.User;
 import com.app.myprotask.model.dao.DAOService;
 
 /**
@@ -55,14 +56,35 @@ public class EventController {
 	 * Add one event of a specific user
 	 * 
 	 * @author Alejandro
-	 * @param idEvent
+	 * @param event
+	 * @param idUer
+	 * @return
+	 */
+
+	/**
+	 * Used in Calendar view [User]
+	 * 
+	 * Add one event of a specific user
+	 * 
+	 * @author Alejandro
+	 * @param event
+	 * @param idUser
 	 * @return
 	 */
 	@PostMapping(value = "/addEvent")
-	public ResponseEntity<String> addEvent(@RequestBody Event event) {
+	public ResponseEntity<String> addEvent(@RequestBody Event event, @RequestParam("idUser") Long idUser) {
+
 		try {
-			daoS.addEvent(event);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
+			User user = daoS.displayUserById(idUser);
+
+			if (user != null) {
+				event.setUser(user);
+				daoS.addEvent(event);
+				return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("Failed to add event: " + e.getMessage());

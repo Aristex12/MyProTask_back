@@ -100,10 +100,10 @@ INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date,
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (3, 14, 1, '2024-10-26', '2027-12-20', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (3, 15, 1, '2024-07-20', '2024-12-20', 3);
  
-INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 16, 1, '2024-08-25', '2025-01-25', 3);
+INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 16, 1, '2024-08-25', '2025-01-25', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 17, 1, '2024-09-25', '2026-01-25', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 18, 1, '2024-10-25', '2025-01-25', 4);
-INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 3, 1, '2024-10-25', '2025-01-25', 4);
+INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 3, 1, '2024-10-25', '2025-01-25', 3);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 19, 1, '2024-08-25', '2028-01-25', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (4, 20, 1, '2024-08-25', '2028-01-25', 4);
  
@@ -111,11 +111,11 @@ INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date,
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 22, 0, '2024-11-30', '2026-02-20', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 23, 1, '2024-10-30', '2029-02-08', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 15, 1, '2024-10-30', '2029-02-08', 4);
-INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 24, 1, '2024-12-30', '2028-02-27', 3);
+INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 3, 1, '2024-12-30', '2028-02-27', 3);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (5, 25, 1, '2024-09-30', '2025-02-28', 4);
  
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 26, 1, '2024-10-05', '2025-06-05', 4);
-INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 27, 1, '2024-10-10', '2027-03-05', 3);
+INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 3, 1, '2024-10-10', '2027-03-05', 3);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 28, 1, '2024-10-15', '2028-08-05', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 29, 0, '2024-12-05', '2026-03-05', 4);
 INSERT INTO user_projects (project_id, user_id, is_active, join_date, exit_date, role_id) VALUES (6, 30, 1, '2024-11-01', '2025-09-05', 4);

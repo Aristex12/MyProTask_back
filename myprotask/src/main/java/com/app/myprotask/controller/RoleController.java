@@ -41,7 +41,7 @@ public class RoleController {
 					if (daoS.displayRoleUserProjectByIdUser(idUser) >= 1) {
 						role = daoS.getRoleByName("manager");
 					} else {
-						role = daoS.getRoleByName("member");
+						role = daoS.getRoleByName("employee");
 					}
 				}
 				return ResponseEntity.status(HttpStatus.OK).body(role);
