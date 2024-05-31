@@ -1,0 +1,8 @@
+com.app.myprotask
+com.app.myprotask.controller
+com.app.myprotask.jwt
+com.app.myprotask.model
+com.app.myprotask.model.dao
+com.app.myprotask.model.enums
+com.app.myprotask.model.repositories
+com.app.myprotask.security

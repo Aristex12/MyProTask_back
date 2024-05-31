@@ -128,7 +128,7 @@ public class DAOServiceImpl implements DAOService {
 
 		for (User user : allUsers) {
 
-			if (userProjects.contains(user)) {
+			if (!userProjects.contains(user)) {
 				finalUsers.add(user);
 			}
 		}
