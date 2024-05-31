@@ -1,82 +1,32 @@
 package com.app.myprotask.controller;
-
+ 
 import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Task;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.dao.DAOService;
-
+ 
 /**
- * @author Alejandro
- */
+* @author Alejandro
+*/
 @RestController
 @RequestMapping(value = "api/task")
 public class TaskController {
-
+ 
 	@Autowired
 	DAOService daoS;
-	
-	/**
-	 *
-	 * Update the task's status to active or inactive and their participation in the
-	 * user_tasks accordingly
-	 * 
-	 * @author Manuel
-	 */
-	@PutMapping(value = "/updateActiveTask")
-	public ResponseEntity<String> updateActiveTask(@RequestParam("idTask") Long idTask) {
-		try {
-			Task task = daoS.displayTaskById(idTask);
-			if (task != null) {
-				daoS.updateActiveTask(task);
-				return ResponseEntity.status(HttpStatus.OK).body("Task status updated successfully");
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the task's status: " + e.getMessage());
-		}
-	}
-
-	/**
-	 * @author Manuel
-	 * @param taskData
-	 * @param idTask
-	 * @return a text indicating whether the task data has been updated or if there has been a problem
-	 */
-	@PutMapping(value = "/updateTaskById")
-	public ResponseEntity<String> updateTaskById(@RequestBody Task taskData, @RequestParam("idTask") Long idTask) {
-		try {
-			Task task = daoS.displayTaskById(idTask);
-			if (task != null) {
-				task.setName(taskData.getName());
-				task.setDescription(taskData.getDescription());
-				task.setFinishDate(taskData.getFinishDate());
-				task.setPriority(taskData.getPriority());
-				daoS.updateTask(task);
-				return ResponseEntity.status(HttpStatus.OK).body("Task updated successfully");
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while updating the task: " + e.getMessage());
-		}
-	}
-
+ 
 	/**
 	 * @author Manuel
 	 * @param idUser
@@ -97,7 +47,7 @@ public class TaskController {
 							+ e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * @author Manuel
 	 * @param task
@@ -110,12 +60,12 @@ public class TaskController {
 			@RequestParam("idUser") Long idUser) {
 		try {
 			Project project = daoS.displayProjectById(idProject);
-
+ 
 			if (project != null) {
 				Task taskNew = new Task(task.getName(), task.getDescription(), task.getFinishDate(), task.getPriority(),
 						project);
 				daoS.addTask(taskNew);
-
+ 
 				daoS.addUserTask(new UserTask(daoS.displayUserById(idUser), taskNew));
 				return ResponseEntity.status(HttpStatus.CREATED).body("Task successfully added to user ID: " + idUser);
 			} else {
@@ -126,7 +76,7 @@ public class TaskController {
 					.body("An error occurred while adding the task: " + e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * Used in View Tasks [ Member ]
 	 * 
@@ -150,7 +100,7 @@ public class TaskController {
 							+ e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * Used in calendar view [ User ]
 	 *
@@ -172,7 +122,7 @@ public class TaskController {
 					"An error occurred while displaying tasks for user with ID " + idUser + ": " + e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * Used in Home view [ User ]
 	 *
@@ -196,7 +146,7 @@ public class TaskController {
 							+ e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * Used in Home view [ User ]
 	 *
@@ -220,7 +170,7 @@ public class TaskController {
 							+ e.getMessage());
 		}
 	}
-
+ 
 	/**
 	 * Used in Home Project [ User ]
 	 *
@@ -244,5 +194,5 @@ public class TaskController {
 							+ e.getMessage());
 		}
 	}
-
+ 
 }
