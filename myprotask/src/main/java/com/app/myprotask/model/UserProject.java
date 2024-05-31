@@ -46,11 +46,12 @@ public class UserProject {
 	public UserProject() {
 	}
 
-	public UserProject(User user, Project project) {
+	public UserProject(User user, Project project, Role role) {
 		this.user = user;
 		this.project = project;
 		this.joinDate = generateLocalDate();
 		this.isActive = true;
+		this.role = role;
 	}
 
 	/**

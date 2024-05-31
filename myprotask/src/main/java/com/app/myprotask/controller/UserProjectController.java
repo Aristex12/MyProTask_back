@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.myprotask.model.Project;
+import com.app.myprotask.model.Role;
+import com.app.myprotask.model.User;
 import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.dao.DAOService;
 
@@ -22,35 +26,81 @@ import com.app.myprotask.model.dao.DAOService;
 public class UserProjectController {
 	@Autowired
 	DAOService daoS;
-	
-	
+
+	/**
+	 * Insert a user into a project as a member
+	 * 
+	 * @param idUser
+	 * @param idProject
+	 * @return ResponseEntity with status and message
+	 */
+	@PostMapping(value = "/addMember")
+	public ResponseEntity<String> addMember(@RequestParam("idUser") Long idUser,
+			@RequestParam("idProject") Long idProject) {
+		return addUserProject(idUser, idProject, 4L);
+	}
+
+	/**
+	 * Insert a user into a project as a manager
+	 * 
+	 * @param idUser
+	 * @param idProject
+	 * @return ResponseEntity with status and message
+	 */
+	@PostMapping(value = "/addManager")
+	public ResponseEntity<String> addManager(@RequestParam("idUser") Long idUser,
+			@RequestParam("idProject") Long idProject) {
+		return addUserProject(idUser, idProject, 3L);
+	}
+
+	private ResponseEntity<String> addUserProject(Long idUser, Long idProject, Long idRole) {
+		try {
+			User user = daoS.displayUserById(idUser);
+			Project project = daoS.displayProjectById(idProject);
+			Role role = daoS.displayRoleById(idRole);
+
+			if (user != null) {
+				if (project != null) {
+					daoS.addUserProject(new UserProject(user, project, role));
+					return ResponseEntity.status(HttpStatus.OK).body("User added as a " + role.getName());
+				} else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found");
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Internal server error: " + e.getMessage());
+		}
+	}
+
 	/**
 	 * @author Manuel
 	 * @param idProject
-	 * @return all active users projects of project 
+	 * @return all active users projects of project
 	 */
 	@GetMapping(value = "/displayActiveUserProjectByIdProject")
 	public ResponseEntity<?> displayActiveUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
-	    try {
-	        List<UserProject> activeUserProjects = daoS.displayActiveUserProjectByIdProject(idProject);
-	        if (!activeUserProjects.isEmpty()) {
-	            return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	                                 .body("No active user projects found for project with ID: " + idProject);
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error occurred while displaying active user projects for project with ID " + idProject + ": " + e.getMessage());
-	    }
+		try {
+			List<UserProject> activeUserProjects = daoS.displayActiveUserProjectByIdProject(idProject);
+			if (!activeUserProjects.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.OK).body(activeUserProjects);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("No active user projects found for project with ID: " + idProject);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while displaying active user projects for project with ID " + idProject
+							+ ": " + e.getMessage());
+		}
 	}
 
-
-	
 	/**
 	 * @author Manuel
 	 * @param idProject
-	 * @return count of active users projects of project 
+	 * @return count of active users projects of project
 	 */
 	@GetMapping(value = "/countActiveUserProjectByIdProject")
 	public ResponseEntity<?> countActiveUserProjectByIdProject(@RequestParam("idProject") Long idProject) {
