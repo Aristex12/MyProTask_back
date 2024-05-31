@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.myprotask.model.Category;
 import com.app.myprotask.model.Characteristic;
+import com.app.myprotask.model.Evaluation;
 import com.app.myprotask.model.Event;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.Request;
@@ -19,6 +20,7 @@ import com.app.myprotask.model.UserProject;
 import com.app.myprotask.model.UserTask;
 import com.app.myprotask.model.repositories.CategoryRepository;
 import com.app.myprotask.model.repositories.CharacteristicRepository;
+import com.app.myprotask.model.repositories.EvaluationRepository;
 import com.app.myprotask.model.repositories.EventRepository;
 import com.app.myprotask.model.repositories.ProjectRepository;
 import com.app.myprotask.model.repositories.RequestRepository;
@@ -67,6 +69,9 @@ public class DAOServiceImpl implements DAOService {
 
 	@Autowired
 	CategoryRepository categoryRep;
+
+	@Autowired
+	EvaluationRepository evaluationRep;
 
 	// USER TABLE METHODS CRUD
 
@@ -371,7 +376,6 @@ public class DAOServiceImpl implements DAOService {
 		if (task.isActive()) {
 
 			task.setActive(false);
-			
 
 			for (UserTask ut : displayUserTasksByTaskId(task.getIdTask())) {
 				ut.setActive(false);
@@ -715,5 +719,39 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// CATEGORY TABLE METHODS PERSONALIZED
+
+	// EVALUATION TABLE METHODS CRUD
+
+	@Override
+	public void addEvaluation(Evaluation evaluation) {
+		evaluationRep.save(evaluation);
+	}
+
+	@Override
+	public void updateEvaluationr(Evaluation evaluation) {
+		evaluationRep.save(evaluation);
+	}
+
+	@Override
+	public void deleteEvaluation(Evaluation evaluation) {
+		evaluationRep.delete(evaluation);
+	}
+
+	@Override
+	public List<Evaluation> displayEvaluations() {
+		return evaluationRep.findAll();
+	}
+
+	@Override
+	public Evaluation displayEvaluationById(Long id) {
+		return evaluationRep.findById(id).orElse(null);
+	}
+
+	// EVALUATION TABLE METHODS PERSONALIZED
+
+	@Override
+	public List<Evaluation> displayEvaluationsByIdUser(Long idUser) {
+		return evaluationRep.displayEvaluationsByIdUser(idUser);
+	}
 
 }
