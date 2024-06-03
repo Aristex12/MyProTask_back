@@ -25,6 +25,11 @@ public class UserCharacteristicsController {
 	@Autowired
 	DAOService daoS;
 
+	/**
+	 * @author Manuel
+	 * @param idUser
+	 * @return all User characteristics from user 
+	 */
 	@GetMapping(value = "/displayUserCharacteristicsByIdUser")
 	public ResponseEntity<?> displayUserCharacteristicsByIdUser(@RequestParam("idUser") Long idUser) {
 

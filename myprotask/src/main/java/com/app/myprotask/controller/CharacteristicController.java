@@ -24,6 +24,28 @@ public class CharacteristicController {
 	DAOService daoS;
 
 	/**
+	 * @author Manuel
+	 * @param idCharacteristic
+	 * @return a Characteristic by ID
+	 */
+	@GetMapping(value = "/displayCharacteristicById")
+	public ResponseEntity<?> displayCharacteristicById(@RequestParam("idCharacteristic") Long idCharacteristic) {
+
+		try {
+			Characteristic characteristic = daoS.displayCharacteristicById(idCharacteristic);
+			if (characteristic != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(characteristic);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body("Characteristic not found for ID: " + idCharacteristic);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while retrieving the characteristic: " + e.getMessage());
+		}
+	}
+
+	/**
 	 * Used in newProject [ Admin ]
 	 * 
 	 * @author Alejandro
