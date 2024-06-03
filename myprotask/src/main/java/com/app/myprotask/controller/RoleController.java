@@ -30,7 +30,7 @@ public class RoleController {
 	 * @return objet manager or member of a user
 	 */
 	@GetMapping(value = "/displayRoleUserProjectByIdUser")
-	public ResponseEntity<Object> displayRoleUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
+	public ResponseEntity<String> displayRoleUserProjectByIdUser(@RequestParam("idUser") Long idUser) {
 		try {
 			User user = daoS.displayUserById(idUser);
 			if (user != null) {
@@ -44,7 +44,7 @@ public class RoleController {
 						role = daoS.getRoleByName("employee");
 					}
 				}
-				return ResponseEntity.status(HttpStatus.OK).body(role);
+				return ResponseEntity.status(HttpStatus.OK).body(role.getName());
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
 			}
