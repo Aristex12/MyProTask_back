@@ -24,6 +24,14 @@ public class UserController {
 	@Autowired
 	DAOService daoS;
 
+	/**
+	 * @author Manuel
+	 * @return all active employees
+	 */
+	@GetMapping(value = "/displayActiveEmployees")
+	public List<User> displayActiveEmployees(){
+		return daoS.displayActiveEmployees();
+	}
 	
 	/**
 	 * Updates the user's average based on all the evaluations of all the projects they have

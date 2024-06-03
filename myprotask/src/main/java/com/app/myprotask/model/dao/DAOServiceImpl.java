@@ -113,6 +113,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USER TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<User> displayActiveEmployees() {
+		return userRep.displayActiveEmployees();
+	}
 
 	@Override
 	public void updateAvgLastEvaUserById(User user) {
@@ -503,6 +508,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERPROJECT TABLE METHODS PERSONALIZED
+	
+	@Override
+	public Long displayIdUserProjectByIdUserIdProject(Long idUser, Long idProject) {
+		return userProjectRep.displayIdUserProjectByIdUserIdProject(idUser, idProject);
+	}
 
 	@Override
 	public List<UserProject> displayActiveUserProjectByIdProject(Long idProject) {
