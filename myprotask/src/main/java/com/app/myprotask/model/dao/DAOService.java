@@ -30,6 +30,8 @@ public interface DAOService {
 	User displayUserById(Long id);
 
 	// USER TABLE METHODS PERSONALIZED
+	
+	List<User> displayActiveEmployees();
 
 	void updateAvgLastEvaUserById(User user);
 

@@ -26,6 +26,30 @@ public class ProjectController {
 	@Autowired
 	DAOService daoS;
 
+	/**
+	 * Create a new project
+	 * 
+	 * @author Manuel
+	 * @param project
+	 */
+	@PostMapping(value = "/addProject")
+	public ResponseEntity<String> addProject(@RequestBody Project project) {
+		try {
+			daoS.addProject(new Project(project.getName(), project.getDescription(), project.getFinishDate(),
+					project.getVacancies(), project.getProjectCharacteristics()));
+			return ResponseEntity.status(HttpStatus.OK).body("Project added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while adding the project: " + e.getMessage());
+		}
+
+	}
+
+	/**
+	 * @author Manuel
+	 * @param idUser
+	 * @return List of all projects of a specific user when user project is active
+	 */
 	@GetMapping(value = "/displayProjectsByActiveUserProjectsByIdUser")
 	public ResponseEntity<?> displayProjectsByActiveUserProjectsByIdUser(@RequestParam("idUser") Long idUser) {
 		try {

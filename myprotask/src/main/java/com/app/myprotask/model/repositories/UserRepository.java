@@ -18,6 +18,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	/**
 	 * @author Manuel
+	 * @return all active employees
+	 */
+	@Query(value = "SELECT * FROM users WHERE is_active = true AND role_id = 2", nativeQuery = true)
+	List<User> displayActiveEmployees();
+
+	
+	/**
+	 * @author Manuel
 	 * @param idProject
 	 * @return List of all users with the specific project
 	 */

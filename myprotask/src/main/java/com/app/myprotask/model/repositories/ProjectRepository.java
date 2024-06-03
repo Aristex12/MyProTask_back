@@ -17,7 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	/**
 	 * @author Manuel
 	 * @param idUser
-	 * @return List of all projects of a specific user
+	 * @return List of all projects of a specific user when user project is active
 	 */
 	@Query(value = "SELECT p.* FROM projects p, user_projects up WHERE p.id_project = up.project_id AND up.user_id = ?1 AND up.is_active = true", nativeQuery = true)
 	List<Project> displayProjectsByActiveUserProjectsByIdUser(Long idUser);
