@@ -768,6 +768,7 @@ public class DAOServiceImpl implements DAOService {
 	@Override
 	public void addEvaluation(Evaluation evaluation) {
 		evaluationRep.save(evaluation);
+		updateAvgLastEvaUserById(evaluation.getUserProject().getUser());
 	}
 
 	@Override
