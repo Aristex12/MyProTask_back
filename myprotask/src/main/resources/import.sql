@@ -52,7 +52,7 @@ INSERT INTO projects (name, description, start_date, finish_date, project_pic, v
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Holdlamis', 'Building a cloud-based file storage solution', '2023-07-28', '2029-07-21', 'projectpic.png', 22, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Pannier', 'Creating a mobile app for personal finance management', '2024-02-26', '2028-03-26', 'projectpic.png', 86, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Tampflex', 'Developing a telehealth consultation platform', '2024-01-28', '2027-06-14', 'projectpic.png', 66, 1);
-INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Zamit', 'Building a comprehensive CRM system for SMEs', '2024-02-17', '2027-12-31', 'projectpic.png', 58, 0);
+INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Zamit', 'Building a comprehensive CRM system for SMEs', '2024-02-17', '2027-12-31', 'projectpic.png', 58, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Bamity', 'Developing an AI-based project management tool', '2024-04-30', '2027-07-31', 'projectpic.png', 40, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Sonsing', 'Creating a cloud-native microservices architecture', '2024-04-26', '2026-09-15', 'projectpic.png', 45, 0);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Flexidy', 'Building an automated marketing email platform', '2024-12-28', '2030-07-02', 'projectpic.png', 58, 1);
@@ -62,7 +62,7 @@ INSERT INTO projects (name, description, start_date, finish_date, project_pic, v
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Stronghold', 'Building a robust cybersecurity framework', '2023-10-08', '2025-04-14', 'projectpic.png', 16, 0);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Voyatouch', 'Developing an advanced data analytics platform', '2022-11-21', '2027-05-30', 'projectpic.png', 56, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Flowdesk', 'Creating an AI-driven supply chain management system', '2022-01-19', '2035-07-15', 'projectpic.png', 29, 0);
-INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Overhold', 'Building an IoT-based home automation system', '2022-12-06', '2029-11-01', 'projectpic.png', 33, 1);
+INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Overhold', 'Building an IoT-based home automation system', '2022-12-06', '2029-11-01', 'projectpic.png', 8, 1);
 INSERT INTO projects (name, description, start_date, finish_date, project_pic, vacancies, is_active) VALUES ('Fintone', 'Developing a financial portfolio management app', '2022-07-03', '2028-04-06', 'projectpic.png', 18, 0);
 
 
@@ -911,7 +911,7 @@ INSERT INTO project_characteristics(characteristic_id,project_id)VALUES(29,12);
 INSERT INTO project_characteristics(characteristic_id,project_id)VALUES(30,13);
 
 
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (1, 1, '2023-10-08', NULL, true, 3);
+INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (3, 1, '2023-10-08', NULL, true, 3);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (4, 1, '2023-10-12', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (10, 1, '2023-11-20', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (15, 1, '2023-12-05', NULL, true, 4);
@@ -924,7 +924,7 @@ INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active,
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (50, 1, '2023-11-25', NULL, true, 4);
 
 
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (1, 2, '2024-05-05', NULL, true, 3);
+INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (7, 2, '2024-05-05', NULL, true, 3);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (4, 2, '2024-05-07', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (10, 2, '2024-05-12', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (15, 2, '2024-05-20', NULL, true, 4);
@@ -938,7 +938,7 @@ INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active,
 
 
 
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id)VALUES (2, 3, '2024-04-13', NULL, true, 3);
+INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id)VALUES (7, 3, '2024-04-13', NULL, true, 3);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (4, 3, '2024-04-15', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (10, 3, '2024-04-20', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (15, 3, '2024-04-18', NULL, true, 4);
@@ -1080,8 +1080,6 @@ INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active,
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (24, 19, '2023-01-12', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (29, 19, '2023-02-01', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (34, 19, '2023-02-12', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (39, 19, '2023-03-21', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (44, 19, '2024-04-23', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (3, 20, '2022-07-03', NULL, true, 3);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (9, 20, '2022-07-30', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (14, 20, '2022-08-01', NULL, true, 4);
@@ -1091,10 +1089,6 @@ INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active,
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (34, 20, '2022-10-11', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (39, 20, '2022-10-11', NULL, true, 4);
 INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (44, 20, '2023-01-27', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (27, 20, '2023-01-12', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (32, 20, '2023-07-15', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (37, 20, '2024-01-14', NULL, true, 4);
-INSERT INTO user_projects (user_id, project_id, join_date, exit_date, is_active, role_id) VALUES (42, 20, '2024-02-21', NULL, true, 4);
 
 INSERT INTO evaluations (team_work, individual_work, initiative, problem_resolution, observation, date, user_project_id) VALUES (5, 4, 6, 3, null, '2024-12-13', 1);
 INSERT INTO evaluations (team_work, individual_work, initiative, problem_resolution, observation, date, user_project_id) VALUES (3, 5, 3, 4, 'Good teamwork and problem solving', '2024-12-13', 2);
