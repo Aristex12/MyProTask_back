@@ -26,6 +26,29 @@ import com.app.myprotask.model.dao.DAOService;
 public class UserProjectController {
 	@Autowired
 	DAOService daoS;
+	
+	/**
+	 * @author Manuel
+	 * @param idUser
+	 * @param idProject
+	 * @return id_user_project by user and project
+	 */
+	@GetMapping(value = "/displayIdUserProjectByIdUserIdProject")
+	public ResponseEntity<?> displayIdUserProjectByIdUserIdProject(@RequestParam("idUser") Long idUser, 
+	                                                               @RequestParam("idProject") Long idProject) {
+	    try {
+	        Long idUserProject = daoS.displayIdUserProjectByIdUserIdProject(idUser, idProject);
+	        if (idUserProject != null) {
+	            return ResponseEntity.status(HttpStatus.OK).body(idUserProject);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No UserProject found for user ID: " + idUser + " and project ID: " + idProject);
+	        }
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while retrieving the UserProject ID: " + e.getMessage());
+	    }
+	}
+
 
 	/**
 	 * Insert a user into a project as a member
