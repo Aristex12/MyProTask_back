@@ -244,6 +244,8 @@ public interface DAOService {
 	UserCharacteristic displayUserCharacteristicById(Long id);
 
 	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+	
+	List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser);
 
 	UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic);
 
