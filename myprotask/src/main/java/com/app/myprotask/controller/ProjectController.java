@@ -33,11 +33,13 @@ public class ProjectController {
 	 * @param project
 	 */
 	@PostMapping(value = "/addProject")
-	public ResponseEntity<String> addProject(@RequestBody Project project) {
+	public ResponseEntity<?> addProject(@RequestBody Project project) {
 		try {
-			daoS.addProject(new Project(project.getName(), project.getDescription(), project.getFinishDate(),
-					project.getVacancies(), project.getProjectCharacteristics()));
-			return ResponseEntity.status(HttpStatus.OK).body("Project added successfully");
+			Project projectNew = new Project(project.getName(), project.getDescription(), project.getFinishDate(),
+					project.getVacancies(), project.getProjectCharacteristics());
+			
+			daoS.addProject(projectNew);
+			return ResponseEntity.status(HttpStatus.OK).body(projectNew.getIdProject());
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("An error occurred while adding the project: " + e.getMessage());
