@@ -755,8 +755,10 @@ INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (23, 1, 8);
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (3, 2, 6);
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (4, 2, 78);
-INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (5, 3, 52);
-INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (6, 3, 22);
+INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (5, 3, 36);
+INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (21, 3, 9);
+INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (22, 3, 6);
+INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (6, 3, 13);
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (7, 4, 15);
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (8, 4, 13);
 INSERT INTO user_characteristics (characteristic_id, user_id, experience) VALUES (9, 5, 12);
