@@ -691,6 +691,11 @@ public class DAOServiceImpl implements DAOService {
 	}
 
 	// USERCHARACTERISTIC TABLE METHODS PERSONALIZED
+	
+	@Override
+	public List<UserCharacteristic> displayUserCharacteristicsByIdUser(Long idUser) {
+		return userCharRep.displayUserCharacteristicsByIdUser(idUser);
+	}
 
 	@Override
 	public UserCharacteristic displayUserCharacteristicByIdUserIdCharacteristic(Long idUser, Long idCharacteristic) {

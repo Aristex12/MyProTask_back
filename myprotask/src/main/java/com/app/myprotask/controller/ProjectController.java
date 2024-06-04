@@ -1,5 +1,7 @@
 package com.app.myprotask.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.myprotask.model.Characteristic;
 import com.app.myprotask.model.Project;
 import com.app.myprotask.model.dao.DAOService;
 
@@ -33,17 +36,47 @@ public class ProjectController {
 	 * @param project
 	 */
 	@PostMapping(value = "/addProject")
-	public ResponseEntity<String> addProject(@RequestBody Project project) {
-		try {
-			daoS.addProject(new Project(project.getName(), project.getDescription(), project.getFinishDate(),
-					project.getVacancies(), project.getProjectCharacteristics()));
-			return ResponseEntity.status(HttpStatus.OK).body("Project added successfully");
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An error occurred while adding the project: " + e.getMessage());
-		}
+	public ResponseEntity<?> addProject(@RequestParam("name") String name,
+	                                    @RequestParam("description") String description,
+	                                    @RequestParam(value = "finishDate", required = false) Date finishDate,
+	                                    @RequestParam("vacancies") int vacancies,
+	                                    @RequestBody List<Long> characteristicsIds) {
+	    try {
+	        if (name == null || name.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Name cannot be null or empty.");
+	        }
 
+	        if (description == null || description.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Description cannot be null or empty.");
+	        }
+
+	        if (vacancies <= 0) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Vacancies must be greater than 0.");
+	        }
+
+	        List<Characteristic> projectCharacteristics = new ArrayList<>();
+	        for (Long idCharacteristic : characteristicsIds) {
+	            Characteristic characteristic = daoS.displayCharacteristicById(idCharacteristic);
+	            if (characteristic == null) {
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Characteristic with ID " + idCharacteristic + " not found.");
+	            }
+	            projectCharacteristics.add(characteristic);
+	        }
+
+	        Project projectNew = new Project(name, description, null, vacancies, projectCharacteristics);
+
+	        if (finishDate != null) {
+	            projectNew.setFinishDate(finishDate);
+	        }
+
+	        daoS.addProject(projectNew);
+	        return ResponseEntity.status(HttpStatus.OK).body(projectNew.getIdProject());
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error occurred while adding the project: " + e.getMessage());
+	    }
 	}
+
 
 	/**
 	 * @author Manuel
