@@ -321,8 +321,29 @@ public class DAOServiceImpl implements DAOService {
 
 		} else {
 			project.setActive(true);
+			for (UserProject up : displayUserProjectByProjectId(project.getIdProject())) {
+				if (up.getUser().isActive()) {
+					up.setActive(true);
+					updateUserProject(up);
+				}
+				
+			}
+
+			for (Task t : displayTasksByIdProject(project.getIdProject())) {
+				t.setActive(true);
+				updateTask(t);
+
+				for (UserTask ut : displayUserTasksByTaskId(t.getIdTask())) {
+					if (ut.getUser().isActive()) {
+						ut.setActive(true);
+						updateUserTask(ut);
+					}
+				}
+			}
 		}
 		updateProject(project);
+		
+		
 	}
 
 	@Override
