@@ -1,13 +1,15 @@
 # MyProTask_back
 
-MyProTask_back is a comprehensive solution for efficient management of employees and projects within an organization. This platform enables project managers to assign tasks to employees, track project progress, manage personnel, and much more.
+MyProTask_back is a robust and scalable back-end solution for managing employees and projects within an organization. This platform provides a set of APIs to handle task assignments, project tracking, personnel management, and more, enabling seamless integration with front-end applications.
 
 ## Features
 
-- Task assignment to employees
-- Project progress tracking
-- Personnel management
-- Comprehensive dashboard
+- **Task Assignment:** Easily assign tasks to employees and set deadlines.
+- **Project Tracking:** Monitor the progress of ongoing projects with real-time updates.
+- **Personnel Management:** Manage employee details, including roles and responsibilities.
+- **Dashboard:** Get an overview of all projects and tasks in a comprehensive dashboard.
+- **Notifications:** Receive notifications about task updates and project milestones.
+- **Reports:** Generate detailed reports on project status and employee performance.
 
 ## Installation
 
@@ -63,6 +65,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Aristex12](https://github.com/Aristex12)
 - [ManuelSanzRomero](https://github.com/ManuelSanzRomero)
 - [AlejandroCuestaExternal](https://github.com/AlejandroCuestaExternal)
+- [AnasRamiEviden](https://github.com/AnasRamiEviden)
+- [Sergioramos-eviden](https://github.com/AlejandroCuestaExternal)
+- [Huguito999](https://github.com/Huguito999)
+- [KevinBayasMC](https://github.com/KevinBayasMC)
 
 ## Acknowledgments
 
