@@ -69,6 +69,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Sergioramos-eviden](https://github.com/AlejandroCuestaExternal)
 - [Huguito999](https://github.com/Huguito999)
 - [KevinBayasMC](https://github.com/KevinBayasMC)
+- [Laurajim4](https://github.com/laurajim4)
+- [IvanGarciaSanchez](https://github.com/IvanGarciaSanchez)
 
 ## Acknowledgments
 
